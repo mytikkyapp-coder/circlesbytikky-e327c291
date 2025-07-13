@@ -59,12 +59,11 @@
     --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  @layer base {
-    * {
-      @apply border-border;
-    }
-
-    body {
-      @apply bg-background text-foreground font-inter;
-    }
+  * {
+    @apply border-border;
   }
+
+  body {
+    @apply bg-background text-foreground font-inter;
+  }
+}
