@@ -1,6 +1,7 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { 
   Home, 
+  LayoutDashboard,
   Circle, 
   Megaphone, 
   FileText, 
@@ -24,7 +25,8 @@ import {
 } from "@/components/ui/sidebar";
 
 const items = [
-  { title: "Dashboard", url: "/", icon: Home },
+  { title: "Home", url: "/", icon: Home },
+  { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "Circles", url: "/circles", icon: Circle },
   { title: "Campaigns", url: "/campaigns", icon: Megaphone },
   { title: "Templates", url: "/templates", icon: FileText },
