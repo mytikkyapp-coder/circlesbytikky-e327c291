@@ -16,7 +16,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 0%;
 
-    /* Tikky Yellow as Primary */
+    /* Tikky Yellow as Primary (#FFD400) */
     --primary: 48 100% 50%;
     --primary-foreground: 0 0% 0%;
 
@@ -26,6 +26,7 @@
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
 
+    /* Tikky Yellow as Accent */
     --accent: 48 100% 50%;
     --accent-foreground: 0 0% 0%;
 
