@@ -17,6 +17,8 @@ import Integrations from "./pages/Integrations";
 import Settings from "./pages/Settings";
 import Help from "./pages/Help";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
+import MemberProfile from "./pages/MemberProfile";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +42,8 @@ const App = () => (
             <Route path="/integrations" element={<Integrations />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/help" element={<Help />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/member-profile/:id" element={<MemberProfile />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>

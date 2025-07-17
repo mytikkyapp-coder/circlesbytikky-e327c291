@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Plus, Users, Search, Filter, Download, Upload } from "lucide-react";
+import { Plus, Users, Search, Filter, Download, Upload, Eye } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,6 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Members = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   const members = [
     {
@@ -159,6 +161,14 @@ const Members = () => {
                   <span className="text-sm text-muted-foreground">
                     Joined {new Date(member.joinedAt).toLocaleDateString()}
                   </span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => navigate(`/member-profile/${member.id}`)}
+                  >
+                    <Eye className="w-4 h-4 mr-1" />
+                    View
+                  </Button>
                 </div>
               </div>
             ))}
