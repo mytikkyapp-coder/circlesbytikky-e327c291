@@ -1,14 +1,27 @@
 import { useState } from "react";
-import { Plus, Settings, Users, BarChart3, ExternalLink, MoreHorizontal } from "lucide-react";
+import { Plus, Settings, Users, BarChart3, ExternalLink, MoreHorizontal, Facebook, MessageCircle, Globe, Building } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const MyProjects = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [isNewProjectOpen, setIsNewProjectOpen] = useState(false);
+  const [newProject, setNewProject] = useState({
+    name: "",
+    description: "",
+    industry: "",
+    website: "",
+    whatsappConnected: false,
+    facebookConnected: false
+  });
 
   const projects = [
     {
@@ -68,6 +81,32 @@ const MyProjects = () => {
     }
   };
 
+  const handleCreateProject = () => {
+    // This would integrate with Supabase for secure storage
+    console.log("Creating project:", newProject);
+    setIsNewProjectOpen(false);
+    setNewProject({
+      name: "",
+      description: "",
+      industry: "",
+      website: "",
+      whatsappConnected: false,
+      facebookConnected: false
+    });
+  };
+
+  const handleWhatsAppConnect = () => {
+    // WhatsApp Business API integration would go here
+    console.log("Connecting WhatsApp Business API");
+    setNewProject(prev => ({ ...prev, whatsappConnected: true }));
+  };
+
+  const handleFacebookConnect = () => {
+    // Facebook Login API integration would go here
+    console.log("Connecting Facebook Login");
+    setNewProject(prev => ({ ...prev, facebookConnected: true }));
+  };
+
   return (
     <div className="p-6 space-y-6 max-w-7xl mx-auto">
       {/* Header */}
@@ -76,10 +115,143 @@ const MyProjects = () => {
           <h1 className="text-3xl font-bold text-foreground">My Projects</h1>
           <p className="text-muted-foreground">Manage your business profiles</p>
         </div>
-        <Button className="px-6">
-          <Plus className="w-4 h-4 mr-2" />
-          New Project
-        </Button>
+        <Dialog open={isNewProjectOpen} onOpenChange={setIsNewProjectOpen}>
+          <DialogTrigger asChild>
+            <Button className="px-6">
+              <Plus className="w-4 h-4 mr-2" />
+              New Project
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>Create New Project</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-6 py-4">
+              {/* Basic Info */}
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Project Name</Label>
+                    <Input
+                      id="name"
+                      placeholder="e.g., Fitness Coach Pro"
+                      value={newProject.name}
+                      onChange={(e) => setNewProject(prev => ({ ...prev, name: e.target.value }))}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="industry">Industry</Label>
+                    <Select value={newProject.industry} onValueChange={(value) => setNewProject(prev => ({ ...prev, industry: value }))}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select industry" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="fitness">Fitness & Health</SelectItem>
+                        <SelectItem value="education">Education</SelectItem>
+                        <SelectItem value="business">Business Services</SelectItem>
+                        <SelectItem value="ecommerce">E-commerce</SelectItem>
+                        <SelectItem value="technology">Technology</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="description">Description</Label>
+                  <Textarea
+                    id="description"
+                    placeholder="Brief description of your business"
+                    value={newProject.description}
+                    onChange={(e) => setNewProject(prev => ({ ...prev, description: e.target.value }))}
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="website">Website (Optional)</Label>
+                  <Input
+                    id="website"
+                    placeholder="https://yourwebsite.com"
+                    value={newProject.website}
+                    onChange={(e) => setNewProject(prev => ({ ...prev, website: e.target.value }))}
+                  />
+                </div>
+              </div>
+
+              {/* Integration Setup */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold">Connect Your Platforms</h3>
+                
+                {/* WhatsApp Business */}
+                <Card className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <MessageCircle className="w-8 h-8 text-green-600" />
+                      <div>
+                        <h4 className="font-medium">WhatsApp Business API</h4>
+                        <p className="text-sm text-muted-foreground">Connect to send messages and manage contacts</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      {newProject.whatsappConnected ? (
+                        <Badge className="bg-green-100 text-green-800">Connected</Badge>
+                      ) : (
+                        <Button variant="outline" size="sm" onClick={handleWhatsAppConnect}>
+                          Connect
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </Card>
+
+                {/* Facebook Login */}
+                <Card className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <Facebook className="w-8 h-8 text-blue-600" />
+                      <div>
+                        <h4 className="font-medium">Facebook Login</h4>
+                        <p className="text-sm text-muted-foreground">Enable social authentication for members</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      {newProject.facebookConnected ? (
+                        <Badge className="bg-blue-100 text-blue-800">Connected</Badge>
+                      ) : (
+                        <Button variant="outline" size="sm" onClick={handleFacebookConnect}>
+                          Connect
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </Card>
+
+                {/* Note about Supabase */}
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                  <div className="flex items-start space-x-2">
+                    <Building className="w-5 h-5 text-yellow-600 mt-0.5" />
+                    <div>
+                      <p className="text-sm font-medium text-yellow-800">Connect Supabase for Full Features</p>
+                      <p className="text-xs text-yellow-700 mt-1">
+                        To securely store API keys and enable authentication, connect your project to Supabase.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="flex justify-end space-x-3 pt-4 border-t">
+                <Button variant="outline" onClick={() => setIsNewProjectOpen(false)}>
+                  Cancel
+                </Button>
+                <Button onClick={handleCreateProject} disabled={!newProject.name}>
+                  Create Project
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
 
       {/* Search */}
@@ -175,18 +347,22 @@ const MyProjects = () => {
       )}
 
       {/* Create New Project Card */}
-      <Card className="border-dashed border-2 hover:border-primary transition-colors cursor-pointer">
-        <CardContent className="flex flex-col items-center justify-center py-12 space-y-4">
-          <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-            <Plus className="w-6 h-6 text-primary" />
-          </div>
-          <div className="text-center">
-            <h3 className="font-semibold">Create New Project</h3>
-            <p className="text-sm text-muted-foreground">Start managing a new business profile</p>
-          </div>
-          <Button>Get Started</Button>
-        </CardContent>
-      </Card>
+      <Dialog open={isNewProjectOpen} onOpenChange={setIsNewProjectOpen}>
+        <DialogTrigger asChild>
+          <Card className="border-dashed border-2 hover:border-primary transition-colors cursor-pointer">
+            <CardContent className="flex flex-col items-center justify-center py-12 space-y-4">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                <Plus className="w-6 h-6 text-primary" />
+              </div>
+              <div className="text-center">
+                <h3 className="font-semibold">Create New Project</h3>
+                <p className="text-sm text-muted-foreground">Start managing a new business profile</p>
+              </div>
+              <Button>Get Started</Button>
+            </CardContent>
+          </Card>
+        </DialogTrigger>
+      </Dialog>
     </div>
   );
 };
