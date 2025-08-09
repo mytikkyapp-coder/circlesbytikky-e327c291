@@ -19,6 +19,7 @@ import Help from "./pages/Help";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import MemberProfile from "./pages/MemberProfile";
+import MyProjects from "./pages/MyProjects";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ const App = () => (
       <BrowserRouter>
         <Layout>
           <Routes>
+            <Route path="/my-projects" element={<MyProjects />} />
             <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/circles" element={<Circles />} />

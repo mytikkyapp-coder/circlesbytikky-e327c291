@@ -12,7 +12,8 @@ import {
   Plug, 
   Settings, 
   HelpCircle, 
-  LogOut 
+  LogOut,
+  FolderOpen
 } from "lucide-react";
 
 import {
@@ -28,9 +29,9 @@ import {
 } from "@/components/ui/sidebar";
 
 const items = [
+  { title: "My Projects", url: "/my-projects", icon: FolderOpen },
   { title: "Home", url: "/", icon: Home },
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
-  { title: "Circles", url: "/circles", icon: Circle },
   { title: "Members", url: "/members", icon: Users },
   { title: "Campaigns", url: "/campaigns", icon: Megaphone },
   { title: "Templates", url: "/templates", icon: FileText },
