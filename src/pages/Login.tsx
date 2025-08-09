@@ -34,7 +34,7 @@ const Login = () => {
               Circles by <span className="text-primary">Tikky</span>
             </h1>
             <p className="text-xl text-muted-foreground">
-              Scale your business with AI-powered community marketing
+              AI-powered community marketing
             </p>
           </div>
 
@@ -44,8 +44,8 @@ const Login = () => {
                 <span className="text-primary-foreground font-bold text-sm">🚀</span>
               </div>
               <div>
-                <h3 className="font-semibold text-lg">Grow Your Circles</h3>
-                <p className="text-muted-foreground">Build engaged communities around your brand and products</p>
+                <h3 className="font-semibold text-lg">Grow Circles</h3>
+                <p className="text-muted-foreground">Build engaged communities</p>
               </div>
             </div>
 
@@ -54,8 +54,8 @@ const Login = () => {
                 <span className="text-primary-foreground font-bold text-sm">⚡</span>
               </div>
               <div>
-                <h3 className="font-semibold text-lg">Launch AI Campaigns in Seconds</h3>
-                <p className="text-muted-foreground">Create professional ads with AI that convert and scale</p>
+                <h3 className="font-semibold text-lg">AI Campaigns</h3>
+                <p className="text-muted-foreground">Launch ads in seconds</p>
               </div>
             </div>
 
@@ -64,8 +64,8 @@ const Login = () => {
                 <span className="text-primary-foreground font-bold text-sm">📱</span>
               </div>
               <div>
-                <h3 className="font-semibold text-lg">Connect with WhatsApp, Insta, Threads</h3>
-                <p className="text-muted-foreground">Reach your audience where they already spend their time</p>
+                <h3 className="font-semibold text-lg">Multi-Platform</h3>
+                <p className="text-muted-foreground">WhatsApp, Instagram, Threads</p>
               </div>
             </div>
           </div>
@@ -78,7 +78,7 @@ const Login = () => {
           <CardContent className="p-8">
             <div className="text-center mb-8">
               <h2 className="text-2xl font-bold text-foreground">Welcome back</h2>
-              <p className="text-muted-foreground mt-2">Sign in to your Tikky account</p>
+              <p className="text-muted-foreground mt-2">Sign in to Tikky</p>
             </div>
 
             <form className="space-y-6">

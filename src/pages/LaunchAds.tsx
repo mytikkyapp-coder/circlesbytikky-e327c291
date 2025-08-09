@@ -67,7 +67,7 @@ const LaunchAds = () => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="text-3xl font-bold">⚡ Launch AI Ads</h1>
-          <p className="text-muted-foreground">Create and publish Meta ads across Instagram, Threads & WhatsApp</p>
+          <p className="text-muted-foreground">AI-powered Meta ads</p>
         </div>
         <Badge variant="secondary" className="text-accent">
           <Sparkles className="w-3 h-3 mr-1" />
@@ -106,7 +106,7 @@ const LaunchAds = () => {
         <Card>
           <CardHeader>
             <CardTitle>🎯 Select Your Campaign Objective</CardTitle>
-            <p className="text-muted-foreground">Choose what you want to achieve with your campaign</p>
+            <p className="text-muted-foreground">Choose your goal</p>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -149,7 +149,7 @@ const LaunchAds = () => {
         <Card>
           <CardHeader>
             <CardTitle>🪄 Write Your Creative Prompt</CardTitle>
-            <p className="text-muted-foreground">Describe your offer, tone, and target audience. Our AI will create multiple ad variations.</p>
+            <p className="text-muted-foreground">Describe your offer and audience</p>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-2">
