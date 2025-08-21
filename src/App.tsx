@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import Home from "./pages/Home";
+import FrontPage from "./pages/FrontPage";
 import Dashboard from "./pages/Dashboard";
 import Circles from "./pages/Circles";
 import Members from "./pages/Members";
@@ -29,26 +30,28 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Layout>
-          <Routes>
-            <Route path="/my-projects" element={<MyProjects />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/circles" element={<Circles />} />
-            <Route path="/members" element={<Members />} />
-            <Route path="/campaigns" element={<Campaigns />} />
-            <Route path="/templates" element={<Templates />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="/launch-ads" element={<LaunchAds />} />
-            <Route path="/wallet" element={<Wallet />} />
-            <Route path="/integrations" element={<Integrations />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/help" element={<Help />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/member-profile/:id" element={<MemberProfile />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Layout>
+        <Routes>
+          {/* Public routes without Layout */}
+          <Route path="/" element={<FrontPage />} />
+          <Route path="/login" element={<Login />} />
+          
+          {/* Protected routes with Layout */}
+          <Route path="/my-projects" element={<Layout><MyProjects /></Layout>} />
+          <Route path="/home" element={<Layout><Home /></Layout>} />
+          <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
+          <Route path="/circles" element={<Layout><Circles /></Layout>} />
+          <Route path="/members" element={<Layout><Members /></Layout>} />
+          <Route path="/campaigns" element={<Layout><Campaigns /></Layout>} />
+          <Route path="/templates" element={<Layout><Templates /></Layout>} />
+          <Route path="/analytics" element={<Layout><Analytics /></Layout>} />
+          <Route path="/launch-ads" element={<Layout><LaunchAds /></Layout>} />
+          <Route path="/wallet" element={<Layout><Wallet /></Layout>} />
+          <Route path="/integrations" element={<Layout><Integrations /></Layout>} />
+          <Route path="/settings" element={<Layout><Settings /></Layout>} />
+          <Route path="/help" element={<Layout><Help /></Layout>} />
+          <Route path="/member-profile/:id" element={<Layout><MemberProfile /></Layout>} />
+          <Route path="*" element={<Layout><NotFound /></Layout>} />
+        </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
