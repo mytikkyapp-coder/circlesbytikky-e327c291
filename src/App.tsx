@@ -21,6 +21,8 @@ import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import MemberProfile from "./pages/MemberProfile";
 import MyProjects from "./pages/MyProjects";
+import WhatsAppSetup from "./pages/WhatsAppSetup";
+import KYC from "./pages/KYC";
 
 const queryClient = new QueryClient();
 
@@ -45,6 +47,8 @@ const App = () => (
           <Route path="/templates" element={<Layout><Templates /></Layout>} />
           <Route path="/analytics" element={<Layout><Analytics /></Layout>} />
           <Route path="/launch-ads" element={<Layout><LaunchAds /></Layout>} />
+          <Route path="/whatsapp-setup" element={<Layout><WhatsAppSetup /></Layout>} />
+          <Route path="/kyc" element={<Layout><KYC /></Layout>} />
           <Route path="/wallet" element={<Layout><Wallet /></Layout>} />
           <Route path="/integrations" element={<Layout><Integrations /></Layout>} />
           <Route path="/settings" element={<Layout><Settings /></Layout>} />

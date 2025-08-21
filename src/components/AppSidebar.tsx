@@ -13,7 +13,9 @@ import {
   Settings, 
   HelpCircle, 
   LogOut,
-  FolderOpen
+  FolderOpen,
+  MessageSquare,
+  Shield
 } from "lucide-react";
 
 import {
@@ -28,17 +30,28 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-const items = [
-  { title: "My Projects", url: "/my-projects", icon: FolderOpen },
-  { title: "Home", url: "/", icon: Home },
+const coreItems = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
+  { title: "Circles", url: "/circles", icon: Circle },
   { title: "Members", url: "/members", icon: Users },
+];
+
+const marketingItems = [
   { title: "Campaigns", url: "/campaigns", icon: Megaphone },
   { title: "Templates", url: "/templates", icon: FileText },
-  { title: "Analytics", url: "/analytics", icon: BarChart3 },
   { title: "Launch AI Ads", url: "/launch-ads", icon: Zap },
+  { title: "Analytics", url: "/analytics", icon: BarChart3 },
+];
+
+const businessItems = [
+  { title: "WhatsApp API", url: "/whatsapp-setup", icon: MessageSquare },
+  { title: "Business KYC", url: "/kyc", icon: Shield },
   { title: "Wallet", url: "/wallet", icon: Wallet },
   { title: "Integrations", url: "/integrations", icon: Plug },
+];
+
+const accountItems = [
+  { title: "My Projects", url: "/my-projects", icon: FolderOpen },
   { title: "Settings", url: "/settings", icon: Settings },
   { title: "Help Center", url: "/help", icon: HelpCircle },
 ];
@@ -79,13 +92,86 @@ export function AppSidebar() {
           )}
         </div>
 
+        {/* Core Features */}
         <SidebarGroup>
           <SidebarGroupLabel className="text-xs font-medium text-muted-foreground px-3 mb-2">
-            {!isCollapsed && "Navigation"}
+            {!isCollapsed && "Core"}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
-              {items.map((item) => (
+              {coreItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink 
+                      to={item.url} 
+                      className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 ${getNavClasses(item.url)}`}
+                    >
+                      <item.icon className="w-5 h-5 flex-shrink-0" />
+                      {!isCollapsed && <span className="font-medium">{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* Marketing */}
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground px-3 mb-2 mt-6">
+            {!isCollapsed && "Marketing"}
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu className="space-y-1">
+              {marketingItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink 
+                      to={item.url} 
+                      className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 ${getNavClasses(item.url)}`}
+                    >
+                      <item.icon className="w-5 h-5 flex-shrink-0" />
+                      {!isCollapsed && <span className="font-medium">{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* Business Setup */}
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground px-3 mb-2 mt-6">
+            {!isCollapsed && "Business Setup"}
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu className="space-y-1">
+              {businessItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink 
+                      to={item.url} 
+                      className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 ${getNavClasses(item.url)}`}
+                    >
+                      <item.icon className="w-5 h-5 flex-shrink-0" />
+                      {!isCollapsed && <span className="font-medium">{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* Account */}
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground px-3 mb-2 mt-6">
+            {!isCollapsed && "Account"}
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu className="space-y-1">
+              {accountItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink 
