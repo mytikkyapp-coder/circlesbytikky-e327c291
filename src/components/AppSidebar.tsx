@@ -80,23 +80,26 @@ export function AppSidebar() {
   const getNavClasses = (path: string) => {
     const active = isActive(path);
     return active 
-      ? "bg-primary/10 text-primary font-medium hover:bg-primary/15" 
-      : "text-muted-foreground hover:bg-muted hover:text-foreground";
+      ? "bg-primary/15 text-primary font-semibold border-r-2 border-primary hover:bg-primary/20" 
+      : "text-muted-foreground hover:bg-muted/60 hover:text-foreground transition-all duration-200";
   };
 
   return (
-    <Sidebar className={isCollapsed ? "w-16" : "w-64"}>
-      <SidebarContent className="px-3 py-6">
+    <Sidebar className={isCollapsed ? "w-16" : "w-64"} collapsible="icon">
+      <SidebarContent className="px-3 py-6 bg-sidebar-background">
         {/* Brand */}
-        <div className="mb-8 px-3">
+        <div className="mb-8 px-3 border-b border-sidebar-border pb-6">
           {!isCollapsed ? (
-            <div>
-              <h2 className="text-xl font-bold text-foreground">Circles</h2>
+            <div className="text-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center mx-auto mb-3">
+                <Circle className="w-6 h-6 text-white" />
+              </div>
+              <h2 className="text-xl font-bold text-sidebar-foreground">Circles</h2>
               <p className="text-xs text-muted-foreground">by Tikky</p>
             </div>
           ) : (
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <Circle className="w-4 h-4 text-primary-foreground" />
+            <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center mx-auto">
+              <Circle className="w-5 h-5 text-white" />
             </div>
           )}
         </div>
@@ -109,7 +112,7 @@ export function AppSidebar() {
                 <SidebarMenuButton asChild>
                   <NavLink 
                     to="/" 
-                    className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 ${getNavClasses("/")}`}
+                    className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 ${getNavClasses("/")}`}
                   >
                     <Home className="w-5 h-5 flex-shrink-0" />
                     {!isCollapsed && <span className="font-medium">Home</span>}
@@ -132,7 +135,7 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <NavLink 
                       to={item.url} 
-                      className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 ${getNavClasses(item.url)}`}
+                      className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 ${getNavClasses(item.url)}`}
                     >
                       <item.icon className="w-5 h-5 flex-shrink-0" />
                       {!isCollapsed && <span className="font-medium">{item.title}</span>}
