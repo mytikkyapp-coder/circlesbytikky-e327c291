@@ -291,9 +291,11 @@ const MyProjects = () => {
                       <Settings className="h-4 w-4 mr-2" />
                       Settings
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <ExternalLink className="h-4 w-4 mr-2" />
-                      Open Project
+                    <DropdownMenuItem asChild>
+                      <a href={`/project/${project.id}/dashboard`}>
+                        <ExternalLink className="h-4 w-4 mr-2" />
+                        Open Project
+                      </a>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -330,9 +332,11 @@ const MyProjects = () => {
               </div>
 
               {/* Action Button */}
-              <Button variant="outline" className="w-full">
-                <ExternalLink className="h-4 w-4 mr-2" />
-                Open Project
+              <Button variant="outline" className="w-full" asChild>
+                <a href={`/project/${project.id}/dashboard`}>
+                  <ExternalLink className="h-4 w-4 mr-2" />
+                  Open Project
+                </a>
               </Button>
             </CardContent>
           </Card>

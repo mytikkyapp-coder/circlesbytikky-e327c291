@@ -25,6 +25,8 @@ import WhatsAppSetup from "./pages/WhatsAppSetup";
 import KYC from "./pages/KYC";
 import AddMember from "./pages/AddMember";
 import ChatbotBuilder from "./pages/ChatbotBuilder";
+import ProjectDashboard from "./pages/ProjectDashboard";
+import { ProjectLayout } from "./components/ProjectLayout";
 
 const queryClient = new QueryClient();
 
@@ -58,6 +60,22 @@ const App = () => (
           <Route path="/member-profile/:id" element={<Layout><MemberProfile /></Layout>} />
           <Route path="/add-member" element={<Layout><AddMember /></Layout>} />
           <Route path="/chatbot-builder" element={<ChatbotBuilder />} />
+          
+          {/* Project-specific routes */}
+          <Route path="/project/:projectId/dashboard" element={<ProjectLayout><ProjectDashboard /></ProjectLayout>} />
+          <Route path="/project/:projectId/circles" element={<ProjectLayout><Circles /></ProjectLayout>} />
+          <Route path="/project/:projectId/members" element={<ProjectLayout><Members /></ProjectLayout>} />
+          <Route path="/project/:projectId/campaigns" element={<ProjectLayout><Campaigns /></ProjectLayout>} />
+          <Route path="/project/:projectId/templates" element={<ProjectLayout><Templates /></ProjectLayout>} />
+          <Route path="/project/:projectId/analytics" element={<ProjectLayout><Analytics /></ProjectLayout>} />
+          <Route path="/project/:projectId/launch-ads" element={<ProjectLayout><LaunchAds /></ProjectLayout>} />
+          <Route path="/project/:projectId/whatsapp-setup" element={<ProjectLayout><WhatsAppSetup /></ProjectLayout>} />
+          <Route path="/project/:projectId/kyc" element={<ProjectLayout><KYC /></ProjectLayout>} />
+          <Route path="/project/:projectId/wallet" element={<ProjectLayout><Wallet /></ProjectLayout>} />
+          <Route path="/project/:projectId/integrations" element={<ProjectLayout><Integrations /></ProjectLayout>} />
+          <Route path="/project/:projectId/settings" element={<ProjectLayout><Settings /></ProjectLayout>} />
+          <Route path="/project/:projectId/chatbot-builder" element={<ProjectLayout><ChatbotBuilder /></ProjectLayout>} />
+          
           <Route path="*" element={<Layout><NotFound /></Layout>} />
         </Routes>
       </BrowserRouter>
