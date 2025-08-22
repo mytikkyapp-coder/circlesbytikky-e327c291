@@ -17,6 +17,8 @@ import Wallet from "./pages/Wallet";
 import Integrations from "./pages/Integrations";
 import Settings from "./pages/Settings";
 import Help from "./pages/Help";
+import HelpArticle from "./pages/help/HelpArticle";
+import HelpCategory from "./pages/help/HelpCategory";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import MemberProfile from "./pages/MemberProfile";
@@ -57,6 +59,8 @@ const App = () => (
           <Route path="/integrations" element={<Layout><Integrations /></Layout>} />
           <Route path="/settings" element={<Layout><Settings /></Layout>} />
           <Route path="/help" element={<Layout><Help /></Layout>} />
+          <Route path="/help/article/:id" element={<Layout><HelpArticle /></Layout>} />
+          <Route path="/help/category/:category" element={<Layout><HelpCategory /></Layout>} />
           <Route path="/member-profile/:id" element={<Layout><MemberProfile /></Layout>} />
           <Route path="/add-member" element={<Layout><AddMember /></Layout>} />
           <Route path="/chatbot-builder" element={<ChatbotBuilder />} />

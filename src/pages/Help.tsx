@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +17,7 @@ import {
   Users,
   Zap
 } from "lucide-react";
+import { helpArticlesData } from "./help/helpArticlesData";
 
 interface HelpArticle {
   id: string;
@@ -35,6 +37,7 @@ interface HelpCategory {
 
 export default function Help() {
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   const categories: HelpCategory[] = [
     {
@@ -63,54 +66,7 @@ export default function Help() {
     }
   ];
 
-  const popularArticles: HelpArticle[] = [
-    {
-      id: "1",
-      title: "How to create your first circle",
-      description: "Step-by-step guide to setting up your first member circle",
-      category: "Getting Started", 
-      readTime: "3 min",
-      popular: true
-    },
-    {
-      id: "2",
-      title: "Setting up WhatsApp Business API",
-      description: "Connect your WhatsApp Business account to start sending campaigns",
-      category: "Integrations",
-      readTime: "5 min",
-      popular: true
-    },
-    {
-      id: "3",
-      title: "Creating effective message templates",
-      description: "Best practices for writing engaging WhatsApp messages", 
-      category: "Templates",
-      readTime: "4 min",
-      popular: true
-    },
-    {
-      id: "4",
-      title: "Understanding campaign analytics",
-      description: "Learn how to read and interpret your campaign performance data",
-      category: "Analytics",
-      readTime: "6 min",
-      popular: true
-    },
-    {
-      id: "5",
-      title: "Managing member segments and tags",
-      description: "Organize your circles with tags and segments for better targeting",
-      category: "Circles Management",
-      readTime: "4 min"
-    },
-    {
-      id: "6",
-      title: "Troubleshooting message delivery issues",
-      description: "Common issues and solutions for WhatsApp message delivery",
-      category: "Troubleshooting",
-      readTime: "7 min"
-    }
-  ];
+  const popularArticles = helpArticlesData;
 
   const filteredArticles = popularArticles.filter(article =>
     article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -149,7 +105,10 @@ export default function Help() {
 
       {/* Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-        <Card className="text-center hover:shadow-md transition-shadow cursor-pointer">
+        <Card 
+          className="text-center hover:shadow-md transition-shadow cursor-pointer"
+          onClick={() => window.open('https://docs.lovable.dev/', '_blank')}
+        >
           <CardContent className="pt-6">
             <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-3">
               <Book className="w-6 h-6 text-blue-600" />
@@ -159,7 +118,10 @@ export default function Help() {
           </CardContent>
         </Card>
 
-        <Card className="text-center hover:shadow-md transition-shadow cursor-pointer">
+        <Card 
+          className="text-center hover:shadow-md transition-shadow cursor-pointer"
+          onClick={() => window.open('mailto:support@tikky.com', '_blank')}
+        >
           <CardContent className="pt-6">
             <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-3">
               <MessageCircle className="w-6 h-6 text-green-600" />
@@ -169,7 +131,10 @@ export default function Help() {
           </CardContent>
         </Card>
 
-        <Card className="text-center hover:shadow-md transition-shadow cursor-pointer">
+        <Card 
+          className="text-center hover:shadow-md transition-shadow cursor-pointer"
+          onClick={() => window.open('mailto:support@tikky.com', '_blank')}
+        >
           <CardContent className="pt-6">
             <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-3">
               <Mail className="w-6 h-6 text-purple-600" />
@@ -185,7 +150,11 @@ export default function Help() {
         <h2 className="text-xl font-semibold text-foreground mb-4">Browse by Category</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {categories.map((category, index) => (
-            <Card key={index} className="hover:shadow-md transition-shadow cursor-pointer">
+            <Card 
+              key={index} 
+              className="hover:shadow-md transition-shadow cursor-pointer"
+              onClick={() => navigate(`/help/category/${category.name.toLowerCase().replace(/\s+/g, '-')}`)}
+            >
               <CardContent className="pt-6">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
@@ -220,7 +189,11 @@ export default function Help() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {filteredArticles.map((article) => (
-            <Card key={article.id} className="hover:shadow-md transition-shadow cursor-pointer">
+            <Card 
+              key={article.id} 
+              className="hover:shadow-md transition-shadow cursor-pointer"
+              onClick={() => navigate(`/help/article/${article.id}`)}
+            >
               <CardContent className="pt-6">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-2">
@@ -259,7 +232,10 @@ export default function Help() {
               <p className="text-muted-foreground mb-4">
                 Try adjusting your search terms or browse our categories above
               </p>
-              <Button variant="outline">
+              <Button 
+                variant="outline"
+                onClick={() => setSearchQuery("")}
+              >
                 Browse All Articles
               </Button>
             </CardContent>
