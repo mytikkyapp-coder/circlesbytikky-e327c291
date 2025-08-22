@@ -10,6 +10,7 @@ import {
   DropdownMenuItem, 
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
+import { Link } from "react-router-dom";
 
 interface Template {
   id: string;
@@ -112,10 +113,12 @@ export default function Templates() {
           <h1 className="text-3xl font-bold text-foreground">Message Templates</h1>
           <p className="text-muted-foreground mt-1">Create and manage reusable message templates</p>
         </div>
-        <Button className="gap-2">
-          <Plus className="w-4 h-4" />
-          Create Template
-        </Button>
+        <Link to="create">
+          <Button className="gap-2">
+            <Plus className="w-4 h-4" />
+            Create Template
+          </Button>
+        </Link>
       </div>
 
       {/* Search and Filters */}
@@ -176,9 +179,11 @@ export default function Templates() {
                       <Eye className="w-4 h-4 mr-2" />
                       Preview
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Edit className="w-4 h-4 mr-2" />
-                      Edit Template
+                    <DropdownMenuItem asChild>
+                      <Link to={`${template.id}/edit`}>
+                        <Edit className="w-4 h-4 mr-2" />
+                        Edit Template
+                      </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                       <Copy className="w-4 h-4 mr-2" />

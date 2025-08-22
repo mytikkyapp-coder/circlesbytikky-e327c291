@@ -10,7 +10,10 @@ import Dashboard from "./pages/Dashboard";
 import Circles from "./pages/Circles";
 import Members from "./pages/Members";
 import Campaigns from "./pages/Campaigns";
+import CreateCampaign from "./pages/CreateCampaign";
+import CampaignAnalytics from "./pages/CampaignAnalytics";
 import Templates from "./pages/Templates";
+import TemplateBuilder from "./pages/TemplateBuilder";
 import Analytics from "./pages/Analytics";
 import LaunchAds from "./pages/LaunchAds";
 import Wallet from "./pages/Wallet";
@@ -70,7 +73,10 @@ const App = () => (
           <Route path="/project/:projectId/circles" element={<ProjectLayout><Circles /></ProjectLayout>} />
           <Route path="/project/:projectId/members" element={<ProjectLayout><Members /></ProjectLayout>} />
           <Route path="/project/:projectId/campaigns" element={<ProjectLayout><Campaigns /></ProjectLayout>} />
+          <Route path="/project/:projectId/campaigns/create" element={<ProjectLayout><CreateCampaign /></ProjectLayout>} />
+          <Route path="/project/:projectId/campaigns/:campaignId/analytics" element={<ProjectLayout><CampaignAnalytics /></ProjectLayout>} />
           <Route path="/project/:projectId/templates" element={<ProjectLayout><Templates /></ProjectLayout>} />
+          <Route path="/project/:projectId/templates/create" element={<ProjectLayout><TemplateBuilder /></ProjectLayout>} />
           <Route path="/project/:projectId/analytics" element={<ProjectLayout><Analytics /></ProjectLayout>} />
           <Route path="/project/:projectId/launch-ads" element={<ProjectLayout><LaunchAds /></ProjectLayout>} />
           <Route path="/project/:projectId/whatsapp-setup" element={<ProjectLayout><WhatsAppSetup /></ProjectLayout>} />

@@ -18,6 +18,7 @@ import {
   Home
 } from "lucide-react";
 import { useState } from "react";
+import LiveChat from "./LiveChat";
 
 import {
   Sidebar,

@@ -10,6 +10,7 @@ import {
   DropdownMenuItem, 
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
+import { Link } from "react-router-dom";
 
 interface Campaign {
   id: string;
@@ -109,10 +110,12 @@ export default function Campaigns() {
           <h1 className="text-3xl font-bold text-foreground">Campaigns</h1>
           <p className="text-muted-foreground mt-1">Create and manage your WhatsApp campaigns</p>
         </div>
-        <Button className="gap-2">
-          <Plus className="w-4 h-4" />
-          New Campaign
-        </Button>
+        <Link to="create">
+          <Button className="gap-2">
+            <Plus className="w-4 h-4" />
+            New Campaign
+          </Button>
+        </Link>
       </div>
 
       {/* Search and Filters */}
@@ -169,9 +172,11 @@ export default function Campaigns() {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuItem>
-                      <Eye className="w-4 h-4 mr-2" />
-                      View Details
+                    <DropdownMenuItem asChild>
+                      <Link to={`${campaign.id}/analytics`}>
+                        <Eye className="w-4 h-4 mr-2" />
+                        View Analytics
+                      </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                       <Copy className="w-4 h-4 mr-2" />
