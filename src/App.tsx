@@ -27,6 +27,7 @@ import Login from "./pages/Login";
 import MemberProfile from "./pages/MemberProfile";
 import MyProjects from "./pages/MyProjects";
 import WhatsAppSetup from "./pages/WhatsAppSetup";
+import WhatsAppChat from "./pages/WhatsAppChat";
 import SupportTickets from "./pages/SupportTickets";
 import Pricing from "./pages/Pricing";
 import KYC from "./pages/KYC";
@@ -84,6 +85,7 @@ const App = () => (
           <Route path="/project/:projectId/analytics" element={<ProjectLayout><Analytics /></ProjectLayout>} />
           <Route path="/project/:projectId/launch-ads" element={<ProjectLayout><LaunchAds /></ProjectLayout>} />
           <Route path="/project/:projectId/whatsapp-setup" element={<ProjectLayout><WhatsAppSetup /></ProjectLayout>} />
+          <Route path="/project/:projectId/whatsapp-chat" element={<ProjectLayout><WhatsAppChat /></ProjectLayout>} />
           <Route path="/project/:projectId/kyc" element={<ProjectLayout><KYC /></ProjectLayout>} />
           <Route path="/project/:projectId/wallet" element={<ProjectLayout><Wallet /></ProjectLayout>} />
           <Route path="/project/:projectId/integrations" element={<ProjectLayout><Integrations /></ProjectLayout>} />

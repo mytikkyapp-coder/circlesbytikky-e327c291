@@ -42,6 +42,7 @@ const getProjectData = (projectId: string) => {
       name: "Fitness Coach Pro",
       businessSetup: [
         { title: "WhatsApp API", url: `/project/${projectId}/whatsapp-setup`, icon: MessageSquare },
+        { title: "WhatsApp Chat", url: `/project/${projectId}/whatsapp-chat`, icon: MessageSquare },
         { title: "Business KYC", url: `/project/${projectId}/kyc`, icon: Shield },
         { title: "Wallet", url: `/project/${projectId}/wallet`, icon: Wallet },
         { title: "Integrations", url: `/project/${projectId}/integrations`, icon: Plug },
@@ -64,6 +65,7 @@ const getProjectData = (projectId: string) => {
       name: "Tech Startup Hub",
       businessSetup: [
         { title: "WhatsApp API", url: `/project/${projectId}/whatsapp-setup`, icon: MessageSquare },
+        { title: "WhatsApp Chat", url: `/project/${projectId}/whatsapp-chat`, icon: MessageSquare },
         { title: "Business KYC", url: `/project/${projectId}/kyc`, icon: Shield },
         { title: "Wallet", url: `/project/${projectId}/wallet`, icon: Wallet },
         { title: "Integrations", url: `/project/${projectId}/integrations`, icon: Plug },
@@ -87,6 +89,7 @@ const getProjectData = (projectId: string) => {
       name: "Cooking Masterclass",
       businessSetup: [
         { title: "WhatsApp API", url: `/project/${projectId}/whatsapp-setup`, icon: MessageSquare },
+        { title: "WhatsApp Chat", url: `/project/${projectId}/whatsapp-chat`, icon: MessageSquare },
         { title: "Business KYC", url: `/project/${projectId}/kyc`, icon: Shield },
         { title: "Payment Setup", url: `/project/${projectId}/wallet`, icon: Wallet },
         { title: "Course Integrations", url: `/project/${projectId}/integrations`, icon: Plug },
