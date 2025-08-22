@@ -39,8 +39,10 @@ const businessItems = [
 
 const coreItems = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
+  { title: "My Projects", url: "/my-projects", icon: FolderOpen },
   { title: "Circles", url: "/circles", icon: Circle },
   { title: "Members", url: "/members", icon: Users },
+  { title: "Settings", url: "/settings", icon: Settings },
 ];
 
 const marketingItems = [
@@ -50,9 +52,7 @@ const marketingItems = [
   { title: "Analytics", url: "/analytics", icon: BarChart3 },
 ];
 
-const accountItems = [
-  { title: "My Projects", url: "/my-projects", icon: FolderOpen },
-  { title: "Settings", url: "/settings", icon: Settings },
+const helpItems = [
   { title: "Help Center", url: "/help", icon: HelpCircle },
 ];
 
@@ -91,6 +91,25 @@ export function AppSidebar() {
             </div>
           )}
         </div>
+
+        {/* Home */}
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu className="space-y-1 mb-4">
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <NavLink 
+                    to="/" 
+                    className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 ${getNavClasses("/")}`}
+                  >
+                    <Home className="w-5 h-5 flex-shrink-0" />
+                    {!isCollapsed && <span className="font-medium">Home</span>}
+                  </NavLink>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
 
         {/* Business Setup */}
         <SidebarGroup>
@@ -164,14 +183,11 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* Account */}
+        {/* Help */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground px-3 mb-2 mt-6">
-            {!isCollapsed && "Account"}
-          </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu className="space-y-1">
-              {accountItems.map((item) => (
+            <SidebarMenu className="space-y-1 mt-6">
+              {helpItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink 
