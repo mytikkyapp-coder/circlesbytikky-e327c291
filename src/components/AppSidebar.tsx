@@ -15,7 +15,8 @@ import {
   LogOut,
   FolderOpen,
   MessageSquare,
-  Shield
+  Shield,
+  Bot
 } from "lucide-react";
 
 import {
@@ -50,6 +51,7 @@ const marketingItems = [
   { title: "Templates", url: "/templates", icon: FileText },
   { title: "Launch AI Ads", url: "/launch-ads", icon: Zap },
   { title: "Analytics", url: "/analytics", icon: BarChart3 },
+  { title: "Chatbot Builder", url: "/chatbot-builder", icon: Bot, badge: "PRO" },
 ];
 
 const helpItems = [

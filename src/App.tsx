@@ -24,6 +24,7 @@ import MyProjects from "./pages/MyProjects";
 import WhatsAppSetup from "./pages/WhatsAppSetup";
 import KYC from "./pages/KYC";
 import AddMember from "./pages/AddMember";
+import ChatbotBuilder from "./pages/ChatbotBuilder";
 
 const queryClient = new QueryClient();
 
@@ -56,6 +57,7 @@ const App = () => (
           <Route path="/help" element={<Layout><Help /></Layout>} />
           <Route path="/member-profile/:id" element={<Layout><MemberProfile /></Layout>} />
           <Route path="/add-member" element={<Layout><AddMember /></Layout>} />
+          <Route path="/chatbot-builder" element={<ChatbotBuilder />} />
           <Route path="*" element={<Layout><NotFound /></Layout>} />
         </Routes>
       </BrowserRouter>
