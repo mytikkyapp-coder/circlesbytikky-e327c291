@@ -1,4 +1,4 @@
-import { Bell, Sun, Moon, ChevronDown } from "lucide-react";
+import { Bell, Sun, Moon, ChevronDown, Bot } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { 
@@ -8,7 +8,16 @@ import {
   DropdownMenuSeparator, 
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Link } from "react-router-dom";
 
 export function Header() {
   const [isDark, setIsDark] = useState(false);
@@ -22,7 +31,7 @@ export function Header() {
     <header className="h-16 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
       <div className="flex items-center justify-between h-full px-6">
         {/* Left side */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
           <SidebarTrigger className="h-8 w-8" />
           
           {/* Workspace Switcher */}
@@ -48,6 +57,61 @@ export function Header() {
               <DropdownMenuItem>Create New Workspace</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+
+          {/* Main Navigation */}
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Tools</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                    <li className="row-span-3">
+                      <NavigationMenuLink asChild>
+                        <Link
+                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                          to="/chatbot-builder"
+                        >
+                          <Bot className="h-6 w-6" />
+                          <div className="mb-2 mt-4 text-lg font-medium">
+                            Chatbot Builder
+                          </div>
+                          <p className="text-sm leading-tight text-muted-foreground">
+                            Create conversational AI flows with our visual drag & drop interface.
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                    </li>
+                    <li>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to="/campaigns"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                        >
+                          <div className="text-sm font-medium leading-none">Campaigns</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                            Manage your marketing campaigns
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                    </li>
+                    <li>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to="/analytics"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                        >
+                          <div className="text-sm font-medium leading-none">Analytics</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                            View performance metrics
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                    </li>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
         </div>
 
         {/* Right side */}
