@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Plus, Users, Circle, Send, TrendingUp, Activity, ArrowRight, Sparkles } from "lucide-react";
+import { Plus, Users, Circle, Send, TrendingUp, Activity, ArrowRight, Sparkles, BarChart3, Zap, Eye } from "lucide-react";
 
 export default function Dashboard() {
   const stats = [
@@ -196,6 +196,71 @@ export default function Dashboard() {
                 <ArrowRight className="w-3 h-3 ml-1" />
               </Button>
             </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Dashboard Sections */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* View Analytics Section */}
+        <Card className="border border-border/50 hover:border-primary/20 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <BarChart3 className="w-5 h-5 text-primary" />
+              View Analytics
+            </CardTitle>
+            <CardDescription>
+              Track your campaign performance and member engagement
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="p-4 bg-muted/20 rounded-lg">
+                <p className="text-sm text-muted-foreground">Total Reach</p>
+                <p className="text-2xl font-bold text-primary">24.5K</p>
+              </div>
+              <div className="p-4 bg-muted/20 rounded-lg">
+                <p className="text-sm text-muted-foreground">Engagement</p>
+                <p className="text-2xl font-bold text-secondary">87%</p>
+              </div>
+            </div>
+            <Button className="w-full">
+              <Eye className="w-4 h-4 mr-2" />
+              View Full Analytics
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* New WhatsApp Campaign Setup */}
+        <Card className="border border-border/50 hover:border-primary/20 transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Zap className="w-5 h-5 text-accent" />
+              New WhatsApp Campaign
+            </CardTitle>
+            <CardDescription>
+              Create and launch your next WhatsApp marketing campaign
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between p-3 bg-muted/20 rounded-lg">
+                <span className="text-sm">Template Selection</span>
+                <span className="text-xs text-muted-foreground">Step 1</span>
+              </div>
+              <div className="flex items-center justify-between p-3 bg-muted/20 rounded-lg">
+                <span className="text-sm">Audience Targeting</span>
+                <span className="text-xs text-muted-foreground">Step 2</span>
+              </div>
+              <div className="flex items-center justify-between p-3 bg-muted/20 rounded-lg">
+                <span className="text-sm">Schedule & Launch</span>
+                <span className="text-xs text-muted-foreground">Step 3</span>
+              </div>
+            </div>
+            <Button className="w-full bg-gradient-to-r from-primary to-secondary">
+              <Plus className="w-4 h-4 mr-2" />
+              Start New Campaign
+            </Button>
           </CardContent>
         </Card>
       </div>

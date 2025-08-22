@@ -63,7 +63,7 @@ const Members = () => {
             <Download className="w-4 h-4 mr-2" />
             Export
           </Button>
-          <Button>
+          <Button onClick={() => navigate("/add-member")}>
             <Plus className="w-4 h-4 mr-2" />
             Add Member
           </Button>
