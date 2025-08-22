@@ -23,7 +23,7 @@ export const KnowledgeBaseProperties: React.FC<KnowledgeBasePropertiesProps> = (
     { value: 'perplexity', label: 'Perplexity AI', color: 'bg-purple-500' },
   ];
 
-  const selectedProvider = providers.find(p => p.value === node.data.provider) || providers[0];
+  const selectedProvider = providers.find(p => p.value === String(node.data.provider)) || providers[0];
 
   return (
     <div className="space-y-4">
@@ -36,7 +36,7 @@ export const KnowledgeBaseProperties: React.FC<KnowledgeBasePropertiesProps> = (
         <Label htmlFor="label">Node Label</Label>
         <Input
           id="label"
-          value={node.data.label || ''}
+          value={String(node.data.label || '')}
           onChange={(e) => handleChange('label', e.target.value)}
           placeholder="Enter node label..."
         />
@@ -45,7 +45,7 @@ export const KnowledgeBaseProperties: React.FC<KnowledgeBasePropertiesProps> = (
       <div className="space-y-2">
         <Label htmlFor="provider">AI Provider</Label>
         <Select
-          value={node.data.provider || 'chatgpt'}
+          value={String(node.data.provider || 'chatgpt')}
           onValueChange={(value) => handleChange('provider', value)}
         >
           <SelectTrigger>
@@ -68,7 +68,7 @@ export const KnowledgeBaseProperties: React.FC<KnowledgeBasePropertiesProps> = (
         <Label htmlFor="systemPrompt">System Prompt</Label>
         <Textarea
           id="systemPrompt"
-          value={node.data.systemPrompt || ''}
+          value={String(node.data.systemPrompt || '')}
           onChange={(e) => handleChange('systemPrompt', e.target.value)}
           placeholder="You are a helpful assistant. Answer questions based on the provided context..."
           rows={4}
@@ -79,7 +79,7 @@ export const KnowledgeBaseProperties: React.FC<KnowledgeBasePropertiesProps> = (
         <Label htmlFor="query">Query Template</Label>
         <Textarea
           id="query"
-          value={node.data.query || ''}
+          value={String(node.data.query || '')}
           onChange={(e) => handleChange('query', e.target.value)}
           placeholder="Based on the user's question: {{user_input}}, provide a helpful answer."
           rows={3}
@@ -94,7 +94,7 @@ export const KnowledgeBaseProperties: React.FC<KnowledgeBasePropertiesProps> = (
           min="0"
           max="1"
           step="0.1"
-          value={node.data.temperature || '0.7'}
+          value={String(node.data.temperature || '0.7')}
           onChange={(e) => handleChange('temperature', e.target.value)}
         />
         <p className="text-xs text-muted-foreground">
@@ -109,7 +109,7 @@ export const KnowledgeBaseProperties: React.FC<KnowledgeBasePropertiesProps> = (
           type="number"
           min="1"
           max="4000"
-          value={node.data.maxTokens || '1000'}
+          value={String(node.data.maxTokens || '1000')}
           onChange={(e) => handleChange('maxTokens', e.target.value)}
         />
       </div>
@@ -120,19 +120,19 @@ export const KnowledgeBaseProperties: React.FC<KnowledgeBasePropertiesProps> = (
           <p className="text-sm font-medium">{selectedProvider.label}</p>
         </div>
         <div className="space-y-1 text-xs text-muted-foreground">
-          {node.data.provider === 'chatgpt' && (
+          {String(node.data.provider) === 'chatgpt' && (
             <>
               <p>• Uses OpenAI's GPT models</p>
               <p>• Best for general conversation</p>
             </>
           )}
-          {node.data.provider === 'gemini' && (
+          {String(node.data.provider) === 'gemini' && (
             <>
               <p>• Uses Google's Gemini models</p>
               <p>• Great for factual information</p>
             </>
           )}
-          {node.data.provider === 'perplexity' && (
+          {String(node.data.provider) === 'perplexity' && (
             <>
               <p>• Real-time web search capabilities</p>
               <p>• Perfect for current information</p>
@@ -142,9 +142,9 @@ export const KnowledgeBaseProperties: React.FC<KnowledgeBasePropertiesProps> = (
       </div>
 
       <div className="flex flex-wrap gap-1">
-        <Badge variant="outline" className="text-xs">{{user_input}}</Badge>
-        <Badge variant="outline" className="text-xs">{{conversation_history}}</Badge>
-        <Badge variant="outline" className="text-xs">{{user_name}}</Badge>
+        <Badge variant="outline" className="text-xs">{"{{user_input}}"}</Badge>
+        <Badge variant="outline" className="text-xs">{"{{conversation_history}}"}</Badge>
+        <Badge variant="outline" className="text-xs">{"{{user_name}}"}</Badge>
       </div>
     </div>
   );

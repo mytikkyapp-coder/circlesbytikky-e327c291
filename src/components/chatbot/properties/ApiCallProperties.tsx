@@ -28,7 +28,7 @@ export const ApiCallProperties: React.FC<ApiCallPropertiesProps> = ({ node, onUp
         <Label htmlFor="label">Node Label</Label>
         <Input
           id="label"
-          value={node.data.label || ''}
+          value={String(node.data.label || '')}
           onChange={(e) => handleChange('label', e.target.value)}
           placeholder="Enter node label..."
         />
@@ -37,7 +37,7 @@ export const ApiCallProperties: React.FC<ApiCallPropertiesProps> = ({ node, onUp
       <div className="space-y-2">
         <Label htmlFor="method">HTTP Method</Label>
         <Select
-          value={node.data.method || 'GET'}
+          value={String(node.data.method || 'GET')}
           onValueChange={(value) => handleChange('method', value)}
         >
           <SelectTrigger>
@@ -57,7 +57,7 @@ export const ApiCallProperties: React.FC<ApiCallPropertiesProps> = ({ node, onUp
         <Label htmlFor="endpoint">API Endpoint</Label>
         <Input
           id="endpoint"
-          value={node.data.endpoint || ''}
+          value={String(node.data.endpoint || '')}
           onChange={(e) => handleChange('endpoint', e.target.value)}
           placeholder="https://api.example.com/endpoint"
           className="font-mono text-sm"
@@ -68,7 +68,7 @@ export const ApiCallProperties: React.FC<ApiCallPropertiesProps> = ({ node, onUp
         <Label htmlFor="headers">Headers (JSON)</Label>
         <Textarea
           id="headers"
-          value={node.data.headers || ''}
+          value={String(node.data.headers || '')}
           onChange={(e) => handleChange('headers', e.target.value)}
           placeholder={`{
   "Content-Type": "application/json",
@@ -79,12 +79,12 @@ export const ApiCallProperties: React.FC<ApiCallPropertiesProps> = ({ node, onUp
         />
       </div>
 
-      {(node.data.method === 'POST' || node.data.method === 'PUT' || node.data.method === 'PATCH') && (
+      {(String(node.data.method) === 'POST' || String(node.data.method) === 'PUT' || String(node.data.method) === 'PATCH') && (
         <div className="space-y-2">
           <Label htmlFor="body">Request Body (JSON)</Label>
           <Textarea
             id="body"
-            value={node.data.body || ''}
+            value={String(node.data.body || '')}
             onChange={(e) => handleChange('body', e.target.value)}
             placeholder={`{
   "message": "{{user_input}}",
@@ -99,9 +99,9 @@ export const ApiCallProperties: React.FC<ApiCallPropertiesProps> = ({ node, onUp
       <div className="p-3 bg-muted/30 rounded-lg">
         <p className="text-sm font-medium mb-2">Variables</p>
         <div className="flex flex-wrap gap-1">
-          <Badge variant="outline" className="text-xs">{{user_input}}</Badge>
-          <Badge variant="outline" className="text-xs">{{user_id}}</Badge>
-          <Badge variant="outline" className="text-xs">{{api_key}}</Badge>
+          <Badge variant="outline" className="text-xs">{"{{user_input}}"}</Badge>
+          <Badge variant="outline" className="text-xs">{"{{user_id}}"}</Badge>
+          <Badge variant="outline" className="text-xs">{"{{api_key}}"}</Badge>
         </div>
         <p className="text-xs text-muted-foreground mt-2">
           Use these variables in your headers and body

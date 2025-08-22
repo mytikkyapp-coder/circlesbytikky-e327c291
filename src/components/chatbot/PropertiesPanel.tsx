@@ -46,7 +46,7 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({
   const renderProperties = () => {
     return (
       <div className="space-y-4">
-        <div className="text-sm font-medium">Node: {selectedNode.data.label || selectedNode.type}</div>
+        <div className="text-sm font-medium">Node: {String(selectedNode.data.label || selectedNode.type)}</div>
         <div className="text-xs text-muted-foreground">Properties panel coming soon...</div>
       </div>
     );
@@ -57,7 +57,7 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="text-sm font-medium">
-            {selectedNode.data.label || 'Node Properties'}
+            {String(selectedNode.data.label || 'Node Properties')}
           </CardTitle>
           <Button variant="ghost" size="sm" onClick={onClose}>
             <X className="w-4 h-4" />

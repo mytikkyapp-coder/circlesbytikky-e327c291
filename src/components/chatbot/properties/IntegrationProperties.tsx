@@ -37,7 +37,7 @@ export const IntegrationProperties: React.FC<IntegrationPropertiesProps> = ({ no
         <Label htmlFor="label">Node Label</Label>
         <Input
           id="label"
-          value={node.data.label || ''}
+          value={String(node.data.label || '')}
           onChange={(e) => handleChange('label', e.target.value)}
           placeholder="Enter node label..."
         />
@@ -46,7 +46,7 @@ export const IntegrationProperties: React.FC<IntegrationPropertiesProps> = ({ no
       <div className="space-y-2">
         <Label htmlFor="service">Integration Service</Label>
         <Select
-          value={node.data.service || 'webhook'}
+          value={String(node.data.service || 'webhook')}
           onValueChange={(value) => handleChange('service', value)}
         >
           <SelectTrigger>
@@ -66,7 +66,7 @@ export const IntegrationProperties: React.FC<IntegrationPropertiesProps> = ({ no
         <Label htmlFor="url">Webhook URL / Endpoint</Label>
         <Input
           id="url"
-          value={node.data.url || ''}
+          value={String(node.data.url || '')}
           onChange={(e) => handleChange('url', e.target.value)}
           placeholder="https://hooks.zapier.com/hooks/catch/..."
           className="font-mono text-sm"
@@ -77,7 +77,7 @@ export const IntegrationProperties: React.FC<IntegrationPropertiesProps> = ({ no
         <Label htmlFor="payload">Payload Template (JSON)</Label>
         <Textarea
           id="payload"
-          value={node.data.payload || ''}
+          value={String(node.data.payload || '')}
           onChange={(e) => handleChange('payload', e.target.value)}
           placeholder={`{
   "user_input": "{{user_input}}",
@@ -92,16 +92,16 @@ export const IntegrationProperties: React.FC<IntegrationPropertiesProps> = ({ no
       <div className="p-3 bg-muted/30 rounded-lg">
         <p className="text-sm font-medium mb-2">Service-specific Notes</p>
         <div className="text-xs text-muted-foreground space-y-1">
-          {node.data.service === 'webhook' && (
+          {String(node.data.service) === 'webhook' && (
             <p>• Generic webhook integration for any service</p>
           )}
-          {node.data.service === 'zapier' && (
+          {String(node.data.service) === 'zapier' && (
             <p>• Use Zapier webhook trigger URL</p>
           )}
-          {node.data.service === 'slack' && (
+          {String(node.data.service) === 'slack' && (
             <p>• Send messages to Slack channels</p>
           )}
-          {node.data.service === 'email' && (
+          {String(node.data.service) === 'email' && (
             <p>• Send email notifications</p>
           )}
         </div>
