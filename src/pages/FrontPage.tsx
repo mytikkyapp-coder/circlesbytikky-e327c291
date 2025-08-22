@@ -19,11 +19,7 @@ const FrontPage = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // Dummy credentials for testing
-  const dummyCredentials = {
-    email: "demo@tikky.in",
-    password: "demo123"
-  };
+  // Demo credentials removed for security
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,16 +27,6 @@ const FrontPage = () => {
 
     try {
       if (isLogin) {
-        // Check if using dummy credentials
-        if (email === dummyCredentials.email && password === dummyCredentials.password) {
-          toast({
-            title: "Demo Login Successful! 🎉",
-            description: "Welcome to Circles by Tikky",
-          });
-          navigate("/dashboard");
-          return;
-        }
-
         const { error } = await supabase.auth.signInWithPassword({
           email,
           password,
@@ -117,10 +103,7 @@ const FrontPage = () => {
     }
   };
 
-  const useDummyCredentials = () => {
-    setEmail(dummyCredentials.email);
-    setPassword(dummyCredentials.password);
-  };
+  // Demo credentials function removed for security
 
   return (
     <div className="min-h-screen flex">
@@ -217,27 +200,7 @@ const FrontPage = () => {
 
           <CardContent className="space-y-6">
             {/* Quick Demo Access */}
-            <Card className="bg-primary/5 border-primary/20">
-              <CardContent className="p-4">
-                <div className="text-center space-y-3">
-                  <CheckCircle className="w-8 h-8 text-primary mx-auto" />
-                  <div>
-                    <h4 className="font-semibold text-foreground">Try Demo Access</h4>
-                    <p className="text-sm text-muted-foreground">Use demo credentials for instant access</p>
-                  </div>
-                  <Button 
-                    onClick={useDummyCredentials}
-                    variant="outline" 
-                    className="w-full border-primary/30 text-primary hover:bg-primary/10"
-                  >
-                    Load Demo Credentials
-                  </Button>
-                  <p className="text-xs text-muted-foreground">
-                    Email: {dummyCredentials.email} | Password: {dummyCredentials.password}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+            {/* Demo credentials section removed for security */}
 
             <form onSubmit={handleAuth} className="space-y-4">
               <div className="space-y-2">

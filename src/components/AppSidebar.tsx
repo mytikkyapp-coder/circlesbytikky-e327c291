@@ -1,4 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import { 
   Home, 
   LayoutDashboard,
@@ -60,6 +61,7 @@ const helpItems = [
 export function AppSidebar() {
   const { state } = useSidebar();
   const location = useLocation();
+  const { signOut } = useAuth();
   const currentPath = location.pathname;
   
   const isCollapsed = state === "collapsed";
@@ -187,10 +189,7 @@ export function AppSidebar() {
           <SidebarMenuButton asChild>
             <button 
               className="flex items-center gap-3 px-3 py-2 w-full text-left rounded-xl transition-all duration-200 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
-              onClick={() => {
-                // Navigate to login page
-                window.location.href = "/login";
-              }}
+              onClick={() => signOut()}
             >
               <LogOut className="w-5 h-5 flex-shrink-0" />
               {!isCollapsed && <span className="font-medium">Logout</span>}
