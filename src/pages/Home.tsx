@@ -172,6 +172,12 @@ export default function Home() {
                   </Button>
                 </DialogTrigger>
               </Dialog>
+              <Button size="lg" variant="outline" className="gap-2" asChild>
+                <a href="/my-projects">
+                  <Users className="w-4 h-4" />
+                  My Projects
+                </a>
+              </Button>
               <Button size="lg" variant="outline" className="gap-2">
                 <Video className="w-4 h-4" />
                 Watch Demo

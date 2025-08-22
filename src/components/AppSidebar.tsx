@@ -51,7 +51,6 @@ const marketingItems = [
   { title: "Templates", url: "/templates", icon: FileText },
   { title: "Launch AI Ads", url: "/launch-ads", icon: Zap },
   { title: "Analytics", url: "/analytics", icon: BarChart3 },
-  { title: "Chatbot Builder", url: "/chatbot-builder", icon: Bot, badge: "PRO" },
 ];
 
 const helpItems = [
@@ -161,29 +160,6 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* Marketing */}
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground px-3 mb-2 mt-6">
-            {!isCollapsed && "Marketing"}
-          </SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu className="space-y-1">
-              {marketingItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <NavLink 
-                      to={item.url} 
-                      className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 ${getNavClasses(item.url)}`}
-                    >
-                      <item.icon className="w-5 h-5 flex-shrink-0" />
-                      {!isCollapsed && <span className="font-medium">{item.title}</span>}
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
 
         {/* Help */}
         <SidebarGroup>
