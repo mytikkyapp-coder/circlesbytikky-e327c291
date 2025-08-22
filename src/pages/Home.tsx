@@ -315,9 +315,11 @@ export default function Home() {
                         <Settings className="h-4 w-4 mr-2" />
                         Settings
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <ExternalLink className="h-4 w-4 mr-2" />
-                        Open Project
+                      <DropdownMenuItem asChild>
+                        <a href={`/project/${project.id}/dashboard`}>
+                          <ExternalLink className="h-4 w-4 mr-2" />
+                          Open Project
+                        </a>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

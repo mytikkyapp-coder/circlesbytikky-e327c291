@@ -14,7 +14,8 @@ import {
   Shield,
   Bot,
   ChevronDown,
-  ChevronRight
+  ChevronRight,
+  Home
 } from "lucide-react";
 import { useState } from "react";
 
@@ -180,6 +181,17 @@ export function ProjectSidebar({ projectId }: ProjectSidebarProps) {
         <div className="mb-6 px-3">
           <h3 className="text-lg font-bold text-foreground">{projectData.name}</h3>
           <p className="text-xs text-muted-foreground">Project Dashboard</p>
+        </div>
+
+        {/* Home Button */}
+        <div className="mb-4 px-3">
+          <NavLink 
+            to="/" 
+            className="flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 text-muted-foreground hover:bg-muted hover:text-foreground border border-border/50 hover:border-border"
+          >
+            <Home className="w-4 h-4 flex-shrink-0" />
+            <span className="text-sm font-medium">Back to Home</span>
+          </NavLink>
         </div>
 
         {/* Business Setup */}
