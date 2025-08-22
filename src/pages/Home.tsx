@@ -32,6 +32,8 @@ import {
   TrendingUp,
   Calendar
 } from "lucide-react";
+import WhatsAppLiveChat from "@/components/WhatsAppLiveChat";
+import PricingPlans from "@/components/PricingPlans";
 
 export default function Home() {
   const [isNewProjectOpen, setIsNewProjectOpen] = useState(false);
@@ -549,6 +551,14 @@ export default function Home() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Pricing Plans Section */}
+      <div className="bg-muted/30 rounded-3xl p-8 lg:p-12 mt-12">
+        <PricingPlans currentPlan="pro" />
+      </div>
+
+      {/* WhatsApp Live Chat Component */}
+      <WhatsAppLiveChat />
     </div>
   );
 }
