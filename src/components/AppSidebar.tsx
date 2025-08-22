@@ -1,4 +1,6 @@
 import { NavLink, useLocation } from "react-router-dom";
+import { TikkyLogo } from "./TikkyLogo";
+import tikkyLogo from "@/assets/tikky-logo.png";
 import { 
   Home, 
   LayoutDashboard,
@@ -91,16 +93,12 @@ export function AppSidebar() {
         <div className="mb-8 px-3 border-b border-sidebar-border pb-6">
           {!isCollapsed ? (
             <div className="text-center">
-              <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center mx-auto mb-3">
-                <Circle className="w-6 h-6 text-white" />
-              </div>
+              <TikkyLogo className="mx-auto mb-3" />
               <h2 className="text-xl font-bold text-sidebar-foreground">Circles</h2>
               <p className="text-xs text-muted-foreground">by Tikky</p>
             </div>
           ) : (
-            <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center mx-auto">
-              <Circle className="w-5 h-5 text-white" />
-            </div>
+            <TikkyLogo size="sm" className="mx-auto" />
           )}
         </div>
 

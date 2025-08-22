@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { TikkyLogo } from "./TikkyLogo";
 import { useNavigate, Link } from "react-router-dom";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import {
@@ -123,9 +124,7 @@ export function Header() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="flex items-center space-x-2 hover:bg-muted">
-                <div className="w-6 h-6 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-                  <Circle className="h-3 w-3 text-white" />
-                </div>
+                <TikkyLogo size="sm" />
                 <span className="hidden font-medium lg:inline-block">
                   Circles Workspace
                 </span>
