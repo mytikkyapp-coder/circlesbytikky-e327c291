@@ -2,9 +2,14 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Plus, Search, Users, MoreHorizontal, Edit, Trash2, TrendingUp, Activity, Eye, Settings, Zap, Clock, ArrowRight } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Textarea } from "@/components/ui/textarea";
+import { Plus, Search, Users, MoreHorizontal, Edit, Trash2, TrendingUp, Activity, Eye, Settings, Zap, Clock, ArrowRight, Tag, MessageSquare, Send } from "lucide-react";
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -25,12 +30,42 @@ interface Circle {
   lastActivity: string;
   isOnline?: boolean;
   memberLimit?: number;
+  contactTags: string[];
+}
+
+interface Contact {
+  id: string;
+  name: string;
+  phone: string;
+  email?: string;
+  tags: string[];
+  addedAt: string;
+  status: "active" | "inactive";
 }
 
 export default function Circles() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("all");
   const [animationTrigger, setAnimationTrigger] = useState(0);
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [isAddContactDialogOpen, setIsAddContactDialogOpen] = useState(false);
+  const [isBroadcastDialogOpen, setIsBroadcastDialogOpen] = useState(false);
+  const [selectedCircleId, setSelectedCircleId] = useState("");
+  const [newCircle, setNewCircle] = useState({
+    name: "",
+    description: "",
+    contactTags: [] as string[]
+  });
+  const [newContact, setNewContact] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    tags: [] as string[]
+  });
+  const [broadcastMessage, setBroadcastMessage] = useState({
+    message: "",
+    circleId: ""
+  });
 
   // Simulate real-time updates
   useEffect(() => {
@@ -40,6 +75,29 @@ export default function Circles() {
     return () => clearInterval(interval);
   }, []);
 
+  const availableTags = ["Premium", "VIP", "New", "Active", "Inactive", "Subscriber", "Customer", "Lead", "High-Value", "Regular"];
+
+  const contacts: Contact[] = [
+    {
+      id: "1",
+      name: "John Doe",
+      phone: "+1234567890",
+      email: "john@example.com",
+      tags: ["Premium", "VIP"],
+      addedAt: "2024-01-15",
+      status: "active"
+    },
+    {
+      id: "2", 
+      name: "Jane Smith",
+      phone: "+1234567891",
+      email: "jane@example.com",
+      tags: ["Customer", "Active"],
+      addedAt: "2024-01-16",
+      status: "active"
+    }
+  ];
+
   const circles: Circle[] = [
     {
       id: "1",
@@ -48,6 +106,7 @@ export default function Circles() {
       memberCount: 342,
       tags: ["Paid", "Premium"],
       status: "active",
+      contactTags: ["Premium", "VIP"],
       createdAt: "2024-01-15",
       growthRate: 12.5,
       engagementRate: 89,
@@ -62,6 +121,7 @@ export default function Circles() {
       memberCount: 1247,
       tags: ["Free", "Newsletter"],
       status: "active",
+      contactTags: ["Subscriber", "Active"],
       createdAt: "2024-01-10",
       growthRate: 8.3,
       engagementRate: 67,
@@ -76,6 +136,7 @@ export default function Circles() {
       memberCount: 89,
       tags: ["Beta", "Testing"],
       status: "active",
+      contactTags: ["Beta", "New"],
       createdAt: "2024-01-08",
       growthRate: 25.7,
       engagementRate: 94,
@@ -90,6 +151,7 @@ export default function Circles() {
       memberCount: 523,
       tags: ["Inactive", "Re-engagement"],
       status: "paused",
+      contactTags: ["Inactive"],
       createdAt: "2024-01-05",
       growthRate: -2.1,
       engagementRate: 12,
@@ -141,10 +203,16 @@ export default function Circles() {
               <Settings className="w-4 h-4" />
               Settings
             </Button>
-            <Button className="gap-2 bg-primary hover:bg-primary/90">
-              <Plus className="w-4 h-4" />
-              Create Circle
-            </Button>
+            <div className="flex gap-2">
+              <Button className="gap-2" onClick={() => setIsCreateDialogOpen(true)}>
+                <Plus className="w-4 h-4" />
+                Create Circle
+              </Button>
+              <Button variant="outline" className="gap-2" onClick={() => setIsBroadcastDialogOpen(true)}>
+                <MessageSquare className="w-4 h-4" />
+                Broadcast
+              </Button>
+            </div>
           </div>
         </div>
 
@@ -430,6 +498,140 @@ export default function Circles() {
           </CardContent>
         </Card>
       )}
+
+      {/* Create Circle Dialog */}
+      <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+        <DialogContent className="sm:max-w-[600px]">
+          <DialogHeader>
+            <DialogTitle>Create New Circle</DialogTitle>
+            <DialogDescription>
+              Create a circle with specific contact tags for targeted messaging
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="circleName">Circle Name *</Label>
+              <Input
+                id="circleName"
+                value={newCircle.name}
+                onChange={(e) => setNewCircle({...newCircle, name: e.target.value})}
+                placeholder="Enter circle name"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="circleDescription">Description</Label>
+              <Textarea
+                id="circleDescription"
+                value={newCircle.description}
+                onChange={(e) => setNewCircle({...newCircle, description: e.target.value})}
+                placeholder="Describe this circle"
+                rows={3}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label>Contact Tags *</Label>
+              <p className="text-sm text-muted-foreground">
+                Select tags to automatically include contacts in this circle
+              </p>
+              <div className="grid grid-cols-3 gap-2">
+                {availableTags.map((tag) => (
+                  <div key={tag} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={tag}
+                      checked={newCircle.contactTags.includes(tag)}
+                      onCheckedChange={(checked) => {
+                        if (checked) {
+                          setNewCircle({
+                            ...newCircle,
+                            contactTags: [...newCircle.contactTags, tag]
+                          });
+                        } else {
+                          setNewCircle({
+                            ...newCircle,
+                            contactTags: newCircle.contactTags.filter(t => t !== tag)
+                          });
+                        }
+                      }}
+                    />
+                    <Label htmlFor={tag} className="text-sm">{tag}</Label>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-3">
+              <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
+                Cancel
+              </Button>
+              <Button onClick={() => {
+                console.log("Creating circle:", newCircle);
+                setIsCreateDialogOpen(false);
+                setNewCircle({ name: "", description: "", contactTags: [] });
+              }}>
+                Create Circle
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Broadcast Message Dialog */}
+      <Dialog open={isBroadcastDialogOpen} onOpenChange={setIsBroadcastDialogOpen}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle>Broadcast Message</DialogTitle>
+            <DialogDescription>
+              Send a message to all members in the selected circle
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="broadcastCircle">Select Circle</Label>
+              <Select value={broadcastMessage.circleId} onValueChange={(value) => 
+                setBroadcastMessage({...broadcastMessage, circleId: value})
+              }>
+                <SelectTrigger>
+                  <SelectValue placeholder="Choose a circle" />
+                </SelectTrigger>
+                <SelectContent>
+                  {circles.map((circle) => (
+                    <SelectItem key={circle.id} value={circle.id}>
+                      {circle.name} ({circle.memberCount} members)
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="broadcastMessage">Message</Label>
+              <Textarea
+                id="broadcastMessage"
+                value={broadcastMessage.message}
+                onChange={(e) => setBroadcastMessage({...broadcastMessage, message: e.target.value})}
+                placeholder="Type your message here..."
+                rows={6}
+              />
+            </div>
+
+            <div className="flex justify-end gap-3">
+              <Button variant="outline" onClick={() => setIsBroadcastDialogOpen(false)}>
+                Cancel
+              </Button>
+              <Button onClick={() => {
+                console.log("Broadcasting message:", broadcastMessage);
+                setIsBroadcastDialogOpen(false);
+                setBroadcastMessage({ message: "", circleId: "" });
+              }}>
+                <Send className="w-4 h-4 mr-2" />
+                Send Broadcast
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

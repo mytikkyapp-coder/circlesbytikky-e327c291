@@ -40,7 +40,6 @@ const businessItems = [
 
 const coreItems = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
-  { title: "My Projects", url: "/my-projects", icon: FolderOpen },
   { title: "Circles", url: "/circles", icon: Circle },
   { title: "Members", url: "/members", icon: Users },
   { title: "Settings", url: "/settings", icon: Settings },
@@ -53,8 +52,17 @@ const marketingItems = [
   { title: "Analytics", url: "/analytics", icon: BarChart3 },
 ];
 
+const projectItems = [
+  { title: "My Projects", url: "/my-projects", icon: FolderOpen },
+];
+
+const pricingItems = [
+  { title: "Pricing & Payments", url: "/pricing", icon: Wallet },
+];
+
 const helpItems = [
   { title: "Help Center", url: "/help", icon: HelpCircle },
+  { title: "Support Tickets", url: "/support-tickets", icon: MessageSquare },
 ];
 
 export function AppSidebar() {
@@ -144,6 +152,54 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
               {coreItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink 
+                      to={item.url} 
+                      className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 ${getNavClasses(item.url)}`}
+                    >
+                      <item.icon className="w-5 h-5 flex-shrink-0" />
+                      {!isCollapsed && <span className="font-medium">{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* Projects */}
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground px-3 mb-2 mt-6">
+            {!isCollapsed && "Projects"}
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu className="space-y-1">
+              {projectItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink 
+                      to={item.url} 
+                      className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 ${getNavClasses(item.url)}`}
+                    >
+                      <item.icon className="w-5 h-5 flex-shrink-0" />
+                      {!isCollapsed && <span className="font-medium">{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* Pricing */}
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground px-3 mb-2 mt-6">
+            {!isCollapsed && "Billing"}
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu className="space-y-1">
+              {pricingItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink 

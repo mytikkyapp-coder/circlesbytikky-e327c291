@@ -120,14 +120,14 @@ export default function Help() {
 
         <Card 
           className="text-center hover:shadow-md transition-shadow cursor-pointer"
-          onClick={() => window.open('mailto:support@tikky.com', '_blank')}
+          onClick={() => window.location.href = '/support-tickets'}
         >
           <CardContent className="pt-6">
             <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-3">
               <MessageCircle className="w-6 h-6 text-green-600" />
             </div>
-            <h3 className="font-semibold text-foreground">Live Chat</h3>
-            <p className="text-sm text-muted-foreground mt-1">Get instant help from our support team</p>
+            <h3 className="font-semibold text-foreground">Support Tickets</h3>
+            <p className="text-sm text-muted-foreground mt-1">Create and track your support requests</p>
           </CardContent>
         </Card>
 

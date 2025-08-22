@@ -27,6 +27,8 @@ import Login from "./pages/Login";
 import MemberProfile from "./pages/MemberProfile";
 import MyProjects from "./pages/MyProjects";
 import WhatsAppSetup from "./pages/WhatsAppSetup";
+import SupportTickets from "./pages/SupportTickets";
+import Pricing from "./pages/Pricing";
 import KYC from "./pages/KYC";
 import AddMember from "./pages/AddMember";
 import ChatbotBuilder from "./pages/ChatbotBuilder";
@@ -64,6 +66,8 @@ const App = () => (
           <Route path="/help" element={<Layout><Help /></Layout>} />
           <Route path="/help/article/:id" element={<Layout><HelpArticle /></Layout>} />
           <Route path="/help/category/:category" element={<Layout><HelpCategory /></Layout>} />
+          <Route path="/support-tickets" element={<Layout><SupportTickets /></Layout>} />
+          <Route path="/pricing" element={<Layout><Pricing /></Layout>} />
           <Route path="/member-profile/:id" element={<Layout><MemberProfile /></Layout>} />
           <Route path="/add-member" element={<Layout><AddMember /></Layout>} />
           <Route path="/chatbot-builder" element={<ChatbotBuilder />} />
