@@ -35,10 +35,10 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           {/* Public routes without Layout */}
-          <Route path="/" element={<FrontPage />} />
           <Route path="/login" element={<Login />} />
           
           {/* Protected routes with Layout */}
+          <Route path="/" element={<Layout><Home /></Layout>} />
           <Route path="/my-projects" element={<Layout><MyProjects /></Layout>} />
           <Route path="/home" element={<Layout><Home /></Layout>} />
           <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />

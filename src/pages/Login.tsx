@@ -1,15 +1,30 @@
 import { useState } from "react";
-import { Eye, EyeOff, Facebook, Phone, Mail } from "lucide-react";
+import { Eye, EyeOff, Facebook, Phone, Mail, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setIsLoading(false);
+      // Navigate to home page after successful login
+      navigate("/");
+    }, 1500);
+  };
 
   return (
     <div className="min-h-screen flex">
@@ -81,7 +96,7 @@ const Login = () => {
               <p className="text-muted-foreground mt-2">Sign in to Tikky</p>
             </div>
 
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="space-y-2">
                 <Label htmlFor="email">Email or Username</Label>
                 <div className="relative">
@@ -93,6 +108,7 @@ const Login = () => {
                     className="pl-10"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required
                   />
                 </div>
               </div>
@@ -107,6 +123,7 @@ const Login = () => {
                     className="pr-10"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                   />
                   <button
                     type="button"
@@ -118,8 +135,13 @@ const Login = () => {
                 </div>
               </div>
 
-              <Button type="submit" className="w-full">
-                Sign In
+              <Button 
+                type="submit" 
+                className="w-full gap-2" 
+                disabled={isLoading}
+              >
+                {isLoading ? "Signing In..." : "Sign In"}
+                {!isLoading && <ArrowRight className="w-4 h-4" />}
               </Button>
             </form>
 
