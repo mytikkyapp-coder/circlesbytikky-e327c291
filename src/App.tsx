@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { AuthProvider } from '@/hooks/useAuth';
@@ -12,7 +11,7 @@ import MyProjects from '@/pages/MyProjects';
 import ApiIntegrationPage from '@/pages/ApiIntegrationPage';
 import Integrations from '@/pages/Integrations';
 import NotFound from '@/pages/NotFound';
-import { AuthGuard } from '@/components/AuthGuard';
+import AuthGuard from '@/components/AuthGuard';
 import WhatsAppSetupPage from '@/pages/WhatsAppSetup';
 
 const queryClient = new QueryClient();
