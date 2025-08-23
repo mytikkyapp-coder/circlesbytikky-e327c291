@@ -16,6 +16,8 @@ import {
 import '@xyflow/react/dist/style.css';
 
 import { Layout } from '@/components/Layout';
+import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
 import { FlowsDashboard } from '@/components/chatbot/FlowsDashboard';
 import { ChatbotHeader } from '@/components/chatbot/ChatbotHeader';
 import { ChatbotRightSidebar } from '@/components/chatbot/ChatbotRightSidebar';
@@ -147,7 +149,10 @@ const ChatbotBuilder = () => {
       />
       
       <div className="flex-1 flex overflow-hidden min-h-0">
-        <NodeLibrary onAddNode={addNode} />
+        {/* Node Library - Hidden on mobile, shown on tablet+ */}
+        <div className="hidden lg:block">
+          <NodeLibrary onAddNode={addNode} />
+        </div>
         
         <div className="flex-1 relative min-w-0">
           <ReactFlow
@@ -162,11 +167,11 @@ const ChatbotBuilder = () => {
             className="bg-background w-full h-full"
           >
             <Controls 
-              className="bg-card border border-border rounded-lg shadow-lg"
+              className="bg-card border border-border rounded-lg shadow-lg !left-2 !bottom-2"
               showInteractive={false}
             />
             <MiniMap 
-              className="bg-card border border-border rounded-lg shadow-lg"
+              className="bg-card border border-border rounded-lg shadow-lg !right-2 !bottom-2 !w-48 !h-32"
               nodeStrokeWidth={3}
               nodeColor="hsl(var(--primary))"
               maskColor="hsl(var(--muted) / 0.5)"
@@ -179,17 +184,33 @@ const ChatbotBuilder = () => {
               className="opacity-60"
             />
           </ReactFlow>
+          
+          {/* Mobile Node Library - Floating FAB */}
+          <div className="lg:hidden absolute bottom-20 left-4 z-10">
+            <Button
+              onClick={() => setShowPropertiesPanel(false)}
+              className="rounded-full w-14 h-14 bg-primary hover:bg-primary/90 shadow-lg"
+            >
+              <Plus className="w-6 h-6" />
+            </Button>
+          </div>
         </div>
 
+        {/* Properties Panel - Responsive */}
         {showPropertiesPanel && (
-          <PropertiesPanel
-            selectedNode={selectedNode}
-            onUpdateNode={updateNodeData}
-            onClose={() => setShowPropertiesPanel(false)}
-          />
+          <div className={`${isProjectContext ? 'hidden xl:block' : 'hidden lg:block'}`}>
+            <PropertiesPanel
+              selectedNode={selectedNode}
+              onUpdateNode={updateNodeData}
+              onClose={() => setShowPropertiesPanel(false)}
+            />
+          </div>
         )}
 
-        <ChatbotRightSidebar />
+        {/* Right Sidebar - Hidden on mobile and tablet */}
+        <div className="hidden xl:block">
+          <ChatbotRightSidebar />
+        </div>
       </div>
 
       <ChatbotPreview 

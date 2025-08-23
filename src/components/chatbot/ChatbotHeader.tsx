@@ -84,50 +84,51 @@ export const ChatbotHeader: React.FC<ChatbotHeaderProps> = ({
   };
 
   return (
-    <div className="bg-gradient-to-r from-card via-card/80 to-card border-b border-border/50 px-6 py-4 flex items-center justify-between backdrop-blur-sm">
-      <div className="flex items-center gap-4">
+    <div className="bg-gradient-to-r from-card via-card/80 to-card border-b border-border/50 px-3 lg:px-6 py-3 lg:py-4 flex items-center justify-between backdrop-blur-sm">
+      <div className="flex items-center gap-2 lg:gap-4 min-w-0 flex-1">
         <Button 
           variant="ghost" 
           size="sm" 
           onClick={onBackToDashboard}
-          className="gap-2"
+          className="gap-2 flex-shrink-0"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to Dashboard
+          <span className="hidden sm:inline">Back to Dashboard</span>
+          <span className="sm:hidden">Back</span>
         </Button>
         
-        <Separator orientation="vertical" className="h-6" />
+        <Separator orientation="vertical" className="h-6 hidden lg:block" />
         
-        <div className="flex items-center gap-3">
-          <div className="p-2 rounded-xl bg-gradient-to-br from-primary via-accent to-secondary shadow-lg">
-            <Brain className="w-6 h-6 text-white" />
+        <div className="flex items-center gap-2 lg:gap-3 min-w-0">
+          <div className="p-1.5 lg:p-2 rounded-xl bg-gradient-to-br from-primary via-accent to-secondary shadow-lg flex-shrink-0">
+            <Brain className="w-4 h-4 lg:w-6 lg:h-6 text-white" />
           </div>
-          <div>
-            <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-lg lg:text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent truncate">
               {currentFlow === 'new-flow' ? 'New Chatbot Flow' : 'Customer Support Bot'}
             </h1>
-            <p className="text-xs text-muted-foreground">Visual flow builder</p>
+            <p className="text-xs text-muted-foreground hidden lg:block">Visual flow builder</p>
           </div>
         </div>
         
-        <div className="flex items-center gap-2">
-          <Badge variant="secondary" className="bg-gradient-to-r from-primary/20 to-accent/20 text-primary border-primary/30 shadow-sm">
+        <div className="flex items-center gap-1 lg:gap-2 flex-shrink-0">
+          <Badge variant="secondary" className="text-xs bg-gradient-to-r from-primary/20 to-accent/20 text-primary border-primary/30 shadow-sm hidden sm:flex">
             <Sparkles className="w-3 h-3 mr-1" />
             GPT Enabled
           </Badge>
-          <Badge className="bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400">
+          <Badge className="bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400 text-xs hidden lg:flex">
             <Smartphone className="w-3 h-3 mr-1" />
             WhatsApp Ready
           </Badge>
         </div>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1 lg:gap-2 flex-shrink-0">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="sm" className="gap-2">
+            <Button variant="outline" size="sm" className="gap-1 lg:gap-2">
               <Settings className="w-4 h-4" />
-              Settings
+              <span className="hidden sm:inline">Settings</span>
               <ChevronDown className="w-3 h-3" />
             </Button>
           </DropdownMenuTrigger>
@@ -151,63 +152,65 @@ export const ChatbotHeader: React.FC<ChatbotHeaderProps> = ({
           variant="outline"
           size="sm"
           onClick={handleTest}
-          className="gap-2"
+          className="gap-1 lg:gap-2"
         >
           <Play className="w-4 h-4" />
-          Test
+          <span className="hidden sm:inline">Test</span>
         </Button>
 
         <Button
           variant="outline"
           size="sm"
           onClick={onPreview}
-          className="gap-2"
+          className="gap-1 lg:gap-2"
         >
           <Eye className="w-4 h-4" />
-          Preview
+          <span className="hidden sm:inline">Preview</span>
         </Button>
 
-        <Separator orientation="vertical" className="h-6" />
+        <Separator orientation="vertical" className="h-6 hidden lg:block" />
 
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handleShare}
-          className="gap-2"
-        >
-          <Share2 className="w-4 h-4" />
-          Share
-        </Button>
+        <div className="hidden lg:flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleShare}
+            className="gap-2"
+          >
+            <Share2 className="w-4 h-4" />
+            Share
+          </Button>
 
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handleSave}
-          className="gap-2"
-        >
-          <Save className="w-4 h-4" />
-          Save
-        </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleSave}
+            className="gap-2"
+          >
+            <Save className="w-4 h-4" />
+            Save
+          </Button>
 
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handleExport}
-          className="gap-2"
-        >
-          <Download className="w-4 h-4" />
-          Export
-        </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleExport}
+            className="gap-2"
+          >
+            <Download className="w-4 h-4" />
+            Export
+          </Button>
+        </div>
 
         <Dialog open={showDeployDialog} onOpenChange={setShowDeployDialog}>
           <DialogTrigger asChild>
             <Button
               size="sm"
               onClick={handleDeploy}
-              className="gap-2 bg-primary hover:bg-primary/90"
+              className="gap-1 lg:gap-2 bg-primary hover:bg-primary/90"
             >
               <Rocket className="w-4 h-4" />
-              Deploy
+              <span className="hidden sm:inline">Deploy</span>
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[500px]">

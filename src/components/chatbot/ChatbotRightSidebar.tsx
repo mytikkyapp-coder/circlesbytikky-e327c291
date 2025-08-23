@@ -101,21 +101,21 @@ export const ChatbotRightSidebar: React.FC = () => {
   };
 
   return (
-    <div className="w-80 border-l border-border bg-card/50 backdrop-blur-sm">
+    <div className="w-64 lg:w-80 border-l border-border bg-card/50 backdrop-blur-sm">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full">
-        <div className="p-4 border-b border-border">
+        <div className="p-3 lg:p-4 border-b border-border">
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="analytics" className="gap-1 text-xs">
               <BarChart3 className="w-3 h-3" />
-              Analytics
+              <span className="hidden sm:inline">Analytics</span>
             </TabsTrigger>
             <TabsTrigger value="chats" className="gap-1 text-xs">
               <MessageSquare className="w-3 h-3" />
-              Chats
+              <span className="hidden sm:inline">Chats</span>
             </TabsTrigger>
             <TabsTrigger value="connect" className="gap-1 text-xs">
               <Smartphone className="w-3 h-3" />
-              Connect
+              <span className="hidden sm:inline">Connect</span>
             </TabsTrigger>
           </TabsList>
         </div>
