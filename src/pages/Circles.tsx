@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -51,6 +52,7 @@ interface Contact {
 }
 
 export default function Circles() {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("all");
   const [animationTrigger, setAnimationTrigger] = useState(0);
@@ -235,10 +237,7 @@ export default function Circles() {
   };
 
   const handleManageMembers = (circleId: string) => {
-    const members = contacts.filter(contact => contact.circleId === circleId);
-    setCircleMembers(members);
-    setSelectedCircleId(circleId);
-    setIsMembersDialogOpen(true);
+    navigate(`/circles/${circleId}/manage`);
   };
 
   const handleEditCircle = (circleId: string) => {
@@ -541,6 +540,7 @@ export default function Circles() {
                   size="sm" 
                   variant="ghost" 
                   className="opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-primary/10"
+                  onClick={() => handleManageMembers(circle.id)}
                 >
                   Manage
                   <ArrowRight className="w-3 h-3 ml-1" />

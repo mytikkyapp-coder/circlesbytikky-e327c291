@@ -40,6 +40,7 @@ import CallingAPILanding from "./pages/CallingAPILanding";
 import WhatsAppCallingCRM from "./pages/WhatsAppCallingCRM";
 import MetaAPIIntegration from "./pages/MetaAPIIntegration";
 import { ProjectLayout } from "./components/ProjectLayout";
+import ManageCircle from "./pages/ManageCircle";
 
 const queryClient = new QueryClient();
 
@@ -59,6 +60,7 @@ const App = () => (
           <Route path="/home" element={<Layout><Home /></Layout>} />
           <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
           <Route path="/circles" element={<Layout><Circles /></Layout>} />
+          <Route path="/circles/:circleId/manage" element={<Layout><ManageCircle /></Layout>} />
           <Route path="/members" element={<Layout><Members /></Layout>} />
           <Route path="/campaigns" element={<Layout><Campaigns /></Layout>} />
           <Route path="/templates" element={<Layout><Templates /></Layout>} />
@@ -86,6 +88,7 @@ const App = () => (
           {/* Project-specific routes */}
           <Route path="/project/:projectId/dashboard" element={<ProjectLayout><ProjectDashboard /></ProjectLayout>} />
           <Route path="/project/:projectId/circles" element={<ProjectLayout><Circles /></ProjectLayout>} />
+          <Route path="/project/:projectId/circles/:circleId/manage" element={<ProjectLayout><ManageCircle /></ProjectLayout>} />
           <Route path="/project/:projectId/members" element={<ProjectLayout><Members /></ProjectLayout>} />
           <Route path="/project/:projectId/campaigns" element={<ProjectLayout><Campaigns /></ProjectLayout>} />
           <Route path="/project/:projectId/campaigns/create" element={<ProjectLayout><CreateCampaign /></ProjectLayout>} />
