@@ -9,13 +9,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
-import { Plus, Search, Users, MoreHorizontal, Edit, Trash2, TrendingUp, Activity, Eye, Settings, Zap, Clock, ArrowRight, Tag, MessageSquare, Send } from "lucide-react";
+import { Plus, Search, Users, MoreHorizontal, Edit, Trash2, TrendingUp, Activity, Eye, Settings, Zap, Clock, ArrowRight, Tag, MessageSquare, Send, UserMinus, UserPlus, Bell, BellOff, Phone } from "lucide-react";
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
   DropdownMenuItem, 
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 interface Circle {
   id: string;
@@ -41,6 +44,10 @@ interface Contact {
   tags: string[];
   addedAt: string;
   status: "active" | "inactive";
+  circleId?: string;
+  notifications: boolean;
+  lastSeen?: string;
+  avatar?: string;
 }
 
 export default function Circles() {
@@ -50,7 +57,11 @@ export default function Circles() {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isAddContactDialogOpen, setIsAddContactDialogOpen] = useState(false);
   const [isBroadcastDialogOpen, setIsBroadcastDialogOpen] = useState(false);
+  const [isEditCircleDialogOpen, setIsEditCircleDialogOpen] = useState(false);
+  const [isMembersDialogOpen, setIsMembersDialogOpen] = useState(false);
   const [selectedCircleId, setSelectedCircleId] = useState("");
+  const [circleMembers, setCircleMembers] = useState<Contact[]>([]);
+  const [memberSearchQuery, setMemberSearchQuery] = useState("");
   const [newCircle, setNewCircle] = useState({
     name: "",
     description: "",
@@ -85,7 +96,11 @@ export default function Circles() {
       email: "john@example.com",
       tags: ["Premium", "VIP"],
       addedAt: "2024-01-15",
-      status: "active"
+      status: "active",
+      circleId: "1",
+      notifications: true,
+      lastSeen: "2 mins ago",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=John"
     },
     {
       id: "2", 
@@ -94,7 +109,37 @@ export default function Circles() {
       email: "jane@example.com",
       tags: ["Customer", "Active"],
       addedAt: "2024-01-16",
-      status: "active"
+      status: "active",
+      circleId: "1",
+      notifications: true,
+      lastSeen: "5 mins ago",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Jane"
+    },
+    {
+      id: "3",
+      name: "Mike Johnson",
+      phone: "+1234567892",
+      email: "mike@example.com",
+      tags: ["Beta", "New"],
+      addedAt: "2024-01-17",
+      status: "active",
+      circleId: "3",
+      notifications: false,
+      lastSeen: "1 hour ago",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mike"
+    },
+    {
+      id: "4",
+      name: "Sarah Wilson",
+      phone: "+1234567893",
+      email: "sarah@example.com",
+      tags: ["Subscriber", "Active"],
+      addedAt: "2024-01-18",
+      status: "inactive",
+      circleId: "2",
+      notifications: true,
+      lastSeen: "3 days ago",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
     }
   ];
 
@@ -188,6 +233,46 @@ export default function Circles() {
     };
     return colors[tag] || "bg-gray-100 text-gray-800";
   };
+
+  const handleManageMembers = (circleId: string) => {
+    const members = contacts.filter(contact => contact.circleId === circleId);
+    setCircleMembers(members);
+    setSelectedCircleId(circleId);
+    setIsMembersDialogOpen(true);
+  };
+
+  const handleEditCircle = (circleId: string) => {
+    const circle = circles.find(c => c.id === circleId);
+    if (circle) {
+      setNewCircle({
+        name: circle.name,
+        description: circle.description,
+        contactTags: circle.contactTags
+      });
+      setSelectedCircleId(circleId);
+      setIsEditCircleDialogOpen(true);
+    }
+  };
+
+  const handleRemoveMember = (memberId: string) => {
+    setCircleMembers(prev => prev.filter(member => member.id !== memberId));
+  };
+
+  const handleToggleNotifications = (memberId: string) => {
+    setCircleMembers(prev => 
+      prev.map(member => 
+        member.id === memberId 
+          ? { ...member, notifications: !member.notifications }
+          : member
+      )
+    );
+  };
+
+  const filteredMembers = circleMembers.filter(member =>
+    member.name.toLowerCase().includes(memberSearchQuery.toLowerCase()) ||
+    member.phone.includes(memberSearchQuery) ||
+    member.email?.toLowerCase().includes(memberSearchQuery.toLowerCase())
+  );
 
   return (
     <div className="space-y-8">
@@ -363,13 +448,17 @@ export default function Circles() {
                       <Eye className="w-4 h-4 mr-2" />
                       View Details
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => handleEditCircle(circle.id)}>
                       <Edit className="w-4 h-4 mr-2" />
                       Edit Circle
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => handleManageMembers(circle.id)}>
                       <Users className="w-4 h-4 mr-2" />
                       Manage Members
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setIsAddContactDialogOpen(true)}>
+                      <UserPlus className="w-4 h-4 mr-2" />
+                      Add Members
                     </DropdownMenuItem>
                     <DropdownMenuItem className="text-destructive">
                       <Trash2 className="w-4 h-4 mr-2" />
@@ -573,6 +662,354 @@ export default function Circles() {
                 Create Circle
               </Button>
             </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Add Contact Dialog */}
+      <Dialog open={isAddContactDialogOpen} onOpenChange={setIsAddContactDialogOpen}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle>Add New Contact</DialogTitle>
+            <DialogDescription>
+              Add a new contact to your circles
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="contactName">Name *</Label>
+              <Input
+                id="contactName"
+                value={newContact.name}
+                onChange={(e) => setNewContact({...newContact, name: e.target.value})}
+                placeholder="Enter contact name"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="contactPhone">Phone *</Label>
+              <Input
+                id="contactPhone"
+                value={newContact.phone}
+                onChange={(e) => setNewContact({...newContact, phone: e.target.value})}
+                placeholder="+1234567890"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="contactEmail">Email</Label>
+              <Input
+                id="contactEmail"
+                type="email"
+                value={newContact.email}
+                onChange={(e) => setNewContact({...newContact, email: e.target.value})}
+                placeholder="contact@example.com"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label>Tags</Label>
+              <div className="grid grid-cols-3 gap-2">
+                {availableTags.map((tag) => (
+                  <div key={tag} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`contact-${tag}`}
+                      checked={newContact.tags.includes(tag)}
+                      onCheckedChange={(checked) => {
+                        if (checked) {
+                          setNewContact({
+                            ...newContact,
+                            tags: [...newContact.tags, tag]
+                          });
+                        } else {
+                          setNewContact({
+                            ...newContact,
+                            tags: newContact.tags.filter(t => t !== tag)
+                          });
+                        }
+                      }}
+                    />
+                    <Label htmlFor={`contact-${tag}`} className="text-sm">{tag}</Label>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-3">
+              <Button variant="outline" onClick={() => setIsAddContactDialogOpen(false)}>
+                Cancel
+              </Button>
+              <Button onClick={() => {
+                console.log("Adding contact:", newContact);
+                setIsAddContactDialogOpen(false);
+                setNewContact({ name: "", phone: "", email: "", tags: [] });
+              }}>
+                <UserPlus className="w-4 h-4 mr-2" />
+                Add Contact
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Circle Dialog */}
+      <Dialog open={isEditCircleDialogOpen} onOpenChange={setIsEditCircleDialogOpen}>
+        <DialogContent className="sm:max-w-[600px]">
+          <DialogHeader>
+            <DialogTitle>Edit Circle</DialogTitle>
+            <DialogDescription>
+              Update circle information and settings
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="editCircleName">Circle Name *</Label>
+              <Input
+                id="editCircleName"
+                value={newCircle.name}
+                onChange={(e) => setNewCircle({...newCircle, name: e.target.value})}
+                placeholder="Enter circle name"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="editCircleDescription">Description</Label>
+              <Textarea
+                id="editCircleDescription"
+                value={newCircle.description}
+                onChange={(e) => setNewCircle({...newCircle, description: e.target.value})}
+                placeholder="Describe this circle"
+                rows={3}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label>Contact Tags *</Label>
+              <p className="text-sm text-muted-foreground">
+                Select tags to automatically include contacts in this circle
+              </p>
+              <div className="grid grid-cols-3 gap-2">
+                {availableTags.map((tag) => (
+                  <div key={tag} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`edit-${tag}`}
+                      checked={newCircle.contactTags.includes(tag)}
+                      onCheckedChange={(checked) => {
+                        if (checked) {
+                          setNewCircle({
+                            ...newCircle,
+                            contactTags: [...newCircle.contactTags, tag]
+                          });
+                        } else {
+                          setNewCircle({
+                            ...newCircle,
+                            contactTags: newCircle.contactTags.filter(t => t !== tag)
+                          });
+                        }
+                      }}
+                    />
+                    <Label htmlFor={`edit-${tag}`} className="text-sm">{tag}</Label>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-3">
+              <Button variant="outline" onClick={() => setIsEditCircleDialogOpen(false)}>
+                Cancel
+              </Button>
+              <Button onClick={() => {
+                console.log("Updating circle:", selectedCircleId, newCircle);
+                setIsEditCircleDialogOpen(false);
+                setNewCircle({ name: "", description: "", contactTags: [] });
+              }}>
+                Update Circle
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Manage Members Dialog */}
+      <Dialog open={isMembersDialogOpen} onOpenChange={setIsMembersDialogOpen}>
+        <DialogContent className="sm:max-w-[800px] max-h-[600px]">
+          <DialogHeader>
+            <DialogTitle>Manage Circle Members</DialogTitle>
+            <DialogDescription>
+              View and manage members in this circle
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4">
+            {/* Search and Actions */}
+            <div className="flex items-center justify-between">
+              <div className="relative flex-1 max-w-sm">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search members..."
+                  value={memberSearchQuery}
+                  onChange={(e) => setMemberSearchQuery(e.target.value)}
+                  className="pl-9"
+                />
+              </div>
+              <div className="flex gap-2">
+                <Button size="sm" variant="outline" onClick={() => setIsAddContactDialogOpen(true)}>
+                  <UserPlus className="w-4 h-4 mr-2" />
+                  Add Member
+                </Button>
+                <Button size="sm" variant="outline" onClick={() => setIsBroadcastDialogOpen(true)}>
+                  <MessageSquare className="w-4 h-4 mr-2" />
+                  Broadcast
+                </Button>
+              </div>
+            </div>
+
+            {/* Members Table */}
+            <div className="border rounded-lg overflow-hidden">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Member</TableHead>
+                    <TableHead>Contact</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Notifications</TableHead>
+                    <TableHead>Last Seen</TableHead>
+                    <TableHead>Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredMembers.map((member) => (
+                    <TableRow key={member.id}>
+                      <TableCell>
+                        <div className="flex items-center gap-3">
+                          <Avatar className="h-8 w-8">
+                            <AvatarImage src={member.avatar} />
+                            <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <p className="font-medium">{member.name}</p>
+                            <div className="flex gap-1 mt-1">
+                              {member.tags.map((tag) => (
+                                <Badge key={tag} variant="secondary" className="text-xs">
+                                  {tag}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-2">
+                            <Phone className="w-3 h-3 text-muted-foreground" />
+                            <span className="text-sm">{member.phone}</span>
+                          </div>
+                          {member.email && (
+                            <p className="text-sm text-muted-foreground">{member.email}</p>
+                          )}
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <Badge 
+                          variant="secondary" 
+                          className={member.status === "active" ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-800"}
+                        >
+                          {member.status}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleToggleNotifications(member.id)}
+                          className={member.notifications ? "text-green-600" : "text-muted-foreground"}
+                        >
+                          {member.notifications ? <Bell className="w-4 h-4" /> : <BellOff className="w-4 h-4" />}
+                        </Button>
+                      </TableCell>
+                      <TableCell>
+                        <span className="text-sm text-muted-foreground">{member.lastSeen}</span>
+                      </TableCell>
+                      <TableCell>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="sm">
+                              <MoreHorizontal className="w-4 h-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem>
+                              <Eye className="w-4 h-4 mr-2" />
+                              View Profile
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <MessageSquare className="w-4 h-4 mr-2" />
+                              Send Message
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => handleToggleNotifications(member.id)}>
+                              {member.notifications ? (
+                                <>
+                                  <BellOff className="w-4 h-4 mr-2" />
+                                  Stop Notifications
+                                </>
+                              ) : (
+                                <>
+                                  <Bell className="w-4 h-4 mr-2" />
+                                  Enable Notifications
+                                </>
+                              )}
+                            </DropdownMenuItem>
+                            <DropdownMenuItem 
+                              className="text-destructive" 
+                              onClick={() => handleRemoveMember(member.id)}
+                            >
+                              <UserMinus className="w-4 h-4 mr-2" />
+                              Remove Member
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+
+            {/* Empty State */}
+            {filteredMembers.length === 0 && (
+              <div className="text-center py-8">
+                <Users className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-foreground mb-2">No members found</h3>
+                <p className="text-muted-foreground mb-4">
+                  {memberSearchQuery ? "Try adjusting your search terms" : "This circle doesn't have any members yet"}
+                </p>
+                <Button onClick={() => setIsAddContactDialogOpen(true)}>
+                  <UserPlus className="w-4 h-4 mr-2" />
+                  Add First Member
+                </Button>
+              </div>
+            )}
+
+            {/* Bulk Actions */}
+            {filteredMembers.length > 0 && (
+              <Alert>
+                <AlertDescription>
+                  <div className="flex items-center justify-between">
+                    <span>{filteredMembers.length} members in this circle</span>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm">
+                        <BellOff className="w-4 h-4 mr-2" />
+                        Stop All Notifications
+                      </Button>
+                      <Button variant="outline" size="sm" className="text-destructive">
+                        <UserMinus className="w-4 h-4 mr-2" />
+                        Remove All
+                      </Button>
+                    </div>
+                  </div>
+                </AlertDescription>
+              </Alert>
+            )}
           </div>
         </DialogContent>
       </Dialog>
