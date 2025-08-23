@@ -14,6 +14,7 @@ import {
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
+import { Layout } from '@/components/Layout';
 import { FlowsDashboard } from '@/components/chatbot/FlowsDashboard';
 import { ChatbotHeader } from '@/components/chatbot/ChatbotHeader';
 import { ChatbotRightSidebar } from '@/components/chatbot/ChatbotRightSidebar';
@@ -122,78 +123,82 @@ const ChatbotBuilder = () => {
 
   if (showDashboard) {
     return (
-      <FlowsDashboard 
-        onCreateFlow={() => {
-          setShowDashboard(false);
-          setCurrentFlow('new-flow');
-        }}
-        onEditFlow={(flowId) => {
-          setShowDashboard(false);
-          setCurrentFlow(flowId);
-        }}
-      />
+      <Layout>
+        <FlowsDashboard 
+          onCreateFlow={() => {
+            setShowDashboard(false);
+            setCurrentFlow('new-flow');
+          }}
+          onEditFlow={(flowId) => {
+            setShowDashboard(false);
+            setCurrentFlow(flowId);
+          }}
+        />
+      </Layout>
     );
   }
 
   return (
-    <div className="h-screen flex flex-col bg-gradient-to-br from-background via-background to-primary/5">
-      <ChatbotHeader 
-        currentFlow={currentFlow}
-        onBackToDashboard={() => setShowDashboard(true)}
-        onPreview={() => setShowPreview(true)}
-      />
-      
-      <div className="flex-1 flex">
-        <NodeLibrary onAddNode={addNode} />
+    <Layout>
+      <div className="h-[calc(100vh-8rem)] flex flex-col bg-gradient-to-br from-background via-background to-primary/5">
+        <ChatbotHeader 
+          currentFlow={currentFlow}
+          onBackToDashboard={() => setShowDashboard(true)}
+          onPreview={() => setShowPreview(true)}
+        />
         
-        <div className="flex-1 relative">
-          <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
-            onNodeClick={onNodeClick}
-            nodeTypes={nodeTypes}
-            fitView
-            className="bg-background"
-          >
-            <Controls 
-              className="bg-card border border-border rounded-lg shadow-lg"
-              showInteractive={false}
+        <div className="flex-1 flex overflow-hidden">
+          <NodeLibrary onAddNode={addNode} />
+          
+          <div className="flex-1 relative">
+            <ReactFlow
+              nodes={nodes}
+              edges={edges}
+              onNodesChange={onNodesChange}
+              onEdgesChange={onEdgesChange}
+              onConnect={onConnect}
+              onNodeClick={onNodeClick}
+              nodeTypes={nodeTypes}
+              fitView
+              className="bg-background"
+            >
+              <Controls 
+                className="bg-card border border-border rounded-lg shadow-lg"
+                showInteractive={false}
+              />
+              <MiniMap 
+                className="bg-card border border-border rounded-lg shadow-lg"
+                nodeStrokeWidth={3}
+                nodeColor="hsl(var(--primary))"
+                maskColor="hsl(var(--muted) / 0.5)"
+              />
+              <Background 
+                variant={BackgroundVariant.Dots} 
+                gap={24} 
+                size={1.5}
+                color="hsl(var(--primary) / 0.1)"
+                className="opacity-60"
+              />
+            </ReactFlow>
+          </div>
+
+          {showPropertiesPanel && (
+            <PropertiesPanel
+              selectedNode={selectedNode}
+              onUpdateNode={updateNodeData}
+              onClose={() => setShowPropertiesPanel(false)}
             />
-            <MiniMap 
-              className="bg-card border border-border rounded-lg shadow-lg"
-              nodeStrokeWidth={3}
-              nodeColor="hsl(var(--primary))"
-              maskColor="hsl(var(--muted) / 0.5)"
-            />
-            <Background 
-              variant={BackgroundVariant.Dots} 
-              gap={24} 
-              size={1.5}
-              color="hsl(var(--primary) / 0.1)"
-              className="opacity-60"
-            />
-          </ReactFlow>
+          )}
+
+          <ChatbotRightSidebar />
         </div>
 
-        {showPropertiesPanel && (
-          <PropertiesPanel
-            selectedNode={selectedNode}
-            onUpdateNode={updateNodeData}
-            onClose={() => setShowPropertiesPanel(false)}
-          />
-        )}
-
-        <ChatbotRightSidebar />
+        <ChatbotPreview 
+          open={showPreview}
+          onOpenChange={setShowPreview}
+        />
       </div>
-
-      <ChatbotPreview 
-        open={showPreview}
-        onOpenChange={setShowPreview}
-      />
-    </div>
+    </Layout>
   );
 };
 

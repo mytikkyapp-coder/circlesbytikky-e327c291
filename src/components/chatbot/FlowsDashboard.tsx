@@ -61,7 +61,7 @@ export const FlowsDashboard: React.FC<FlowsDashboardProps> = ({ onCreateFlow, on
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 p-6">
+    <div className="bg-gradient-to-br from-background via-background to-primary/5 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
