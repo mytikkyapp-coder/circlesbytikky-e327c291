@@ -140,59 +140,16 @@ export default function PricingPlans({ currentPlan = "standard" }: PricingPlansP
 
   return (
     <div className="space-y-8">
-      {/* Upcoming Features */}
-      <Card className="mb-8 border-2 border-dashed border-primary/30 bg-primary/5">
-        <CardHeader>
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center">
-              <MessageCircle className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <CardTitle className="text-lg">Meta Calling API</CardTitle>
-              <CardDescription>Advanced voice calling features coming soon</CardDescription>
-            </div>
-            <Badge variant="secondary" className="ml-auto bg-amber-100 text-amber-800">
-              Coming Soon
-            </Badge>
-          </div>
-        </CardHeader>
-      </Card>
-
-      {/* Supported Payment Gateways */}
-      <Card className="mb-8 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 border-green-200">
-        <CardHeader>
-          <CardTitle className="text-lg">Supported Payment Methods</CardTitle>
-          <CardDescription>Pay with your preferred method - 100% secure Indian payment gateways</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="flex flex-wrap items-center gap-4">
-            <div className="flex items-center gap-2 bg-white p-3 rounded-lg border">
-              <div className="w-8 h-8 bg-orange-500 rounded flex items-center justify-center">
-                <span className="text-white text-xs font-bold">UPI</span>
-              </div>
-              <span className="text-sm font-medium">UPI</span>
-            </div>
-            <div className="flex items-center gap-2 bg-white p-3 rounded-lg border">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-green-500 rounded flex items-center justify-center">
-                <span className="text-white text-xs font-bold">G</span>
-              </div>
-              <span className="text-sm font-medium">Google Pay</span>
-            </div>
-            <div className="flex items-center gap-2 bg-white p-3 rounded-lg border">
-              <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center">
-                <span className="text-white text-xs font-bold">R</span>
-              </div>
-              <span className="text-sm font-medium">Razorpay</span>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
       {/* Header */}
       <div className="text-center space-y-4">
-        <h2 className="text-3xl font-bold text-foreground">Choose Your Plan</h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
-          Select the perfect plan for your business needs. Upgrade or downgrade at any time.
+        <Badge variant="secondary" className="bg-primary/10 text-primary font-medium">
+          💎 Pricing Plans
+        </Badge>
+        <h2 className="text-3xl font-bold text-foreground">
+          Choose Your Perfect Plan
+        </h2>
+        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          Scale your WhatsApp business with our flexible pricing. Upgrade or downgrade anytime.
         </p>
       </div>
 
