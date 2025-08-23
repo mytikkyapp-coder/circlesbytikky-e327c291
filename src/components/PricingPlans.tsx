@@ -16,74 +16,87 @@ import {
 } from "lucide-react";
 
 interface PricingPlansProps {
-  currentPlan?: "basic" | "pro" | "enterprise";
+  currentPlan?: "standard" | "pro" | "enterprise";
 }
 
-export default function PricingPlans({ currentPlan = "basic" }: PricingPlansProps) {
+export default function PricingPlans({ currentPlan = "standard" }: PricingPlansProps) {
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<string>("");
 
   const plans = [
     {
-      id: "basic",
-      name: "Basic",
-      description: "Perfect for small businesses starting with WhatsApp automation",
+      id: "standard",
+      name: "Standard",
+      description: "Essential business setup and core features for small businesses",
       price: "₹999",
       period: "/month",
       icon: MessageCircle,
       color: "from-blue-500 to-blue-600",
       features: [
+        "Business Setup & Configuration",
+        "Core WhatsApp Features",
         "Up to 5 projects",
         "1,000 WhatsApp messages/month",
-        "Basic templates",
-        "Campaign analytics",
+        "Basic templates & campaigns",
+        "Standard analytics",
         "Email support",
-        "Facebook integration"
+        "Member management",
+        "Basic circle features"
       ],
       limitations: [
-        "Limited AI templates",
-        "Basic analytics only"
+        "No AI-powered tools",
+        "Limited integrations"
       ]
     },
     {
       id: "pro",
       name: "Pro",
-      description: "Advanced features for growing businesses with enhanced automation",
+      description: "Advanced AI-powered tools and integrations for growing businesses",
       price: "₹2,999",
       period: "/month",
       icon: Crown,
       color: "from-purple-500 to-purple-600",
       popular: true,
       features: [
+        "Everything in Standard",
+        "ChatBot Builder with AI",
+        "Meta Ads AI Integration",
+        "App Integrations Hub",
         "Up to 20 projects",
         "10,000 WhatsApp messages/month",
-        "AI-powered templates",
         "Advanced analytics & insights",
-        "Live chat support",
-        "Multi-platform integration",
-        "Custom CTAs",
-        "A/B testing"
+        "A/B testing capabilities",
+        "Priority support",
+        "Custom templates",
+        "Multi-platform campaigns"
       ],
       limitations: []
     },
     {
       id: "enterprise",
       name: "Enterprise",
-      description: "Complete solution for large enterprises with unlimited access",
+      description: "Complete enterprise solution with advanced API integrations",
       price: "₹9,999",
       period: "/month",
       icon: Zap,
       color: "from-orange-500 to-orange-600",
       features: [
+        "Everything in Pro",
+        "ZOHO CRM Integration",
+        "Mailchimp Integration", 
+        "Zapier Automation",
+        "Advanced Settings & Controls",
         "Unlimited projects",
         "Unlimited WhatsApp messages",
-        "Custom AI model training",
-        "Enterprise analytics suite",
-        "24/7 priority support",
-        "Custom integrations",
+        "Custom API integrations",
         "White-label solution",
-        "Dedicated account manager",
-        "Custom compliance features"
+        "24/7 dedicated support",
+        "Enterprise-grade security",
+        "Custom compliance features",
+        "Dedicated account manager"
+      ],
+      comingSoon: [
+        "Voice Call API by Meta"
       ],
       limitations: []
     }
@@ -193,6 +206,23 @@ export default function PricingPlans({ currentPlan = "basic" }: PricingPlansProp
                 ))}
               </div>
 
+              {/* Coming Soon Features */}
+              {(plan as any).comingSoon && (plan as any).comingSoon.length > 0 && (
+                <div className="space-y-2 pt-4 border-t border-border">
+                  <p className="text-xs font-medium text-primary uppercase tracking-wide">
+                    🚀 Coming Soon
+                  </p>
+                  {(plan as any).comingSoon.map((feature: string, index: number) => (
+                    <div key={index} className="flex items-center gap-3">
+                      <div className="w-4 h-4 flex-shrink-0 bg-primary/20 rounded-full flex items-center justify-center">
+                        <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+                      </div>
+                      <span className="text-sm text-primary font-medium">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               {/* Limitations */}
               {plan.limitations.length > 0 && (
                 <div className="space-y-2 pt-4 border-t border-border">
@@ -291,11 +321,16 @@ export default function PricingPlans({ currentPlan = "basic" }: PricingPlansProp
       </Dialog>
 
       {/* Features Comparison */}
-      <div className="mt-12 text-center">
-        <Button variant="outline" className="gap-2">
-          <BarChart3 className="w-4 h-4" />
-          View Detailed Features Comparison
+      <div className="mt-12 text-center space-y-4">
+        <Button variant="outline" className="gap-2" asChild>
+          <a href="/project-features">
+            <BarChart3 className="w-4 h-4" />
+            View Detailed Features Overview
+          </a>
         </Button>
+        <p className="text-sm text-muted-foreground">
+          Explore all features across Standard, Pro, and Enterprise plans
+        </p>
       </div>
     </div>
   );

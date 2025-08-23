@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import Home from "./pages/Home";
+import ProjectFeatures from "./pages/ProjectFeatures";
 import FrontPage from "./pages/FrontPage";
 import Dashboard from "./pages/Dashboard";
 import Circles from "./pages/Circles";
@@ -70,6 +71,7 @@ const App = () => (
           <Route path="/help/category/:category" element={<Layout><HelpCategory /></Layout>} />
           <Route path="/support-tickets" element={<Layout><SupportTickets /></Layout>} />
           <Route path="/pricing" element={<Layout><Pricing /></Layout>} />
+          <Route path="/project-features" element={<Layout><ProjectFeatures /></Layout>} />
           <Route path="/ai-ads" element={<Layout><AIAdsLanding /></Layout>} />
           <Route path="/member-profile/:id" element={<Layout><MemberProfile /></Layout>} />
           <Route path="/add-member" element={<Layout><AddMember /></Layout>} />
