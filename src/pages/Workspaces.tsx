@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, HeadphonesIcon, Megaphone, UserCheck, Truck, ShoppingBag, ArrowRight } from "lucide-react";
+import { Plus, HeadphonesIcon, Megaphone, UserCheck, Truck, ShoppingBag, Building } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -104,161 +104,202 @@ const Workspaces = () => {
   };
 
   return (
-    <div className="p-6 space-y-8 max-w-7xl mx-auto">
-      {/* Header */}
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold text-foreground">My Workspaces</h1>
-        <p className="text-xl text-muted-foreground">Choose your business category and start building</p>
-      </div>
+    <div className="flex min-h-screen w-full">
+      {/* Main Content */}
+      <div className="flex-1 p-6 space-y-8 max-w-5xl mx-auto">
+        {/* Header */}
+        <div className="text-center space-y-4">
+          <h1 className="text-4xl font-bold text-foreground">My Workspaces</h1>
+          <p className="text-xl text-muted-foreground">Choose your business category and start building</p>
+        </div>
 
-      {/* Create New Workspace Section */}
-      <Card className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-primary/20">
-        <CardHeader className="text-center pb-4">
-          <CardTitle className="text-2xl">Create New Workspace</CardTitle>
-          <p className="text-muted-foreground">Select a category that best fits your business needs</p>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          {/* Currency Selector */}
-          <div className="flex justify-center">
-            <div className="flex items-center gap-2 bg-background/50 rounded-lg p-1 border">
-              {Object.entries(currencies).map(([code, currency]) => (
-                <Button
-                  key={code}
-                  variant={selectedCurrency === code ? "default" : "ghost"}
-                  size="sm"
-                  onClick={() => setSelectedCurrency(code)}
-                  className="gap-2"
-                >
-                  {currency.symbol} {currency.label.split(" ")[0]}
-                </Button>
-              ))}
+        {/* Create New Workspace Section */}
+        <Card className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-primary/20">
+          <CardHeader className="text-center pb-4">
+            <CardTitle className="text-2xl">Create New Workspace</CardTitle>
+            <p className="text-muted-foreground">Select a category that best fits your business needs</p>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* Currency Selector */}
+            <div className="flex justify-center">
+              <div className="flex items-center gap-2 bg-background/50 rounded-lg p-1 border">
+                {Object.entries(currencies).map(([code, currency]) => (
+                  <Button
+                    key={code}
+                    variant={selectedCurrency === code ? "default" : "ghost"}
+                    size="sm"
+                    onClick={() => setSelectedCurrency(code)}
+                    className="gap-2"
+                  >
+                    {currency.symbol} {currency.label.split(" ")[0]}
+                  </Button>
+                ))}
+              </div>
             </div>
-          </div>
-          
-          {/* Workspace Categories Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {workspaceCategories.map((category) => {
-              const IconComponent = category.icon;
-              return (
-                <Card 
-                  key={category.id} 
-                  className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer border-2 hover:border-primary/30"
-                  onClick={() => handleSectorSelect(category)}
-                >
-                  <CardContent className="p-6 text-center space-y-4">
-                    <div className={`w-16 h-16 bg-gradient-to-r ${category.color} rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300`}>
-                      <IconComponent className="w-8 h-8 text-white" />
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <h3 className="text-xl font-bold text-foreground">{category.name}</h3>
-                      <p className="text-muted-foreground text-sm">{category.description}</p>
-                    </div>
-
-                    <div className="space-y-3">
-                      <div className="text-2xl font-bold text-primary">
-                        {formatPrice(category.basePrice)}/month
+            
+            {/* Workspace Categories Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {workspaceCategories.map((category) => {
+                const IconComponent = category.icon;
+                return (
+                  <Card 
+                    key={category.id} 
+                    className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer border-2 hover:border-primary/30"
+                    onClick={() => handleSectorSelect(category)}
+                  >
+                    <CardContent className="p-6 text-center space-y-4">
+                      <div className={`w-16 h-16 bg-gradient-to-r ${category.color} rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300`}>
+                        <IconComponent className="w-8 h-8 text-white" />
                       </div>
                       
                       <div className="space-y-2">
-                        {category.features.map((feature, index) => (
-                          <div key={index} className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                            <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
-                            {feature}
-                          </div>
-                        ))}
+                        <h3 className="text-xl font-bold text-foreground">{category.name}</h3>
+                        <p className="text-muted-foreground text-sm">{category.description}</p>
                       </div>
-                    </div>
 
-                    <Button className={`w-full bg-gradient-to-r ${category.color} hover:opacity-90 text-white border-0`}>
-                      Get Started
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
+                      <div className="space-y-3">
+                        <div className="text-2xl font-bold text-primary">
+                          {formatPrice(category.basePrice)}/month
+                        </div>
+                        
+                        <div className="space-y-2">
+                          {category.features.map((feature, index) => (
+                            <div key={index} className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                              <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+                              {feature}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
 
-          {/* Custom Workspace Option */}
-          <div className="text-center pt-6 border-t">
-            <p className="text-muted-foreground mb-4">Need a custom solution?</p>
-            <Dialog open={isNewProjectOpen} onOpenChange={setIsNewProjectOpen}>
-              <DialogTrigger asChild>
-                <Button variant="outline" className="px-8">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Create Custom Workspace
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-2xl">
-                <DialogHeader>
-                  <DialogTitle>Create Custom Workspace</DialogTitle>
-                </DialogHeader>
-                <div className="space-y-6 py-4">
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <Button 
+                        className={`w-full bg-gradient-to-r ${category.color} hover:opacity-90 text-white border-0`}
+                        disabled
+                      >
+                        Coming Soon
+                      </Button>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+
+            {/* Custom Workspace Option */}
+            <div className="text-center pt-6 border-t">
+              <p className="text-muted-foreground mb-4">Need a custom solution?</p>
+              <Dialog open={isNewProjectOpen} onOpenChange={setIsNewProjectOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="px-8">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Create Custom Workspace
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl">
+                  <DialogHeader>
+                    <DialogTitle>Create Custom Workspace</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-6 py-4">
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="name">Workspace Name</Label>
+                          <Input
+                            id="name"
+                            placeholder="e.g., Fitness Coach Pro"
+                            value={newProject.name}
+                            onChange={(e) => setNewProject(prev => ({ ...prev, name: e.target.value }))}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="industry">Industry</Label>
+                          <Select value={newProject.industry} onValueChange={(value) => setNewProject(prev => ({ ...prev, industry: value }))}>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select industry" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="fitness">Fitness & Health</SelectItem>
+                              <SelectItem value="education">Education</SelectItem>
+                              <SelectItem value="business">Business Services</SelectItem>
+                              <SelectItem value="ecommerce">E-commerce</SelectItem>
+                              <SelectItem value="technology">Technology</SelectItem>
+                              <SelectItem value="other">Other</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                      
                       <div className="space-y-2">
-                        <Label htmlFor="name">Workspace Name</Label>
-                        <Input
-                          id="name"
-                          placeholder="e.g., Fitness Coach Pro"
-                          value={newProject.name}
-                          onChange={(e) => setNewProject(prev => ({ ...prev, name: e.target.value }))}
+                        <Label htmlFor="description">Description</Label>
+                        <Textarea
+                          id="description"
+                          placeholder="Brief description of your business"
+                          value={newProject.description}
+                          onChange={(e) => setNewProject(prev => ({ ...prev, description: e.target.value }))}
                         />
                       </div>
+                      
                       <div className="space-y-2">
-                        <Label htmlFor="industry">Industry</Label>
-                        <Select value={newProject.industry} onValueChange={(value) => setNewProject(prev => ({ ...prev, industry: value }))}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select industry" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="fitness">Fitness & Health</SelectItem>
-                            <SelectItem value="education">Education</SelectItem>
-                            <SelectItem value="business">Business Services</SelectItem>
-                            <SelectItem value="ecommerce">E-commerce</SelectItem>
-                            <SelectItem value="technology">Technology</SelectItem>
-                            <SelectItem value="other">Other</SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <Label htmlFor="website">Website (Optional)</Label>
+                        <Input
+                          id="website"
+                          placeholder="https://yourwebsite.com"
+                          value={newProject.website}
+                          onChange={(e) => setNewProject(prev => ({ ...prev, website: e.target.value }))}
+                        />
                       </div>
                     </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="description">Description</Label>
-                      <Textarea
-                        id="description"
-                        placeholder="Brief description of your business"
-                        value={newProject.description}
-                        onChange={(e) => setNewProject(prev => ({ ...prev, description: e.target.value }))}
-                      />
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="website">Website (Optional)</Label>
-                      <Input
-                        id="website"
-                        placeholder="https://yourwebsite.com"
-                        value={newProject.website}
-                        onChange={(e) => setNewProject(prev => ({ ...prev, website: e.target.value }))}
-                      />
-                    </div>
-                  </div>
 
-                  <div className="flex justify-end space-x-3">
-                    <Button variant="outline" onClick={() => setIsNewProjectOpen(false)}>
-                      Cancel
-                    </Button>
-                    <Button onClick={handleCreateProject}>
-                      Create Workspace
-                    </Button>
+                    <div className="flex justify-end space-x-3">
+                      <Button variant="outline" onClick={() => setIsNewProjectOpen(false)}>
+                        Cancel
+                      </Button>
+                      <Button onClick={handleCreateProject}>
+                        Create Workspace
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </DialogContent>
-            </Dialog>
+                </DialogContent>
+              </Dialog>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Right Sidebar */}
+      <div className="w-80 border-l bg-muted/30 p-6 space-y-6">
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-foreground">Quick Actions</h3>
+          
+          <Button 
+            variant="outline" 
+            className="w-full justify-start gap-3 h-12"
+            onClick={() => window.location.href = '/my-projects'}
+          >
+            <Building className="w-5 h-5" />
+            My Workspaces
+          </Button>
+          
+          <div className="text-sm text-muted-foreground">
+            <p>Manage your existing workspaces and projects</p>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+        
+        {/* Help & Support */}
+        <div className="space-y-4 pt-6 border-t">
+          <h4 className="font-medium text-foreground">Need Help?</h4>
+          <div className="space-y-3 text-sm">
+            <Button variant="ghost" className="w-full justify-start p-0 h-auto">
+              📚 Documentation
+            </Button>
+            <Button variant="ghost" className="w-full justify-start p-0 h-auto">
+              💬 Contact Support
+            </Button>
+            <Button variant="ghost" className="w-full justify-start p-0 h-auto">
+              🎥 Video Tutorials
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
