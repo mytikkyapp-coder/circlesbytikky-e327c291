@@ -15,23 +15,23 @@ interface ApiCallNodeProps {
 
 export const ApiCallNode: React.FC<ApiCallNodeProps> = ({ data, selected }) => {
   return (
-    <Card className={`min-w-[220px] p-3 shadow-md transition-all duration-200 ${
-      selected ? 'ring-2 ring-primary ring-offset-2' : ''
+    <Card className={`min-w-[220px] p-4 shadow-lg transition-all duration-300 bg-gradient-to-br from-card via-card/90 to-secondary/5 border-secondary/20 ${
+      selected ? 'ring-2 ring-primary ring-offset-2 shadow-primary/20' : 'hover:shadow-xl hover:border-secondary/30'
     }`}>
-      <div className="flex items-center gap-2 mb-2">
-        <div className="p-1.5 rounded-md bg-purple-100 dark:bg-purple-900/30">
-          <Zap className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+      <div className="flex items-center gap-2 mb-3">
+        <div className="p-2 rounded-xl bg-gradient-to-br from-secondary/20 to-accent/20 shadow-sm">
+          <Zap className="w-5 h-5 text-secondary" />
         </div>
-        <span className="font-medium text-sm">{data.label}</span>
+        <span className="font-semibold text-sm">{data.label}</span>
       </div>
       
-      <div className="space-y-2 mb-3">
+      <div className="space-y-3 mb-3">
         <div className="flex items-center gap-2">
-          <Badge variant="outline" className="text-xs">
+          <Badge variant="outline" className="text-xs font-medium bg-gradient-to-r from-secondary/20 to-accent/20 text-secondary border-secondary/30">
             {data.method || 'GET'}
           </Badge>
         </div>
-        <div className="text-sm text-muted-foreground font-mono text-xs bg-muted/20 p-2 rounded break-all">
+        <div className="text-sm text-muted-foreground font-mono bg-gradient-to-r from-muted/30 to-secondary/10 p-3 rounded-lg border border-secondary/10 break-all min-h-[40px] flex items-center">
           {data.endpoint || 'https://api.example.com'}
         </div>
       </div>
@@ -39,13 +39,13 @@ export const ApiCallNode: React.FC<ApiCallNodeProps> = ({ data, selected }) => {
       <Handle
         type="target"
         position={Position.Top}
-        className="w-3 h-3 bg-purple-500 border-2 border-white dark:border-gray-800"
+        className="w-3 h-3 bg-secondary border-2 border-white dark:border-gray-800 shadow-sm"
       />
       
       <Handle
         type="source"
         position={Position.Bottom}
-        className="w-3 h-3 bg-purple-500 border-2 border-white dark:border-gray-800"
+        className="w-3 h-3 bg-secondary border-2 border-white dark:border-gray-800 shadow-sm"
       />
     </Card>
   );
