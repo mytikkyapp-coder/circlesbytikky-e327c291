@@ -27,7 +27,6 @@ import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import MemberProfile from "./pages/MemberProfile";
 import MyProjects from "./pages/MyProjects";
-import Workspaces from "./pages/Workspaces";
 import WhatsAppSetup from "./pages/WhatsAppSetup";
 import WhatsAppChat from "./pages/WhatsAppChat";
 import SupportTickets from "./pages/SupportTickets";
@@ -43,6 +42,10 @@ import MetaAPIIntegration from "./pages/MetaAPIIntegration";
 import { ProjectLayout } from "./components/ProjectLayout";
 import ManageCircle from "./pages/ManageCircle";
 import WorkspaceSetup from "./pages/WorkspaceSetup";
+import Workspaces from "./pages/Workspaces";
+import WorkspaceDashboard from "./pages/WorkspaceDashboard";
+import TeamMembers from "./pages/TeamMembers";
+import Billing from "./pages/Billing";
 
 const queryClient = new QueryClient();
 
@@ -59,7 +62,6 @@ const App = () => (
           {/* Protected routes with Layout */}
           <Route path="/" element={<Layout><Home /></Layout>} />
           <Route path="/my-projects" element={<Layout><MyProjects /></Layout>} />
-          <Route path="/workspaces" element={<Layout><Workspaces /></Layout>} />
           <Route path="/home" element={<Layout><Home /></Layout>} />
           <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
           <Route path="/circles" element={<Layout><Circles /></Layout>} />
@@ -86,7 +88,12 @@ const App = () => (
           <Route path="/calling-api" element={<Layout><CallingAPILanding /></Layout>} />
           <Route path="/whatsapp-calling-crm" element={<Layout><WhatsAppCallingCRM /></Layout>} />
           <Route path="/meta-api-integration" element={<Layout><MetaAPIIntegration /></Layout>} />
+          <Route path="/workspaces" element={<Layout><Workspaces /></Layout>} />
+          <Route path="/workspace/create" element={<Layout><WorkspaceSetup /></Layout>} />
           <Route path="/workspace/:categoryId/setup" element={<Layout><WorkspaceSetup /></Layout>} />
+          <Route path="/workspace/:workspaceId/dashboard" element={<Layout><WorkspaceDashboard /></Layout>} />
+          <Route path="/workspace/:workspaceId/team" element={<Layout><TeamMembers /></Layout>} />
+          <Route path="/billing" element={<Layout><Billing /></Layout>} />
           <Route path="/chatbot-builder" element={<ChatbotBuilder />} />
           
           {/* Project-specific routes */}
