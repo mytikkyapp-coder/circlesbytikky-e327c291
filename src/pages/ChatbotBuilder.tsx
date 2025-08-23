@@ -206,11 +206,6 @@ const ChatbotBuilder = () => {
             />
           </div>
         )}
-
-        {/* Right Sidebar - Hidden on mobile and tablet */}
-        <div className="hidden xl:block">
-          <ChatbotRightSidebar />
-        </div>
       </div>
 
       <ChatbotPreview 

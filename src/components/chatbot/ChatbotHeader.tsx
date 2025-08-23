@@ -90,11 +90,9 @@ export const ChatbotHeader: React.FC<ChatbotHeaderProps> = ({
           variant="ghost" 
           size="sm" 
           onClick={onBackToDashboard}
-          className="gap-2 flex-shrink-0"
+          className="p-2 flex-shrink-0"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span className="hidden sm:inline">Back to Dashboard</span>
-          <span className="sm:hidden">Back</span>
         </Button>
         
         <Separator orientation="vertical" className="h-6 hidden lg:block" />
