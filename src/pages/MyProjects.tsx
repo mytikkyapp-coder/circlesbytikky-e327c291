@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Settings, Users, BarChart3, ExternalLink, MoreHorizontal, Facebook, MessageCircle, Globe, Building, RefreshCw, AlertCircle, Phone, IndianRupee, Star } from "lucide-react";
+import { Plus, Settings, Users, BarChart3, ExternalLink, MoreHorizontal, Facebook, MessageCircle, Globe, Building, RefreshCw, AlertCircle, Phone, IndianRupee, Star, DollarSign, Euro, ArrowRight, HeadphonesIcon, Megaphone, UserCheck, Truck, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -17,6 +17,8 @@ const MyProjects = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isNewProjectOpen, setIsNewProjectOpen] = useState(false);
   const [isSectorSelectionOpen, setIsSectorSelectionOpen] = useState(false);
+  const [selectedCurrency, setSelectedCurrency] = useState("USD");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [newProject, setNewProject] = useState({
     name: "",
     description: "",
@@ -25,6 +27,63 @@ const MyProjects = () => {
     whatsappConnected: false,
     facebookConnected: false
   });
+
+  // Currency configurations
+  const currencies = {
+    USD: { symbol: "$", label: "Dollar (USD)", multiplier: 1 },
+    INR: { symbol: "₹", label: "Rupee (INR)", multiplier: 83 },
+    EUR: { symbol: "€", label: "Euro (EUR)", multiplier: 0.92 },
+    AED: { symbol: "د.إ", label: "Dirham (AED)", multiplier: 3.67 }
+  };
+
+  // Workspace categories with pricing
+  const workspaceCategories = [
+    {
+      id: "tech-support",
+      name: "Tech Support",
+      icon: HeadphonesIcon,
+      description: "Customer service and technical support management",
+      basePrice: 99,
+      features: ["Ticket Management", "Live Chat", "Knowledge Base", "SLA Tracking"],
+      color: "from-blue-500 to-cyan-500"
+    },
+    {
+      id: "marketing",
+      name: "Marketing",
+      icon: Megaphone,
+      description: "Campaign management and lead generation tools",
+      basePrice: 149,
+      features: ["Campaign Builder", "Lead Tracking", "Analytics", "Social Media Integration"],
+      color: "from-pink-500 to-rose-500"
+    },
+    {
+      id: "hr-management",
+      name: "HR Management",
+      icon: UserCheck,
+      description: "Human resources and employee management system",
+      basePrice: 129,
+      features: ["Employee Database", "Payroll", "Performance Tracking", "Recruitment"],
+      color: "from-green-500 to-emerald-500"
+    },
+    {
+      id: "dealers",
+      name: "Dealers",
+      icon: Truck,
+      description: "Dealer network management and coordination",
+      basePrice: 199,
+      features: ["Dealer Portal", "Inventory Tracking", "Commission Management", "Performance Analytics"],
+      color: "from-orange-500 to-amber-500"
+    },
+    {
+      id: "distributors",
+      name: "Distributors",
+      icon: ShoppingBag,
+      description: "Distribution network and supply chain management",
+      basePrice: 249,
+      features: ["Supply Chain Tracking", "Order Management", "Territory Management", "Reporting"],
+      color: "from-purple-500 to-violet-500"
+    }
+  ];
 
   const projects = [
     {
@@ -143,9 +202,16 @@ const MyProjects = () => {
     });
   };
 
-  const handleSectorSelect = (sector: any) => {
-    console.log("Selected sector:", sector);
-    // This would create a new project with sector-specific configurations
+  const handleSectorSelect = (category: any) => {
+    console.log("Selected category:", category);
+    // Navigate to workspace setup for the selected category
+    window.location.href = `/workspace/${category.id}/setup`;
+  };
+
+  const formatPrice = (basePrice: number) => {
+    const currency = currencies[selectedCurrency as keyof typeof currencies];
+    const convertedPrice = Math.round(basePrice * currency.multiplier);
+    return `${currency.symbol}${convertedPrice.toLocaleString()}`;
   };
 
 
@@ -162,214 +228,230 @@ const MyProjects = () => {
   };
 
   return (
-    <div className="p-6 space-y-6 max-w-7xl mx-auto">
+    <div className="p-6 space-y-8 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">My Projects</h1>
-          <p className="text-muted-foreground">Manage your business profiles</p>
-        </div>
-        <Dialog open={isNewProjectOpen} onOpenChange={setIsNewProjectOpen}>
-          <DialogTrigger asChild>
-            <Button className="px-6">
-              <Plus className="w-4 h-4 mr-2" />
-              New Project
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="max-w-2xl">
-            <DialogHeader>
-              <DialogTitle>Create New Project</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-6 py-4">
-              {/* Basic Info */}
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Project Name</Label>
-                    <Input
-                      id="name"
-                      placeholder="e.g., Fitness Coach Pro"
-                      value={newProject.name}
-                      onChange={(e) => setNewProject(prev => ({ ...prev, name: e.target.value }))}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="industry">Industry</Label>
-                    <Select value={newProject.industry} onValueChange={(value) => setNewProject(prev => ({ ...prev, industry: value }))}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select industry" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="fitness">Fitness & Health</SelectItem>
-                        <SelectItem value="education">Education</SelectItem>
-                        <SelectItem value="business">Business Services</SelectItem>
-                        <SelectItem value="ecommerce">E-commerce</SelectItem>
-                        <SelectItem value="technology">Technology</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="description">Description</Label>
-                  <Textarea
-                    id="description"
-                    placeholder="Brief description of your business"
-                    value={newProject.description}
-                    onChange={(e) => setNewProject(prev => ({ ...prev, description: e.target.value }))}
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="website">Website (Optional)</Label>
-                  <Input
-                    id="website"
-                    placeholder="https://yourwebsite.com"
-                    value={newProject.website}
-                    onChange={(e) => setNewProject(prev => ({ ...prev, website: e.target.value }))}
-                  />
-                </div>
-              </div>
-
-              {/* Integration Setup */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Connect Your Platforms</h3>
-                
-                {/* WhatsApp Business */}
-                <Card className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <MessageCircle className="w-8 h-8 text-green-600" />
-                      <div>
-                        <h4 className="font-medium">WhatsApp Business API</h4>
-                        <p className="text-sm text-muted-foreground">Connect to send messages and manage contacts</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      {newProject.whatsappConnected ? (
-                        <Badge className="bg-green-100 text-green-800">Connected</Badge>
-                      ) : (
-                        <Button variant="outline" size="sm" onClick={handleWhatsAppConnect}>
-                          Connect
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                </Card>
-
-                {/* Facebook Login */}
-                <Card className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <Facebook className="w-8 h-8 text-blue-600" />
-                      <div>
-                        <h4 className="font-medium">Facebook Login</h4>
-                        <p className="text-sm text-muted-foreground">Enable social authentication for members</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      {newProject.facebookConnected ? (
-                        <Badge className="bg-blue-100 text-blue-800">Connected</Badge>
-                      ) : (
-                        <Button variant="outline" size="sm" onClick={handleFacebookConnect}>
-                          Connect
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                </Card>
-
-                {/* Note about Supabase */}
-                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                  <div className="flex items-start space-x-2">
-                    <Building className="w-5 h-5 text-yellow-600 mt-0.5" />
-                    <div>
-                      <p className="text-sm font-medium text-yellow-800">Connect Supabase for Full Features</p>
-                      <p className="text-xs text-yellow-700 mt-1">
-                        To securely store API keys and enable authentication, connect your project to Supabase.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Actions */}
-              <div className="flex justify-end space-x-3 pt-4 border-t">
-                <Button variant="outline" onClick={() => setIsNewProjectOpen(false)}>
-                  Cancel
-                </Button>
-                <Button onClick={handleCreateProject} disabled={!newProject.name}>
-                  Create Project
-                </Button>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
+      <div className="text-center space-y-4">
+        <h1 className="text-4xl font-bold text-foreground">My Workspaces</h1>
+        <p className="text-xl text-muted-foreground">Choose your business category and start building</p>
       </div>
 
-      {/* Search */}
-      <div className="max-w-md">
-        <Input
-          placeholder="Search projects..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full"
-        />
-      </div>
-
-      {/* Upcoming Features */}
-      <Card className="bg-gradient-to-br from-primary/5 to-accent/5 border-primary/20">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Star className="w-5 h-5 text-primary" />
-            Upcoming Features
-          </CardTitle>
-          <p className="text-muted-foreground">Exciting new features coming to Tikky platform</p>
+      {/* Create New Workspace Section */}
+      <Card className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-primary/20">
+        <CardHeader className="text-center pb-4">
+          <CardTitle className="text-2xl">Create New Workspace</CardTitle>
+          <p className="text-muted-foreground">Select a category that best fits your business needs</p>
         </CardHeader>
-        <CardContent>
-          <div className="p-6 bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg border border-primary/20">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="w-16 h-16 bg-primary/20 rounded-xl flex items-center justify-center">
-                  <Phone className="w-8 h-8 text-primary" />
-                </div>
-                <div className="space-y-2">
-                  <h4 className="text-xl font-bold">Meta Calling API</h4>
-                  <p className="text-muted-foreground">
-                    Make voice calls directly through WhatsApp Business platform
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <Badge variant="outline" className="bg-primary/10 text-primary border-primary/30">
-                      Voice Calls
-                    </Badge>
-                    <Badge variant="outline" className="bg-accent/10 text-accent-foreground border-accent/30">
-                      Meta Integration
-                    </Badge>
+        <CardContent className="space-y-6">
+          {/* Currency Selector */}
+          <div className="flex justify-center">
+            <div className="flex items-center gap-2 bg-background/50 rounded-lg p-1 border">
+              {Object.entries(currencies).map(([code, currency]) => (
+                <Button
+                  key={code}
+                  variant={selectedCurrency === code ? "default" : "ghost"}
+                  size="sm"
+                  onClick={() => setSelectedCurrency(code)}
+                  className="gap-2"
+                >
+                  {currency.symbol} {currency.label.split(" ")[0]}
+                </Button>
+              ))}
+            </div>
+          </div>
+          {/* Workspace Categories Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {workspaceCategories.map((category) => {
+              const IconComponent = category.icon;
+              return (
+                <Card 
+                  key={category.id} 
+                  className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer border-2 hover:border-primary/30"
+                  onClick={() => handleSectorSelect(category)}
+                >
+                  <CardContent className="p-6 text-center space-y-4">
+                    <div className={`w-16 h-16 bg-gradient-to-r ${category.color} rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300`}>
+                      <IconComponent className="w-8 h-8 text-white" />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <h3 className="text-xl font-bold text-foreground">{category.name}</h3>
+                      <p className="text-muted-foreground text-sm">{category.description}</p>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div className="text-2xl font-bold text-primary">
+                        {formatPrice(category.basePrice)}/month
+                      </div>
+                      
+                      <div className="space-y-2">
+                        {category.features.map((feature, index) => (
+                          <div key={index} className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                            <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+                            {feature}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <Button className={`w-full bg-gradient-to-r ${category.color} hover:opacity-90 text-white border-0`}>
+                      Get Started
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+
+          {/* Custom Workspace Option */}
+          <div className="text-center pt-6 border-t">
+            <p className="text-muted-foreground mb-4">Need a custom solution?</p>
+            <Dialog open={isNewProjectOpen} onOpenChange={setIsNewProjectOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="px-8">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Create Custom Workspace
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-2xl">
+                <DialogHeader>
+                  <DialogTitle>Create Custom Workspace</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-6 py-4">
+                  {/* Basic Info */}
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="name">Workspace Name</Label>
+                        <Input
+                          id="name"
+                          placeholder="e.g., Fitness Coach Pro"
+                          value={newProject.name}
+                          onChange={(e) => setNewProject(prev => ({ ...prev, name: e.target.value }))}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="industry">Industry</Label>
+                        <Select value={newProject.industry} onValueChange={(value) => setNewProject(prev => ({ ...prev, industry: value }))}>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select industry" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="fitness">Fitness & Health</SelectItem>
+                            <SelectItem value="education">Education</SelectItem>
+                            <SelectItem value="business">Business Services</SelectItem>
+                            <SelectItem value="ecommerce">E-commerce</SelectItem>
+                            <SelectItem value="technology">Technology</SelectItem>
+                            <SelectItem value="other">Other</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="description">Description</Label>
+                      <Textarea
+                        id="description"
+                        placeholder="Brief description of your business"
+                        value={newProject.description}
+                        onChange={(e) => setNewProject(prev => ({ ...prev, description: e.target.value }))}
+                      />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="website">Website (Optional)</Label>
+                      <Input
+                        id="website"
+                        placeholder="https://yourwebsite.com"
+                        value={newProject.website}
+                        onChange={(e) => setNewProject(prev => ({ ...prev, website: e.target.value }))}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Integration Setup */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold">Connect Your Platforms</h3>
+                    
+                    {/* WhatsApp Business */}
+                    <Card className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-3">
+                          <MessageCircle className="w-8 h-8 text-green-600" />
+                          <div>
+                            <h4 className="font-medium">WhatsApp Business API</h4>
+                            <p className="text-sm text-muted-foreground">Connect to send messages and manage contacts</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          {newProject.whatsappConnected ? (
+                            <Badge className="bg-green-100 text-green-800">Connected</Badge>
+                          ) : (
+                            <Button variant="outline" size="sm" onClick={handleWhatsAppConnect}>
+                              Connect
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    </Card>
+
+                    {/* Facebook Login */}
+                    <Card className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-3">
+                          <Facebook className="w-8 h-8 text-blue-600" />
+                          <div>
+                            <h4 className="font-medium">Facebook Login</h4>
+                            <p className="text-sm text-muted-foreground">Enable social authentication for members</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          {newProject.facebookConnected ? (
+                            <Badge className="bg-blue-100 text-blue-800">Connected</Badge>
+                          ) : (
+                            <Button variant="outline" size="sm" onClick={handleFacebookConnect}>
+                              Connect
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    </Card>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex justify-end space-x-3 pt-4 border-t">
+                    <Button variant="outline" onClick={() => setIsNewProjectOpen(false)}>
+                      Cancel
+                    </Button>
+                    <Button onClick={handleCreateProject} disabled={!newProject.name}>
+                      Create Workspace
+                    </Button>
                   </div>
                 </div>
-              </div>
-              <div className="text-right">
-                <Badge className="bg-gradient-to-r from-primary to-accent text-white px-4 py-2">
-                  Coming Soon
-                </Badge>
-              </div>
-            </div>
-            
-            <div className="mt-6 pt-6 border-t border-primary/20">
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Expected Launch</span>
-                <span className="font-medium">Q2 2025</span>
-              </div>
-            </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </CardContent>
       </Card>
 
-      {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredProjects.map((project) => (
-          <Card key={project.id} className="hover:shadow-medium transition-all duration-200">
+      {/* Search Existing Workspaces */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-foreground">Your Workspaces</h2>
+          <div className="max-w-md">
+            <Input
+              placeholder="Search workspaces..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full"
+            />
+          </div>
+        </div>
+
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredProjects.map((project) => (
+            <Card key={project.id} className="hover:shadow-medium transition-all duration-200">
             <CardHeader className="pb-4">
               <div className="flex items-start justify-between">
                 <div className="flex items-center space-x-3">
@@ -472,6 +554,7 @@ const MyProjects = () => {
             </CardContent>
           </Card>
         ))}
+      </div>
       </div>
 
       {/* Empty State */}

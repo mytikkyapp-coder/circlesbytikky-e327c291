@@ -41,6 +41,7 @@ import WhatsAppCallingCRM from "./pages/WhatsAppCallingCRM";
 import MetaAPIIntegration from "./pages/MetaAPIIntegration";
 import { ProjectLayout } from "./components/ProjectLayout";
 import ManageCircle from "./pages/ManageCircle";
+import WorkspaceSetup from "./pages/WorkspaceSetup";
 
 const queryClient = new QueryClient();
 
@@ -83,6 +84,7 @@ const App = () => (
           <Route path="/calling-api" element={<Layout><CallingAPILanding /></Layout>} />
           <Route path="/whatsapp-calling-crm" element={<Layout><WhatsAppCallingCRM /></Layout>} />
           <Route path="/meta-api-integration" element={<Layout><MetaAPIIntegration /></Layout>} />
+          <Route path="/workspace/:categoryId/setup" element={<Layout><WorkspaceSetup /></Layout>} />
           <Route path="/chatbot-builder" element={<ChatbotBuilder />} />
           
           {/* Project-specific routes */}
