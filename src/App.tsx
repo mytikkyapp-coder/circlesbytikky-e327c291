@@ -114,6 +114,10 @@ const App = () => (
           <Route path="/project/:projectId/integrations" element={<ProjectLayout><Integrations /></ProjectLayout>} />
           <Route path="/project/:projectId/settings" element={<ProjectLayout><Settings /></ProjectLayout>} />
           <Route path="/project/:projectId/chatbot-builder" element={<ProjectLayout><ChatbotBuilder /></ProjectLayout>} />
+          <Route path="/project/:projectId/dev-tools" element={<ProjectLayout><Settings /></ProjectLayout>} />
+          <Route path="/project/:projectId/api-management" element={<ProjectLayout><Integrations /></ProjectLayout>} />
+          <Route path="/project/:projectId/lead-gen" element={<ProjectLayout><LaunchAds /></ProjectLayout>} />
+          <Route path="/project/:projectId/whatsapp-calling-crm" element={<ProjectLayout><WhatsAppCallingCRM /></ProjectLayout>} />
           
           <Route path="*" element={<Layout><NotFound /></Layout>} />
         </Routes>

@@ -44,7 +44,7 @@ const getProjectData = (projectId: string) => {
       businessSetup: [
         { title: "WhatsApp API", url: `/project/${projectId}/whatsapp-setup`, icon: MessageSquare },
         { title: "WhatsApp Chat", url: `/project/${projectId}/whatsapp-chat`, icon: MessageSquare },
-        { title: "WhatsApp Calling CRM", url: "/whatsapp-calling-crm", icon: Phone },
+        { title: "WhatsApp Calling CRM", url: `/project/${projectId}/whatsapp-calling-crm`, icon: Phone },
         { title: "Business KYC", url: `/project/${projectId}/kyc`, icon: Shield },
         { title: "Wallet", url: `/project/${projectId}/wallet`, icon: Wallet },
         { title: "Integrations", url: `/project/${projectId}/integrations`, icon: Plug },
@@ -69,16 +69,19 @@ const getProjectData = (projectId: string) => {
       businessSetup: [
         { title: "WhatsApp API", url: `/project/${projectId}/whatsapp-setup`, icon: MessageSquare },
         { title: "WhatsApp Chat", url: `/project/${projectId}/whatsapp-chat`, icon: MessageSquare },
+        { title: "WhatsApp Calling CRM", url: `/project/${projectId}/whatsapp-calling-crm`, icon: Phone },
         { title: "Business KYC", url: `/project/${projectId}/kyc`, icon: Shield },
         { title: "Wallet", url: `/project/${projectId}/wallet`, icon: Wallet },
         { title: "Integrations", url: `/project/${projectId}/integrations`, icon: Plug },
       ],
       core: [
         { title: "Dashboard", url: `/project/${projectId}/dashboard`, icon: LayoutDashboard },
+        { title: "Core Features", url: `/project/${projectId}/core-features`, icon: Zap },
         { title: "Circles", url: `/project/${projectId}/circles`, icon: Circle },
         { title: "Members", url: `/project/${projectId}/members`, icon: Users },
         { title: "Developer Tools", url: `/project/${projectId}/dev-tools`, icon: Settings },
         { title: "API Management", url: `/project/${projectId}/api-management`, icon: Plug },
+        { title: "Settings", url: `/project/${projectId}/settings`, icon: Settings },
       ],
       marketing: [
         { title: "B2B Campaigns", url: `/project/${projectId}/campaigns`, icon: Megaphone },
@@ -93,12 +96,14 @@ const getProjectData = (projectId: string) => {
       businessSetup: [
         { title: "WhatsApp API", url: `/project/${projectId}/whatsapp-setup`, icon: MessageSquare },
         { title: "WhatsApp Chat", url: `/project/${projectId}/whatsapp-chat`, icon: MessageSquare },
+        { title: "WhatsApp Calling CRM", url: `/project/${projectId}/whatsapp-calling-crm`, icon: Phone },
         { title: "Business KYC", url: `/project/${projectId}/kyc`, icon: Shield },
         { title: "Payment Setup", url: `/project/${projectId}/wallet`, icon: Wallet },
         { title: "Course Integrations", url: `/project/${projectId}/integrations`, icon: Plug },
       ],
       core: [
         { title: "Dashboard", url: `/project/${projectId}/dashboard`, icon: LayoutDashboard },
+        { title: "Core Features", url: `/project/${projectId}/core-features`, icon: Zap },
         { title: "Student Groups", url: `/project/${projectId}/circles`, icon: Circle },
         { title: "Students", url: `/project/${projectId}/members`, icon: Users },
         { title: "Course Settings", url: `/project/${projectId}/settings`, icon: Settings },
