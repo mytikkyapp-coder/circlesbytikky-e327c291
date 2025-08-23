@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Settings, Users, BarChart3, ExternalLink, MoreHorizontal, Facebook, MessageCircle, Globe, Building, RefreshCw, AlertCircle } from "lucide-react";
+import { Plus, Settings, Users, BarChart3, ExternalLink, MoreHorizontal, Facebook, MessageCircle, Globe, Building, RefreshCw, AlertCircle, Phone, IndianRupee, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -36,7 +36,9 @@ const MyProjects = () => {
       members: 245,
       campaigns: 12,
       status: "Active",
-      lastActive: "2 hours ago"
+      lastActive: "2 hours ago",
+      value: "₹49,999",
+      sector: "Health & Fitness"
     },
     {
       id: 2,
@@ -47,7 +49,9 @@ const MyProjects = () => {
       members: 1250,
       campaigns: 28,
       status: "Active",
-      lastActive: "1 day ago"
+      lastActive: "1 day ago",
+      value: "₹2,49,999",
+      sector: "Technology"
     },
     {
       id: 3,
@@ -58,7 +62,48 @@ const MyProjects = () => {
       members: 89,
       campaigns: 5,
       status: "Paused",
-      lastActive: "3 days ago"
+      lastActive: "3 days ago",
+      value: "₹19,999",
+      sector: "Education"
+    },
+    {
+      id: 4,
+      name: "Cloud Kitchen Express",
+      description: "Food delivery & cloud kitchen",
+      avatar: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=100&h=100",
+      plan: "Pro",
+      members: 156,
+      campaigns: 8,
+      status: "Active",
+      lastActive: "30 minutes ago",
+      value: "₹39,999",
+      sector: "Food & Beverages"
+    },
+    {
+      id: 5,
+      name: "AutoCare Solutions",
+      description: "Automotive service center",
+      avatar: "https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=100&h=100",
+      plan: "Enterprise",
+      members: 78,
+      campaigns: 15,
+      status: "Active",
+      lastActive: "1 hour ago",
+      value: "₹89,999",
+      sector: "Automotive"
+    },
+    {
+      id: 6,
+      name: "Real Estate Pro",
+      description: "Property management & sales",
+      avatar: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=100&h=100",
+      plan: "Pro",
+      members: 234,
+      campaigns: 22,
+      status: "Active",
+      lastActive: "4 hours ago",
+      value: "₹1,29,999",
+      sector: "Real Estate"
     }
   ];
 
@@ -273,150 +318,50 @@ const MyProjects = () => {
         />
       </div>
 
-      {/* Connected Projects Billing Section */}
-      <Card>
+      {/* Upcoming Features */}
+      <Card className="bg-gradient-to-br from-primary/5 to-accent/5 border-primary/20">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <MessageCircle className="w-5 h-5" />
-            WhatsApp Connected Projects
+            <Star className="w-5 h-5 text-primary" />
+            Upcoming Features
           </CardTitle>
-          <p className="text-muted-foreground">Billing details and status for WhatsApp integrations</p>
+          <p className="text-muted-foreground">Exciting new features coming to Tikky platform</p>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6">
-            {/* E-commerce Store Project */}
-            <div className="p-6 bg-muted/50 rounded-lg space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
-                    <MessageCircle className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">E-commerce Store</h4>
-                    <p className="text-sm text-muted-foreground">Customer support & order updates</p>
-                  </div>
-                </div>
-                <Badge variant="default">Active</Badge>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-4 pt-2">
-                <div className="space-y-1">
-                  <p className="text-xs text-muted-foreground">Current Plan</p>
-                  <p className="font-medium">Pro Plan</p>
-                  <p className="text-sm text-muted-foreground">$49/month</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="text-xs text-muted-foreground">Next Billing</p>
-                  <p className="font-medium">Dec 25, 2024</p>
-                  <p className="text-sm text-green-600">Auto-renew ON</p>
-                </div>
-              </div>
-              
-              <div className="flex gap-2 pt-2">
-                <Button size="sm" variant="outline">
-                  <RefreshCw className="w-3 h-3 mr-1" />
-                  Renew Now
-                </Button>
-                <Button size="sm" variant="outline">
-                  View Usage
-                </Button>
-              </div>
-            </div>
-
-            {/* Marketing Campaign Project */}
-            <div className="p-6 bg-muted/50 rounded-lg space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
-                    <MessageCircle className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Marketing Campaign</h4>
-                    <p className="text-sm text-muted-foreground">Promotional broadcasts & engagement</p>
-                  </div>
-                </div>
-                <Badge variant="default">Active</Badge>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-4 pt-2">
-                <div className="space-y-1">
-                  <p className="text-xs text-muted-foreground">Current Plan</p>
-                  <p className="font-medium">Starter Plan</p>
-                  <p className="text-sm text-muted-foreground">$19/month</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="text-xs text-muted-foreground">Next Billing</p>
-                  <p className="font-medium">Jan 5, 2025</p>
-                  <p className="text-sm text-green-600">Auto-renew ON</p>
-                </div>
-              </div>
-              
-              <div className="flex gap-2 pt-2">
-                <Button size="sm" variant="outline">
-                  <RefreshCw className="w-3 h-3 mr-1" />
-                  Renew Now
-                </Button>
-                <Button size="sm" variant="outline">
-                  Upgrade Plan
-                </Button>
-              </div>
-            </div>
-
-            {/* Lead Generation Project */}
-            <div className="p-6 bg-muted/50 rounded-lg space-y-4 opacity-75">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center">
-                    <AlertCircle className="w-6 h-6 text-yellow-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Lead Generation</h4>
-                    <p className="text-sm text-muted-foreground">Automated follow-ups & nurturing</p>
-                  </div>
-                </div>
-                <Badge variant="outline">Payment Required</Badge>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-4 pt-2">
-                <div className="space-y-1">
-                  <p className="text-xs text-muted-foreground">Selected Plan</p>
-                  <p className="font-medium">Pro Plan</p>
-                  <p className="text-sm text-muted-foreground">$49/month</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="text-xs text-muted-foreground">Status</p>
-                  <p className="font-medium text-yellow-600">Setup Required</p>
-                  <p className="text-sm text-muted-foreground">Payment pending</p>
-                </div>
-              </div>
-              
-              <div className="flex gap-2 pt-2">
-                <Button size="sm" className="bg-primary">
-                  Complete Setup
-                </Button>
-                <Button size="sm" variant="outline">
-                  Change Plan
-                </Button>
-              </div>
-            </div>
-
-            <Separator />
-
+          <div className="p-6 bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg border border-primary/20">
             <div className="flex items-center justify-between">
-              <div className="space-y-1">
-                <p className="font-medium">Total Monthly Cost</p>
-                <p className="text-sm text-muted-foreground">2 active projects + 1 pending</p>
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 bg-primary/20 rounded-xl flex items-center justify-center">
+                  <Phone className="w-8 h-8 text-primary" />
+                </div>
+                <div className="space-y-2">
+                  <h4 className="text-xl font-bold">Meta Calling API</h4>
+                  <p className="text-muted-foreground">
+                    Make voice calls directly through WhatsApp Business platform
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline" className="bg-primary/10 text-primary border-primary/30">
+                      Voice Calls
+                    </Badge>
+                    <Badge variant="outline" className="bg-accent/10 text-accent-foreground border-accent/30">
+                      Meta Integration
+                    </Badge>
+                  </div>
+                </div>
               </div>
               <div className="text-right">
-                <p className="text-2xl font-bold">$68</p>
-                <p className="text-sm text-muted-foreground">per month</p>
+                <Badge className="bg-gradient-to-r from-primary to-accent text-white px-4 py-2">
+                  Coming Soon
+                </Badge>
               </div>
             </div>
-
-            <Button className="w-full">
-              <ExternalLink className="w-4 h-4 mr-2" />
-              Manage All Billing
-            </Button>
+            
+            <div className="mt-6 pt-6 border-t border-primary/20">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">Expected Launch</span>
+                <span className="font-medium">Q2 2025</span>
+              </div>
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -469,8 +414,23 @@ const MyProjects = () => {
                 </Badge>
               </div>
 
+              {/* Project Value & Sector */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Project Value:</span>
+                  <span className="font-bold text-lg text-primary flex items-center">
+                    <IndianRupee className="h-4 w-4 mr-1" />
+                    {project.value}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Sector:</span>
+                  <span className="font-medium">{project.sector}</span>
+                </div>
+              </div>
+
               {/* Stats */}
-              <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="grid grid-cols-2 gap-4 text-sm pt-2 border-t">
                 <div className="flex items-center space-x-2">
                   <Users className="h-4 w-4 text-muted-foreground" />
                   <span className="text-muted-foreground">Members:</span>
