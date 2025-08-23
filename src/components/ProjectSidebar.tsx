@@ -51,6 +51,7 @@ const getProjectData = (projectId: string) => {
       ],
       core: [
         { title: "Dashboard", url: `/project/${projectId}/dashboard`, icon: LayoutDashboard },
+        { title: "Core Features", url: `/project/${projectId}/core-features`, icon: Zap },
         { title: "Circles", url: `/project/${projectId}/circles`, icon: Circle },
         { title: "Members", url: `/project/${projectId}/members`, icon: Users },
         { title: "Settings", url: `/project/${projectId}/settings`, icon: Settings },

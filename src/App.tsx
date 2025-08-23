@@ -44,6 +44,8 @@ import MetaAPIIntegration from "./pages/MetaAPIIntegration";
 import { ProjectLayout } from "./components/ProjectLayout";
 import ManageCircle from "./pages/ManageCircle";
 import WorkspaceSetup from "./pages/WorkspaceSetup";
+import BusinessSetup from "./pages/BusinessSetup";
+import CoreFeatures from "./pages/CoreFeatures";
 
 const queryClient = new QueryClient();
 
@@ -93,6 +95,8 @@ const App = () => (
           
           {/* Project-specific routes */}
           <Route path="/project/:projectId/dashboard" element={<ProjectLayout><ProjectDashboard /></ProjectLayout>} />
+          <Route path="/project/:projectId/business-setup" element={<ProjectLayout><BusinessSetup /></ProjectLayout>} />
+          <Route path="/project/:projectId/core-features" element={<ProjectLayout><CoreFeatures /></ProjectLayout>} />
           <Route path="/project/:projectId/circles" element={<ProjectLayout><Circles /></ProjectLayout>} />
           <Route path="/project/:projectId/circles/:circleId/manage" element={<ProjectLayout><ManageCircle /></ProjectLayout>} />
           <Route path="/project/:projectId/members" element={<ProjectLayout><Members /></ProjectLayout>} />
