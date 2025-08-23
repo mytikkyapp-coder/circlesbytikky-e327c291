@@ -420,6 +420,29 @@ const MyProjects = () => {
                 <span className="font-medium">{project.sector}</span>
               </div>
 
+              {/* Integration Status */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center space-x-2">
+                    <MessageCircle className="h-4 w-4 text-green-600" />
+                    <span className="text-muted-foreground">WhatsApp API:</span>
+                  </div>
+                  <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                    Connected
+                  </Badge>
+                </div>
+                
+                <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center space-x-2">
+                    <Phone className="h-4 w-4 text-blue-600" />
+                    <span className="text-muted-foreground">Mobile Number:</span>
+                  </div>
+                  <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
+                    Connected
+                  </Badge>
+                </div>
+              </div>
+
               {/* Stats */}
               <div className="grid grid-cols-2 gap-4 text-sm pt-2 border-t">
                 <div className="flex items-center space-x-2">
