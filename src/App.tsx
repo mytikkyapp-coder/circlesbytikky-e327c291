@@ -27,9 +27,6 @@ import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import MemberProfile from "./pages/MemberProfile";
 import MyProjects from "./pages/MyProjects";
-import CreateProjects from "./pages/CreateProjects";
-import MyWorkspace from "./pages/MyWorkspace";
-import KnowledgeKit from "./pages/KnowledgeKit";
 import WhatsAppSetup from "./pages/WhatsAppSetup";
 import WhatsAppChat from "./pages/WhatsAppChat";
 import SupportTickets from "./pages/SupportTickets";
@@ -60,10 +57,7 @@ const App = () => (
           
           {/* Protected routes with Layout */}
           <Route path="/" element={<Layout><Home /></Layout>} />
-          <Route path="/create-projects" element={<Layout><CreateProjects /></Layout>} />
           <Route path="/my-projects" element={<Layout><MyProjects /></Layout>} />
-          <Route path="/my-workspace" element={<Layout><MyWorkspace /></Layout>} />
-          <Route path="/knowledge-kit" element={<Layout><KnowledgeKit /></Layout>} />
           <Route path="/home" element={<Layout><Home /></Layout>} />
           <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
           <Route path="/circles" element={<Layout><Circles /></Layout>} />

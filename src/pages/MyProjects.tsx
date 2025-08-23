@@ -231,122 +231,413 @@ const MyProjects = () => {
     <div className="p-6 space-y-8 max-w-7xl mx-auto">
       {/* Header */}
       <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold text-foreground">My Projects</h1>
-        <p className="text-xl text-muted-foreground">Manage and view all your existing projects</p>
+        <h1 className="text-4xl font-bold text-foreground">My Workspaces</h1>
+        <p className="text-xl text-muted-foreground">Choose your business category and start building</p>
       </div>
 
-      {/* Search and Add Project */}
-      <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-        <div className="relative flex-1 max-w-md">
-          <Input
-            placeholder="Search projects..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+      {/* Create New Workspace Section */}
+      <Card className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-primary/20">
+        <CardHeader className="text-center pb-4">
+          <CardTitle className="text-2xl">Create New Workspace</CardTitle>
+          <p className="text-muted-foreground">Select a category that best fits your business needs</p>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* Currency Selector */}
+          <div className="flex justify-center">
+            <div className="flex items-center gap-2 bg-background/50 rounded-lg p-1 border">
+              {Object.entries(currencies).map(([code, currency]) => (
+                <Button
+                  key={code}
+                  variant={selectedCurrency === code ? "default" : "ghost"}
+                  size="sm"
+                  onClick={() => setSelectedCurrency(code)}
+                  className="gap-2"
+                >
+                  {currency.symbol} {currency.label.split(" ")[0]}
+                </Button>
+              ))}
+            </div>
+          </div>
+          {/* Workspace Categories Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {workspaceCategories.map((category) => {
+              const IconComponent = category.icon;
+              return (
+                <Card 
+                  key={category.id} 
+                  className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer border-2 hover:border-primary/30"
+                  onClick={() => handleSectorSelect(category)}
+                >
+                  <CardContent className="p-6 text-center space-y-4">
+                    <div className={`w-16 h-16 bg-gradient-to-r ${category.color} rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300`}>
+                      <IconComponent className="w-8 h-8 text-white" />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <h3 className="text-xl font-bold text-foreground">{category.name}</h3>
+                      <p className="text-muted-foreground text-sm">{category.description}</p>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div className="text-2xl font-bold text-primary">
+                        {formatPrice(category.basePrice)}/month
+                      </div>
+                      
+                      <div className="space-y-2">
+                        {category.features.map((feature, index) => (
+                          <div key={index} className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                            <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+                            {feature}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <Button className={`w-full bg-gradient-to-r ${category.color} hover:opacity-90 text-white border-0`}>
+                      Get Started
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+
+          {/* Custom Workspace Option */}
+          <div className="text-center pt-6 border-t">
+            <p className="text-muted-foreground mb-4">Need a custom solution?</p>
+            <Dialog open={isNewProjectOpen} onOpenChange={setIsNewProjectOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="px-8">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Create Custom Workspace
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-2xl">
+                <DialogHeader>
+                  <DialogTitle>Create Custom Workspace</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-6 py-4">
+                  {/* Basic Info */}
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="name">Workspace Name</Label>
+                        <Input
+                          id="name"
+                          placeholder="e.g., Fitness Coach Pro"
+                          value={newProject.name}
+                          onChange={(e) => setNewProject(prev => ({ ...prev, name: e.target.value }))}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="industry">Industry</Label>
+                        <Select value={newProject.industry} onValueChange={(value) => setNewProject(prev => ({ ...prev, industry: value }))}>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select industry" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="fitness">Fitness & Health</SelectItem>
+                            <SelectItem value="education">Education</SelectItem>
+                            <SelectItem value="business">Business Services</SelectItem>
+                            <SelectItem value="ecommerce">E-commerce</SelectItem>
+                            <SelectItem value="technology">Technology</SelectItem>
+                            <SelectItem value="other">Other</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="description">Description</Label>
+                      <Textarea
+                        id="description"
+                        placeholder="Brief description of your business"
+                        value={newProject.description}
+                        onChange={(e) => setNewProject(prev => ({ ...prev, description: e.target.value }))}
+                      />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="website">Website (Optional)</Label>
+                      <Input
+                        id="website"
+                        placeholder="https://yourwebsite.com"
+                        value={newProject.website}
+                        onChange={(e) => setNewProject(prev => ({ ...prev, website: e.target.value }))}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Integration Setup */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold">Connect Your Platforms</h3>
+                    
+                    {/* WhatsApp Business */}
+                    <Card className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-3">
+                          <MessageCircle className="w-8 h-8 text-green-600" />
+                          <div>
+                            <h4 className="font-medium">WhatsApp Business API</h4>
+                            <p className="text-sm text-muted-foreground">Connect to send messages and manage contacts</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          {newProject.whatsappConnected ? (
+                            <Badge className="bg-green-100 text-green-800">Connected</Badge>
+                          ) : (
+                            <Button variant="outline" size="sm" onClick={handleWhatsAppConnect}>
+                              Connect
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    </Card>
+
+                    {/* Facebook Login */}
+                    <Card className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-3">
+                          <Facebook className="w-8 h-8 text-blue-600" />
+                          <div>
+                            <h4 className="font-medium">Facebook Login</h4>
+                            <p className="text-sm text-muted-foreground">Enable social authentication for members</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          {newProject.facebookConnected ? (
+                            <Badge className="bg-blue-100 text-blue-800">Connected</Badge>
+                          ) : (
+                            <Button variant="outline" size="sm" onClick={handleFacebookConnect}>
+                              Connect
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    </Card>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex justify-end space-x-3 pt-4 border-t">
+                    <Button variant="outline" onClick={() => setIsNewProjectOpen(false)}>
+                      Cancel
+                    </Button>
+                    <Button onClick={handleCreateProject} disabled={!newProject.name}>
+                      Create Workspace
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Search Existing Workspaces */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-foreground">Your Workspaces</h2>
+          <div className="max-w-md">
+            <Input
+              placeholder="Search workspaces..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full"
+            />
+          </div>
         </div>
-        <Button>
-          <Plus className="w-4 h-4 mr-2" />
-          Add New Project
-        </Button>
-      </div>
 
-      {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredProjects.map((project) => (
-          <Card key={project.id} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-            <CardContent className="p-6">
-              <div className="flex items-start justify-between mb-4">
-                <Avatar className="w-12 h-12">
-                  <AvatarImage src={project.avatar} alt={project.name} />
-                  <AvatarFallback>{project.name.substring(0, 2)}</AvatarFallback>
-                </Avatar>
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredProjects.map((project) => (
+            <Card key={project.id} className="hover:shadow-medium transition-all duration-200">
+            <CardHeader className="pb-4">
+              <div className="flex items-start justify-between">
+                <div className="flex items-center space-x-3">
+                  <Avatar className="h-12 w-12">
+                    <AvatarImage src={project.avatar} alt={project.name} />
+                    <AvatarFallback>{project.name.slice(0, 2)}</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <CardTitle className="text-lg">{project.name}</CardTitle>
+                    <p className="text-sm text-muted-foreground">{project.description}</p>
+                  </div>
+                </div>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="sm">
-                      <MoreHorizontal className="w-4 h-4" />
+                    <Button variant="ghost" size="icon" className="h-8 w-8">
+                      <MoreHorizontal className="h-4 w-4" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuItem>Edit Project</DropdownMenuItem>
-                    <DropdownMenuItem>View Analytics</DropdownMenuItem>
-                    <DropdownMenuItem>Settings</DropdownMenuItem>
-                    <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Settings className="h-4 w-4 mr-2" />
+                      Settings
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <a href={`/project/${project.id}/dashboard`}>
+                        <ExternalLink className="h-4 w-4 mr-2" />
+                        Open Project
+                      </a>
+                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
-              
-              <div className="space-y-3">
-                <div>
-                  <h3 className="text-lg font-semibold text-foreground">{project.name}</h3>
-                  <p className="text-sm text-muted-foreground">{project.description}</p>
-                </div>
-                
-                <div className="flex items-center gap-2">
-                  <Badge className={getPlanColor(project.plan)}>{project.plan}</Badge>
-                  <Badge className={getStatusColor(project.status)}>{project.status}</Badge>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <div className="text-muted-foreground">Members</div>
-                    <div className="font-medium">{project.members.toLocaleString()}</div>
-                  </div>
-                  <div>
-                    <div className="text-muted-foreground">Campaigns</div>
-                    <div className="font-medium">{project.campaigns}</div>
-                  </div>
-                </div>
-                
-                <div className="pt-2 border-t">
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-muted-foreground">Value: {project.value}</span>
-                    <span className="text-muted-foreground">{project.lastActive}</span>
-                  </div>
-                </div>
-                
-                <Button className="w-full mt-4" variant="outline">
-                  Open Project
-                  <ExternalLink className="w-4 h-4 ml-2" />
-                </Button>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* Status & Plan */}
+              <div className="flex items-center justify-between">
+                <Badge className={getPlanColor(project.plan)}>
+                  {project.plan}
+                </Badge>
+                <Badge variant="outline" className={getStatusColor(project.status)}>
+                  {project.status}
+                </Badge>
               </div>
+
+              {/* Sector */}
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">Sector:</span>
+                <span className="font-medium">{project.sector}</span>
+              </div>
+
+              {/* Integration Status */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center space-x-2">
+                    <MessageCircle className="h-4 w-4 text-green-600" />
+                    <span className="text-muted-foreground">WhatsApp API:</span>
+                  </div>
+                  <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                    Connected
+                  </Badge>
+                </div>
+                
+                <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center space-x-2">
+                    <Phone className="h-4 w-4 text-blue-600" />
+                    <span className="text-muted-foreground">Mobile Number:</span>
+                  </div>
+                  <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
+                    Connected
+                  </Badge>
+                </div>
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-2 gap-4 text-sm pt-2 border-t">
+                <div className="flex items-center space-x-2">
+                  <Users className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-muted-foreground">Members:</span>
+                  <span className="font-medium">{project.members}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <BarChart3 className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-muted-foreground">Campaigns:</span>
+                  <span className="font-medium">{project.campaigns}</span>
+                </div>
+              </div>
+
+              {/* Last Active */}
+              <div className="text-xs text-muted-foreground border-t pt-3">
+                Last active: {project.lastActive}
+              </div>
+
+              {/* Action Button */}
+              <Button variant="outline" className="w-full" asChild>
+                <a href={`/project/${project.id}/dashboard`}>
+                  <ExternalLink className="h-4 w-4 mr-2" />
+                  Open Project
+                </a>
+              </Button>
             </CardContent>
           </Card>
         ))}
       </div>
-
-      {/* Quick Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-8">
-        <Card>
-          <CardContent className="p-6 text-center">
-            <div className="text-2xl font-bold text-primary">{projects.length}</div>
-            <div className="text-sm text-muted-foreground">Total Projects</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-6 text-center">
-            <div className="text-2xl font-bold text-primary">
-              {projects.filter(p => p.status === "Active").length}
-            </div>
-            <div className="text-sm text-muted-foreground">Active Projects</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-6 text-center">
-            <div className="text-2xl font-bold text-primary">
-              {projects.reduce((sum, p) => sum + p.members, 0).toLocaleString()}
-            </div>
-            <div className="text-sm text-muted-foreground">Total Members</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-6 text-center">
-            <div className="text-2xl font-bold text-primary">
-              {projects.reduce((sum, p) => sum + p.campaigns, 0)}
-            </div>
-            <div className="text-sm text-muted-foreground">Total Campaigns</div>
-          </CardContent>
-        </Card>
       </div>
+
+      {/* Empty State */}
+      {filteredProjects.length === 0 && searchTerm && (
+        <div className="text-center py-12">
+          <p className="text-muted-foreground">No projects found matching "{searchTerm}"</p>
+        </div>
+      )}
+
+      {/* Create New Project Card */}
+      <Card className="border-dashed border-2 border-primary/30 hover:border-primary/50 transition-all duration-200 hover:shadow-lg group cursor-pointer">
+        <CardContent className="flex flex-col items-center justify-center p-8 h-full min-h-[200px]">
+          <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center mb-4 group-hover:from-primary/20 group-hover:to-primary/10 transition-all duration-300 group-hover:scale-110">
+            <Plus className="w-8 h-8 text-primary" />
+          </div>
+          <h3 className="text-lg font-semibold mb-2 text-center">Create New Workspace</h3>
+          <p className="text-sm text-muted-foreground text-center mb-4">
+            Choose across business sectors with customized features
+          </p>
+          <Button 
+            onClick={() => setIsSectorSelectionOpen(true)}
+            className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Across Sectors
+          </Button>
+        </CardContent>
+      </Card>
+
+      {/* Sector Selection Dialog */}
+      <SectorSelection
+        isOpen={isSectorSelectionOpen}
+        onClose={() => setIsSectorSelectionOpen(false)}
+        onSelect={handleSectorSelect}
+      />
+
+      {/* Legacy Create New Project Dialog */}
+      <Dialog open={isNewProjectOpen} onOpenChange={setIsNewProjectOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Create New Project</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="project-name">Project Name</Label>
+              <Input
+                id="project-name"
+                value={newProject.name}
+                onChange={(e) => setNewProject({...newProject, name: e.target.value})}
+                placeholder="Enter project name"
+              />
+            </div>
+            <div>
+              <Label htmlFor="project-description">Description</Label>
+              <Textarea
+                id="project-description"
+                value={newProject.description}
+                onChange={(e) => setNewProject({...newProject, description: e.target.value})}
+                placeholder="Describe your project"
+              />
+            </div>
+            <div>
+              <Label htmlFor="project-industry">Industry</Label>
+              <Select value={newProject.industry} onValueChange={(value) => setNewProject({...newProject, industry: value})}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select industry" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="cloud-kitchen">Cloud Kitchen</SelectItem>
+                  <SelectItem value="education">Education</SelectItem>
+                  <SelectItem value="automobiles">Automobiles</SelectItem>
+                  <SelectItem value="healthcare">Healthcare</SelectItem>
+                  <SelectItem value="retail">Retail & E-commerce</SelectItem>
+                  <SelectItem value="real-estate">Real Estate</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <Button onClick={handleCreateProject} className="w-full">
+              Create Project
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
