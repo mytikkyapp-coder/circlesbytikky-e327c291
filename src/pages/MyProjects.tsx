@@ -414,19 +414,10 @@ const MyProjects = () => {
                 </Badge>
               </div>
 
-              {/* Project Value & Sector */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Project Value:</span>
-                  <span className="font-bold text-lg text-primary flex items-center">
-                    <IndianRupee className="h-4 w-4 mr-1" />
-                    {project.value}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Sector:</span>
-                  <span className="font-medium">{project.sector}</span>
-                </div>
+              {/* Sector */}
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">Sector:</span>
+                <span className="font-medium">{project.sector}</span>
               </div>
 
               {/* Stats */}
