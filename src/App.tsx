@@ -42,10 +42,6 @@ import MetaAPIIntegration from "./pages/MetaAPIIntegration";
 import { ProjectLayout } from "./components/ProjectLayout";
 import ManageCircle from "./pages/ManageCircle";
 import WorkspaceSetup from "./pages/WorkspaceSetup";
-import Workspaces from "./pages/Workspaces";
-import WorkspaceDashboard from "./pages/WorkspaceDashboard";
-import TeamMembers from "./pages/TeamMembers";
-import Billing from "./pages/Billing";
 
 const queryClient = new QueryClient();
 
@@ -88,12 +84,7 @@ const App = () => (
           <Route path="/calling-api" element={<Layout><CallingAPILanding /></Layout>} />
           <Route path="/whatsapp-calling-crm" element={<Layout><WhatsAppCallingCRM /></Layout>} />
           <Route path="/meta-api-integration" element={<Layout><MetaAPIIntegration /></Layout>} />
-          <Route path="/workspaces" element={<Layout><Workspaces /></Layout>} />
-          <Route path="/workspace/create" element={<Layout><WorkspaceSetup /></Layout>} />
           <Route path="/workspace/:categoryId/setup" element={<Layout><WorkspaceSetup /></Layout>} />
-          <Route path="/workspace/:workspaceId/dashboard" element={<Layout><WorkspaceDashboard /></Layout>} />
-          <Route path="/workspace/:workspaceId/team" element={<Layout><TeamMembers /></Layout>} />
-          <Route path="/billing" element={<Layout><Billing /></Layout>} />
           <Route path="/chatbot-builder" element={<ChatbotBuilder />} />
           
           {/* Project-specific routes */}
