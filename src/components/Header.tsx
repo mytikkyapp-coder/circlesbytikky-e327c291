@@ -120,9 +120,6 @@ export function Header() {
           {/* Logo */}
           <div className="flex items-center space-x-2">
             <TikkyLogo size="sm" />
-            <span className="hidden font-medium lg:inline-block">
-              Tikky
-            </span>
           </div>
           
           {/* Main Navigation */}
@@ -277,9 +274,9 @@ export function Header() {
             <DropdownMenuContent className="w-56" align="end" forceMount>
               <div className="flex items-center justify-start gap-2 p-2">
                 <div className="flex flex-col space-y-1 leading-none">
-                  <p className="font-medium">Tikky Circles</p>
+                  <p className="font-medium">Circles</p>
                   <p className="w-[200px] truncate text-sm text-muted-foreground">
-                    admin@tikky.com
+                    admin@circles.com
                   </p>
                 </div>
               </div>
