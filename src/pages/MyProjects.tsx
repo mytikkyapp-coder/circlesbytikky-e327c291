@@ -273,17 +273,57 @@ const MyProjects = () => {
         />
       </div>
 
-      {/* Connected Projects Billing Section */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <MessageCircle className="w-5 h-5" />
-            WhatsApp Connected Projects
-          </CardTitle>
-          <p className="text-muted-foreground">Billing details and status for WhatsApp integrations</p>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-6">
+      {/* Projects Grid with INR Values */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredProjects.map((project) => (
+          <Card key={project.id} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <CardContent className="p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <Avatar className="w-12 h-12">
+                  <AvatarImage src={project.avatar} alt={project.name} />
+                  <AvatarFallback>{project.name.slice(0, 2)}</AvatarFallback>
+                </Avatar>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-foreground">{project.name}</h3>
+                  <p className="text-sm text-muted-foreground">{project.description}</p>
+                </div>
+                <Badge className={getStatusColor(project.status)}>
+                  {project.status}
+                </Badge>
+              </div>
+              
+              <div className="space-y-3">
+                {/* Project Value in INR */}
+                <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+                  <span className="text-sm font-medium">Project Value</span>
+                  <span className="text-lg font-bold text-primary">₹{(project.members * 25).toLocaleString()}</span>
+                </div>
+                
+                {/* Stats */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="text-center p-2">
+                    <p className="text-lg font-bold text-foreground">{project.members}</p>
+                    <p className="text-xs text-muted-foreground">Members</p>
+                  </div>
+                  <div className="text-center p-2">
+                    <p className="text-lg font-bold text-foreground">{project.campaigns}</p>
+                    <p className="text-xs text-muted-foreground">Campaigns</p>
+                  </div>
+                </div>
+                
+                {/* Plan & Actions */}
+                <div className="flex items-center justify-between pt-3 border-t">
+                  <Badge variant="outline" className={`text-xs ${getPlanColor(project.plan)}`}>
+                    {project.plan} Plan
+                  </Badge>
+                  <Button size="sm">
+                    Manage
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
             {/* E-commerce Store Project */}
             <div className="p-6 bg-muted/50 rounded-lg space-y-4">
               <div className="flex items-center justify-between">

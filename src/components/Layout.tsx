@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { CommunityJoinPopup } from "@/components/CommunityJoinPopup";
 
 interface LayoutProps {
@@ -37,6 +38,7 @@ export function Layout({ children }: LayoutProps) {
           <main className="flex-1 p-4 lg:p-6 bg-background overflow-auto">
             {children}
           </main>
+          <Footer />
         </div>
       </div>
       

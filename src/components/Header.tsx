@@ -37,7 +37,8 @@ import {
   Bot,
   FolderOpen,
   Plus,
-  Circle
+  Circle,
+  Video
 } from "lucide-react";
 
 export function Header() {
@@ -120,37 +121,26 @@ export function Header() {
         <SidebarTrigger className="mr-4" />
         
         <div className="flex items-center space-x-4 lg:space-x-6">
-          {/* Workspace Switcher */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center space-x-2 hover:bg-muted">
-                <TikkyLogo size="sm" />
-                <span className="hidden font-medium lg:inline-block">
-                  Circles Workspace
-                </span>
-                <ChevronDown className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-[250px]" align="start">
-              <DropdownMenuItem>
-                <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">Circles Workspace</p>
-                  <p className="text-xs leading-none text-muted-foreground">
-                    Default workspace by Tikky
-                  </p>
-                </div>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => navigate('/settings')}>
-                <Plus className="mr-2 h-4 w-4" />
-                Create new workspace
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {/* Brand */}
+          <div className="flex items-center space-x-2">
+            <TikkyLogo size="sm" />
+            <span className="hidden font-semibold lg:inline-block text-foreground">
+              Circles
+            </span>
+          </div>
           
           {/* Main Navigation */}
           <NavigationMenu className="hidden lg:flex">
             <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                  <Link to="/my-projects" className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
+                    <FolderOpen className="mr-2 h-4 w-4" />
+                    Projects
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="bg-transparent hover:bg-muted">Tools</NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -199,15 +189,6 @@ export function Header() {
               
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
-                  <Link to="/campaigns" className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
-                    <Megaphone className="mr-2 h-4 w-4" />
-                    Campaigns
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
                   <Link to="/analytics" className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
                     <BarChart3 className="mr-2 h-4 w-4" />
                     Analytics
@@ -217,18 +198,19 @@ export function Header() {
               
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
-                  <Link to="/templates" className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
-                    <FileText className="mr-2 h-4 w-4" />
-                    Templates
+                  <Link to="/campaigns" className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
+                    <Megaphone className="mr-2 h-4 w-4" />
+                    Broadcast
                   </Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
-                  <Link to="/my-projects" className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
-                    <FolderOpen className="mr-2 h-4 w-4" />
-                    Projects
+                  <Link to="/meta-calling" className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
+                    <Video className="mr-2 h-4 w-4" />
+                    Calling API
+                    <Badge variant="secondary" className="ml-2 text-xs">Coming Soon</Badge>
                   </Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
