@@ -15,7 +15,8 @@ import {
   Bot,
   ChevronDown,
   ChevronRight,
-  Home
+  Home,
+  Phone
 } from "lucide-react";
 import { useState } from "react";
 import LiveChat from "./LiveChat";
@@ -43,6 +44,7 @@ const getProjectData = (projectId: string) => {
       businessSetup: [
         { title: "WhatsApp API", url: `/project/${projectId}/whatsapp-setup`, icon: MessageSquare },
         { title: "WhatsApp Chat", url: `/project/${projectId}/whatsapp-chat`, icon: MessageSquare },
+        { title: "WhatsApp Calling CRM", url: "/whatsapp-calling-crm", icon: Phone },
         { title: "Business KYC", url: `/project/${projectId}/kyc`, icon: Shield },
         { title: "Wallet", url: `/project/${projectId}/wallet`, icon: Wallet },
         { title: "Integrations", url: `/project/${projectId}/integrations`, icon: Plug },

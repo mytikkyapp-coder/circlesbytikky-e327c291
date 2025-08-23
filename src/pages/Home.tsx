@@ -16,7 +16,8 @@ import {
   Plus,
   Facebook,
   Shield,
-  Bot
+  Bot,
+  Phone
 } from "lucide-react";
 import WhatsAppLiveChat from "@/components/WhatsAppLiveChat";
 
@@ -254,6 +255,27 @@ export default function Home() {
               <Button className="w-full bg-green-600 hover:bg-green-700" asChild>
                 <a href="/whatsapp-setup">
                   Get Started
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </a>
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* WhatsApp Calling CRM Card */}
+          <Card className="group hover:shadow-xl transition-all duration-500 hover:-translate-y-2 border border-primary/20 bg-gradient-to-br from-indigo-50 to-indigo-100/50 dark:from-indigo-950/30 dark:to-indigo-900/20">
+            <CardContent className="p-8 text-center space-y-6">
+              <div className="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
+                <Phone className="w-8 h-8 text-white" />
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-xl font-bold text-foreground">WhatsApp Calling CRM</h3>
+                <p className="text-muted-foreground">
+                  Make voice calls directly through WhatsApp with CRM integration and AI insights
+                </p>
+              </div>
+              <Button className="w-full bg-indigo-600 hover:bg-indigo-700" asChild>
+                <a href="/whatsapp-calling-crm">
+                  Launch CRM
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </a>
               </Button>
