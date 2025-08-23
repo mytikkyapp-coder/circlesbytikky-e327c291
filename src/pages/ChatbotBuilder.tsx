@@ -1,3 +1,4 @@
+
 import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
@@ -149,12 +150,12 @@ const ChatbotBuilder = () => {
       />
       
       <div className="flex-1 flex overflow-hidden min-h-0">
-        {/* Node Library - Hidden on mobile, shown on tablet+ */}
-        <div className="hidden lg:block">
+        {/* Node Library - Responsive visibility */}
+        <div className="hidden lg:block w-72 xl:w-80 flex-shrink-0">
           <NodeLibrary onAddNode={addNode} />
         </div>
         
-        <div className="flex-1 relative min-w-0">
+        <div className="flex-1 relative min-w-0 overflow-hidden">
           <ReactFlow
             nodes={nodes}
             edges={edges}
@@ -167,11 +168,11 @@ const ChatbotBuilder = () => {
             className="bg-background w-full h-full"
           >
             <Controls 
-              className="bg-card border border-border rounded-lg shadow-lg !left-2 !bottom-2"
+              className="bg-card border border-border rounded-lg shadow-lg !left-2 !bottom-2 sm:!left-4 sm:!bottom-4"
               showInteractive={false}
             />
             <MiniMap 
-              className="bg-card border border-border rounded-lg shadow-lg !right-2 !bottom-2 !w-48 !h-32"
+              className="bg-card border border-border rounded-lg shadow-lg !right-2 !bottom-2 sm:!right-4 sm:!bottom-4 !w-32 !h-24 sm:!w-48 sm:!h-32"
               nodeStrokeWidth={3}
               nodeColor="hsl(var(--primary))"
               maskColor="hsl(var(--muted) / 0.5)"
@@ -186,25 +187,42 @@ const ChatbotBuilder = () => {
           </ReactFlow>
           
           {/* Mobile Node Library - Floating FAB */}
-          <div className="lg:hidden absolute bottom-20 left-4 z-10">
+          <div className="lg:hidden absolute bottom-4 left-4 z-10">
             <Button
-              onClick={() => setShowPropertiesPanel(false)}
-              className="rounded-full w-14 h-14 bg-primary hover:bg-primary/90 shadow-lg"
+              onClick={() => setShowPropertiesPanel(!showPropertiesPanel)}
+              className="rounded-full w-12 h-12 sm:w-14 sm:h-14 bg-primary hover:bg-primary/90 shadow-lg"
             >
-              <Plus className="w-6 h-6" />
+              <Plus className="w-5 h-5 sm:w-6 sm:h-6" />
             </Button>
           </div>
         </div>
 
-        {/* Properties Panel - Responsive */}
+        {/* Properties Panel - Responsive positioning */}
         {showPropertiesPanel && (
-          <div className={`${isProjectContext ? 'hidden xl:block' : 'hidden lg:block'}`}>
+          <div className={`
+            ${isProjectContext 
+              ? 'absolute lg:relative right-0 top-0 h-full w-80 sm:w-96 lg:w-80 xl:w-96 z-20 lg:z-auto' 
+              : 'absolute lg:relative right-0 top-0 h-full w-80 sm:w-96 lg:w-80 xl:w-96 z-20 lg:z-auto'
+            }
+            ${showPropertiesPanel && !isProjectContext ? 'lg:block' : ''}
+            ${showPropertiesPanel && isProjectContext ? 'xl:block' : ''}
+            bg-card/95 backdrop-blur-sm lg:bg-card lg:backdrop-blur-none
+            border-l border-border shadow-xl lg:shadow-none
+          `}>
             <PropertiesPanel
               selectedNode={selectedNode}
               onUpdateNode={updateNodeData}
               onClose={() => setShowPropertiesPanel(false)}
             />
           </div>
+        )}
+
+        {/* Mobile overlay when properties panel is open */}
+        {showPropertiesPanel && (
+          <div 
+            className="lg:hidden fixed inset-0 bg-black/20 z-10"
+            onClick={() => setShowPropertiesPanel(false)}
+          />
         )}
       </div>
 
