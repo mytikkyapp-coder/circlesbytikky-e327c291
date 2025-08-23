@@ -14,7 +14,9 @@ import {
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
-import { ChatbotToolbar } from '@/components/chatbot/ChatbotToolbar';
+import { FlowsDashboard } from '@/components/chatbot/FlowsDashboard';
+import { ChatbotHeader } from '@/components/chatbot/ChatbotHeader';
+import { ChatbotRightSidebar } from '@/components/chatbot/ChatbotRightSidebar';
 import { NodeLibrary } from '@/components/chatbot/NodeLibrary';
 import { PropertiesPanel } from '@/components/chatbot/PropertiesPanel';
 import { ChatbotPreview } from '@/components/chatbot/ChatbotPreview';
@@ -57,6 +59,8 @@ const ChatbotBuilder = () => {
   const [selectedNode, setSelectedNode] = useState<Node | null>(null);
   const [showPropertiesPanel, setShowPropertiesPanel] = useState(true);
   const [showPreview, setShowPreview] = useState(false);
+  const [showDashboard, setShowDashboard] = useState(true);
+  const [currentFlow, setCurrentFlow] = useState<string | null>(null);
 
   const onConnect = useCallback(
     (params: Connection) => setEdges((eds) => addEdge({
@@ -116,9 +120,28 @@ const ChatbotBuilder = () => {
     }
   };
 
+  if (showDashboard) {
+    return (
+      <FlowsDashboard 
+        onCreateFlow={() => {
+          setShowDashboard(false);
+          setCurrentFlow('new-flow');
+        }}
+        onEditFlow={(flowId) => {
+          setShowDashboard(false);
+          setCurrentFlow(flowId);
+        }}
+      />
+    );
+  }
+
   return (
     <div className="h-screen flex flex-col bg-gradient-to-br from-background via-background to-primary/5">
-      <ChatbotToolbar onPreview={() => setShowPreview(true)} />
+      <ChatbotHeader 
+        currentFlow={currentFlow}
+        onBackToDashboard={() => setShowDashboard(true)}
+        onPreview={() => setShowPreview(true)}
+      />
       
       <div className="flex-1 flex">
         <NodeLibrary onAddNode={addNode} />
@@ -162,6 +185,8 @@ const ChatbotBuilder = () => {
             onClose={() => setShowPropertiesPanel(false)}
           />
         )}
+
+        <ChatbotRightSidebar />
       </div>
 
       <ChatbotPreview 
