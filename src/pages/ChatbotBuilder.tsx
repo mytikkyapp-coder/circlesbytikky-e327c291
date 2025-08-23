@@ -140,17 +140,17 @@ const ChatbotBuilder = () => {
 
   return (
     <Layout>
-      <div className="h-[calc(100vh-8rem)] flex flex-col bg-gradient-to-br from-background via-background to-primary/5">
+      <div className="h-screen flex flex-col bg-gradient-to-br from-background via-background to-primary/5">
         <ChatbotHeader 
           currentFlow={currentFlow}
           onBackToDashboard={() => setShowDashboard(true)}
           onPreview={() => setShowPreview(true)}
         />
         
-        <div className="flex-1 flex overflow-hidden">
+        <div className="flex-1 flex overflow-hidden min-h-0">
           <NodeLibrary onAddNode={addNode} />
           
-          <div className="flex-1 relative">
+          <div className="flex-1 relative min-w-0">
             <ReactFlow
               nodes={nodes}
               edges={edges}
@@ -160,7 +160,7 @@ const ChatbotBuilder = () => {
               onNodeClick={onNodeClick}
               nodeTypes={nodeTypes}
               fitView
-              className="bg-background"
+              className="bg-background w-full h-full"
             >
               <Controls 
                 className="bg-card border border-border rounded-lg shadow-lg"
