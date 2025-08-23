@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Eye, EyeOff, Facebook, Phone, Mail, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,24 +6,89 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(false);
   const navigate = useNavigate();
+  const { toast } = useToast();
+
+  useEffect(() => {
+    // Check if user is already logged in
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        navigate("/");
+      }
+    };
+    checkUser();
+  }, [navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      if (isSignUp) {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            emailRedirectTo: `${window.location.origin}/`
+          }
+        });
+        
+        if (error) {
+          if (error.message.includes("already registered")) {
+            toast({
+              title: "Account exists",
+              description: "This email is already registered. Please sign in instead.",
+              variant: "destructive"
+            });
+            setIsSignUp(false);
+          } else {
+            throw error;
+          }
+        } else {
+          toast({
+            title: "Account created",
+            description: "Please check your email to confirm your account.",
+          });
+        }
+      } else {
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+        
+        if (error) {
+          if (error.message.includes("Invalid login credentials")) {
+            toast({
+              title: "Invalid credentials",
+              description: "Please check your email and password.",
+              variant: "destructive"
+            });
+          } else {
+            throw error;
+          }
+        } else {
+          navigate("/");
+        }
+      }
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message || "An unexpected error occurred.",
+        variant: "destructive"
+      });
+    } finally {
       setIsLoading(false);
-      // Navigate to home page after successful login
-      navigate("/");
-    }, 1500);
+    }
   };
 
   return (
@@ -45,9 +110,12 @@ const Login = () => {
 
         <div className="relative z-10">
           <div className="mb-8">
-            <h1 className="text-4xl font-bold text-foreground mb-2">
-              Circles by <span className="text-primary">Tikky</span>
+            <h1 className="text-4xl font-bold text-foreground mb-4">
+              One platform for Your Social media Marketing
             </h1>
+            <h2 className="text-3xl font-bold text-foreground mb-2">
+              Circles by <span className="text-primary">Tikky</span>
+            </h2>
             <p className="text-xl text-muted-foreground">
               AI-powered community marketing
             </p>
@@ -92,8 +160,12 @@ const Login = () => {
         <Card className="w-full max-w-md shadow-medium border-0">
           <CardContent className="p-8">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-foreground">Welcome back</h2>
-              <p className="text-muted-foreground mt-2">Sign in to Tikky</p>
+              <h2 className="text-2xl font-bold text-foreground">
+                {isSignUp ? "Create Account" : "Welcome back"}
+              </h2>
+              <p className="text-muted-foreground mt-2">
+                {isSignUp ? "Sign up for Tikky" : "Sign in to Tikky"}
+              </p>
             </div>
 
             <form className="space-y-6" onSubmit={handleSubmit}>
@@ -140,7 +212,10 @@ const Login = () => {
                 className="w-full gap-2" 
                 disabled={isLoading}
               >
-                {isLoading ? "Signing In..." : "Sign In"}
+                {isLoading 
+                  ? (isSignUp ? "Creating Account..." : "Signing In...") 
+                  : (isSignUp ? "Sign Up" : "Sign In")
+                }
                 {!isLoading && <ArrowRight className="w-4 h-4" />}
               </Button>
             </form>
@@ -171,9 +246,13 @@ const Login = () => {
                 Forgot password?
               </a>
               <span className="text-muted-foreground mx-2">|</span>
-              <a href="#" className="text-primary hover:underline">
-                Sign Up
-              </a>
+              <button 
+                type="button"
+                onClick={() => setIsSignUp(!isSignUp)}
+                className="text-primary hover:underline"
+              >
+                {isSignUp ? "Sign In" : "Sign Up"}
+              </button>
             </div>
           </CardContent>
         </Card>
