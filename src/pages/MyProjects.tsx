@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { Plus, Settings, Users, BarChart3, ExternalLink, MoreHorizontal, RefreshCw, FolderOpen } from "lucide-react";
+import { Plus, Settings, Users, BarChart3, ExternalLink, MoreHorizontal, RefreshCw, FolderOpen, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { useNavigate } from "react-router-dom";
 
 const MyProjects = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   const projects = [
     {
@@ -159,7 +161,11 @@ const MyProjects = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate(`/project/${project.id}/dashboard`)}>
+                    <Eye className="w-4 h-4 mr-2" />
+                    View Project
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate(`/project/${project.id}/settings`)}>
                     <Settings className="w-4 h-4 mr-2" />
                     Settings
                   </DropdownMenuItem>
@@ -193,10 +199,18 @@ const MyProjects = () => {
                 <span className="text-xs text-muted-foreground">{project.lastActive}</span>
               </div>
               
-              <div className="text-center">
+              <div className="flex items-center justify-between">
                 <Badge variant="outline" className="text-xs">
                   {project.sector}
                 </Badge>
+                <Button 
+                  size="sm" 
+                  onClick={() => navigate(`/project/${project.id}/dashboard`)}
+                  className="opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  <Eye className="w-4 h-4 mr-2" />
+                  View Project
+                </Button>
               </div>
             </CardContent>
           </Card>
