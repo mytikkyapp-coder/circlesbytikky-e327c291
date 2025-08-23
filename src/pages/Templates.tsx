@@ -243,19 +243,21 @@ export default function Templates() {
       </div>
 
       {filteredTemplates.length === 0 && (
-        <Card className="text-center py-12">
-          <CardContent>
-            <MessageSquare className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-foreground mb-2">No templates found</h3>
-            <p className="text-muted-foreground mb-4">
-              {searchQuery ? "Try adjusting your search terms" : "Create your first message template to get started"}
+        <div className="text-center py-16">
+          <div className="max-w-md mx-auto">
+            <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+              <MessageSquare className="w-8 h-8 text-muted-foreground" />
+            </div>
+            <h3 className="text-xl font-semibold text-foreground mb-2">No templates found</h3>
+            <p className="text-muted-foreground mb-6">
+              {searchQuery ? "Try adjusting your search terms or create a new template." : "Create your first message template to get started with automated messaging."}
             </p>
-            <Button>
-              <Plus className="w-4 h-4 mr-2" />
+            <Button className="gap-2">
+              <Plus className="w-4 h-4" />
               Create Your First Template
             </Button>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       )}
     </div>
   );
