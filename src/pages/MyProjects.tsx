@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Settings, Users, BarChart3, ExternalLink, MoreHorizontal, Facebook, MessageCircle, Globe, Building } from "lucide-react";
+import { Plus, Settings, Users, BarChart3, ExternalLink, MoreHorizontal, Facebook, MessageCircle, Globe, Building, RefreshCw, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -10,6 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 
 const MyProjects = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -263,6 +264,154 @@ const MyProjects = () => {
           className="w-full"
         />
       </div>
+
+      {/* Connected Projects Billing Section */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <MessageCircle className="w-5 h-5" />
+            WhatsApp Connected Projects
+          </CardTitle>
+          <p className="text-muted-foreground">Billing details and status for WhatsApp integrations</p>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-6">
+            {/* E-commerce Store Project */}
+            <div className="p-6 bg-muted/50 rounded-lg space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
+                    <MessageCircle className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">E-commerce Store</h4>
+                    <p className="text-sm text-muted-foreground">Customer support & order updates</p>
+                  </div>
+                </div>
+                <Badge variant="default">Active</Badge>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4 pt-2">
+                <div className="space-y-1">
+                  <p className="text-xs text-muted-foreground">Current Plan</p>
+                  <p className="font-medium">Pro Plan</p>
+                  <p className="text-sm text-muted-foreground">$49/month</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-xs text-muted-foreground">Next Billing</p>
+                  <p className="font-medium">Dec 25, 2024</p>
+                  <p className="text-sm text-green-600">Auto-renew ON</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-2 pt-2">
+                <Button size="sm" variant="outline">
+                  <RefreshCw className="w-3 h-3 mr-1" />
+                  Renew Now
+                </Button>
+                <Button size="sm" variant="outline">
+                  View Usage
+                </Button>
+              </div>
+            </div>
+
+            {/* Marketing Campaign Project */}
+            <div className="p-6 bg-muted/50 rounded-lg space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
+                    <MessageCircle className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">Marketing Campaign</h4>
+                    <p className="text-sm text-muted-foreground">Promotional broadcasts & engagement</p>
+                  </div>
+                </div>
+                <Badge variant="default">Active</Badge>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4 pt-2">
+                <div className="space-y-1">
+                  <p className="text-xs text-muted-foreground">Current Plan</p>
+                  <p className="font-medium">Starter Plan</p>
+                  <p className="text-sm text-muted-foreground">$19/month</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-xs text-muted-foreground">Next Billing</p>
+                  <p className="font-medium">Jan 5, 2025</p>
+                  <p className="text-sm text-green-600">Auto-renew ON</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-2 pt-2">
+                <Button size="sm" variant="outline">
+                  <RefreshCw className="w-3 h-3 mr-1" />
+                  Renew Now
+                </Button>
+                <Button size="sm" variant="outline">
+                  Upgrade Plan
+                </Button>
+              </div>
+            </div>
+
+            {/* Lead Generation Project */}
+            <div className="p-6 bg-muted/50 rounded-lg space-y-4 opacity-75">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center">
+                    <AlertCircle className="w-6 h-6 text-yellow-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">Lead Generation</h4>
+                    <p className="text-sm text-muted-foreground">Automated follow-ups & nurturing</p>
+                  </div>
+                </div>
+                <Badge variant="outline">Payment Required</Badge>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4 pt-2">
+                <div className="space-y-1">
+                  <p className="text-xs text-muted-foreground">Selected Plan</p>
+                  <p className="font-medium">Pro Plan</p>
+                  <p className="text-sm text-muted-foreground">$49/month</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-xs text-muted-foreground">Status</p>
+                  <p className="font-medium text-yellow-600">Setup Required</p>
+                  <p className="text-sm text-muted-foreground">Payment pending</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-2 pt-2">
+                <Button size="sm" className="bg-primary">
+                  Complete Setup
+                </Button>
+                <Button size="sm" variant="outline">
+                  Change Plan
+                </Button>
+              </div>
+            </div>
+
+            <Separator />
+
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <p className="font-medium">Total Monthly Cost</p>
+                <p className="text-sm text-muted-foreground">2 active projects + 1 pending</p>
+              </div>
+              <div className="text-right">
+                <p className="text-2xl font-bold">$68</p>
+                <p className="text-sm text-muted-foreground">per month</p>
+              </div>
+            </div>
+
+            <Button className="w-full">
+              <ExternalLink className="w-4 h-4 mr-2" />
+              Manage All Billing
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Projects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
