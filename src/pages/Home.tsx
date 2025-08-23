@@ -17,7 +17,10 @@ import {
   Facebook,
   Shield,
   Bot,
-  Phone
+  Phone,
+  Instagram,
+  FileText,
+  Clock
 } from "lucide-react";
 import WhatsAppLiveChat from "@/components/WhatsAppLiveChat";
 
@@ -239,7 +242,7 @@ export default function Home() {
         </div>
 
         {/* Feature Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* WhatsApp Broadcast Card */}
           <Card className="group hover:shadow-xl transition-all duration-500 hover:-translate-y-2 border border-primary/20 bg-gradient-to-br from-green-50 to-green-100/50 dark:from-green-950/30 dark:to-green-900/20">
             <CardContent className="p-8 text-center space-y-6">
@@ -321,6 +324,56 @@ export default function Home() {
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </a>
               </Button>
+            </CardContent>
+          </Card>
+
+          {/* Instagram Automation Card */}
+          <Card className="group hover:shadow-xl transition-all duration-500 hover:-translate-y-2 border border-primary/20 bg-gradient-to-br from-pink-50 to-pink-100/50 dark:from-pink-950/30 dark:to-pink-900/20">
+            <CardContent className="p-8 text-center space-y-6">
+              <div className="w-16 h-16 bg-pink-600 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
+                <Instagram className="w-8 h-8 text-white" />
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-xl font-bold text-foreground">Instagram Automation</h3>
+                <p className="text-muted-foreground">
+                  Automate your Instagram marketing with AI-powered content scheduling and engagement
+                </p>
+              </div>
+              <div className="space-y-3">
+                <Badge variant="secondary" className="bg-amber-100 text-amber-800 gap-1">
+                  <Clock className="w-3 h-3" />
+                  Coming Soon
+                </Badge>
+                <Button className="w-full bg-pink-600 hover:bg-pink-700" disabled>
+                  Launch Soon
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Content Management Card */}
+          <Card className="group hover:shadow-xl transition-all duration-500 hover:-translate-y-2 border border-primary/20 bg-gradient-to-br from-emerald-50 to-emerald-100/50 dark:from-emerald-950/30 dark:to-emerald-900/20">
+            <CardContent className="p-8 text-center space-y-6">
+              <div className="w-16 h-16 bg-emerald-600 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
+                <FileText className="w-8 h-8 text-white" />
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-xl font-bold text-foreground">Content Management</h3>
+                <p className="text-muted-foreground">
+                  Organize, schedule, and optimize your content across all platforms from one dashboard
+                </p>
+              </div>
+              <div className="space-y-3">
+                <Badge variant="secondary" className="bg-amber-100 text-amber-800 gap-1">
+                  <Clock className="w-3 h-3" />
+                  Coming Soon
+                </Badge>
+                <Button className="w-full bg-emerald-600 hover:bg-emerald-700" disabled>
+                  Launch Soon
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </div>
