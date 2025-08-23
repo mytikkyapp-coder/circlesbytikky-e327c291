@@ -25,7 +25,11 @@ import {
   PhoneCall,
   Settings,
   UserCheck,
-  Webhook
+  Webhook,
+  BadgeCheck,
+  FileText,
+  CreditCard,
+  Globe
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -170,10 +174,14 @@ const WhatsAppSetup = () => {
       )}
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="messaging" className="flex items-center gap-2">
             <MessageSquare className="w-4 h-4" />
             Messaging Setup
+          </TabsTrigger>
+          <TabsTrigger value="verification" className="flex items-center gap-2">
+            <BadgeCheck className="w-4 h-4" />
+            Blue Tick Verification
           </TabsTrigger>
           <TabsTrigger value="calling" className="flex items-center gap-2">
             <PhoneCall className="w-4 h-4" />
@@ -716,6 +724,259 @@ const WhatsAppSetup = () => {
                       <div>
                         <h4 className="font-medium">Handle Call Events</h4>
                         <p className="text-sm text-muted-foreground">Manage call status and termination</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="verification" className="space-y-6">
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Blue Tick Verification Process */}
+            <div className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <BadgeCheck className="w-5 h-5 text-blue-600" />
+                    WhatsApp Blue Tick Verification
+                  </CardTitle>
+                  <CardDescription>
+                    Get the verified blue checkmark for your business account
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <Alert>
+                    <BadgeCheck className="w-4 h-4" />
+                    <AlertDescription>
+                      Blue tick verification establishes authenticity and builds trust with your customers. It's a paid service through Meta.
+                    </AlertDescription>
+                  </Alert>
+
+                  <div className="space-y-4">
+                    <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                      <div className="flex items-center gap-3 mb-3">
+                        <CreditCard className="w-5 h-5 text-blue-600" />
+                        <h4 className="font-medium text-blue-900">Meta Verification Pricing</h4>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="flex justify-between">
+                          <span className="text-sm text-blue-700">Monthly Subscription</span>
+                          <span className="font-medium text-blue-900">$14.99/month</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-sm text-blue-700">Setup Fee (One-time)</span>
+                          <span className="font-medium text-blue-900">$25.00</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <Button 
+                      className="w-full bg-blue-600 hover:bg-blue-700" 
+                      asChild
+                    >
+                      <a 
+                        href="https://business.facebook.com/settings/accounts/verification" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        Apply for Blue Tick on Meta
+                      </a>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Verification Requirements */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <FileText className="w-5 h-5" />
+                    Verification Requirements
+                  </CardTitle>
+                  <CardDescription>
+                    Documents and information needed for verification
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                      <div>
+                        <h4 className="font-medium">Business Registration</h4>
+                        <p className="text-sm text-muted-foreground">Valid business license or incorporation documents</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                      <div>
+                        <h4 className="font-medium">Government-issued ID</h4>
+                        <p className="text-sm text-muted-foreground">Passport, driver's license, or national ID</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                      <div>
+                        <h4 className="font-medium">Website or Social Presence</h4>
+                        <p className="text-sm text-muted-foreground">Official website or verified social media accounts</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                      <div>
+                        <h4 className="font-medium">Contact Information</h4>
+                        <p className="text-sm text-muted-foreground">Business phone number and email address</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Article Submission & Meta Links */}
+            <div className="space-y-6">
+              {/* Article Submission */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Globe className="w-5 h-5" />
+                    Submit Articles for Meta Review
+                  </CardTitle>
+                  <CardDescription>
+                    Submit press articles and media coverage to support verification
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <Alert>
+                    <AlertCircle className="w-4 h-4" />
+                    <AlertDescription>
+                      News articles and media coverage can strengthen your verification application. Submit 2-3 recent articles about your business.
+                    </AlertDescription>
+                  </Alert>
+
+                  <div className="space-y-3">
+                    <div className="space-y-2">
+                      <Label htmlFor="article1">Article 1 URL</Label>
+                      <Input
+                        id="article1"
+                        placeholder="https://example.com/news-article-about-your-business"
+                      />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="article2">Article 2 URL</Label>
+                      <Input
+                        id="article2"
+                        placeholder="https://example.com/press-release"
+                      />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="article3">Article 3 URL (Optional)</Label>
+                      <Input
+                        id="article3"
+                        placeholder="https://example.com/media-coverage"
+                      />
+                    </div>
+                  </div>
+
+                  <Button className="w-full" variant="outline">
+                    <FileText className="w-4 h-4 mr-2" />
+                    Save Articles for Submission
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Meta Business Links */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <ExternalLink className="w-5 h-5" />
+                    Meta Business Resources
+                  </CardTitle>
+                  <CardDescription>
+                    Official Meta links for business verification and support
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="grid grid-cols-1 gap-3">
+                    <Button variant="outline" className="justify-start" asChild>
+                      <a 
+                        href="https://business.facebook.com/settings/accounts/verification" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        <BadgeCheck className="w-4 h-4 mr-2" />
+                        Meta Business Verification
+                      </a>
+                    </Button>
+                    
+                    <Button variant="outline" className="justify-start" asChild>
+                      <a 
+                        href="https://developers.facebook.com/docs/whatsapp/cloud-api/getting-started/account-verification" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        <FileText className="w-4 h-4 mr-2" />
+                        WhatsApp Verification Guide
+                      </a>
+                    </Button>
+                    
+                    <Button variant="outline" className="justify-start" asChild>
+                      <a 
+                        href="https://www.facebook.com/business/help/2058515294227817" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        <Shield className="w-4 h-4 mr-2" />
+                        Business Verification Help
+                      </a>
+                    </Button>
+                    
+                    <Button variant="outline" className="justify-start" asChild>
+                      <a 
+                        href="https://business.facebook.com/overview" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        <Settings className="w-4 h-4 mr-2" />
+                        Meta Business Manager
+                      </a>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Verification Status */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Verification Status</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-4 bg-muted/50 rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <div className="w-3 h-3 rounded-full bg-amber-500"></div>
+                        <span className="font-medium">Blue Tick Verification</span>
+                      </div>
+                      <Badge variant="secondary">
+                        Not Applied
+                      </Badge>
+                    </div>
+
+                    <div className="text-center space-y-3">
+                      <BadgeCheck className="w-12 h-12 text-blue-500 mx-auto" />
+                      <div>
+                        <h4 className="font-semibold">Ready to Apply</h4>
+                        <p className="text-sm text-muted-foreground">
+                          Complete the application process on Meta Business
+                        </p>
                       </div>
                     </div>
                   </div>
