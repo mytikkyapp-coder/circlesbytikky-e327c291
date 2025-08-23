@@ -66,15 +66,15 @@ const sectors: Sector[] = [
     ],
     pricingStructure: {
       starter: {
-        price: 29,
+        price: 2499,
         features: ['Basic Menu Management', 'Order Notifications', 'Customer Database']
       },
       pro: {
-        price: 79,
+        price: 6499,
         features: ['Advanced Analytics', 'Multi-Platform Integration', 'Automated Marketing']
       },
       enterprise: {
-        price: 199,
+        price: 16499,
         features: ['Custom Integrations', 'Multi-Location Support', 'API Access']
       }
     }
@@ -99,15 +99,15 @@ const sectors: Sector[] = [
     ],
     pricingStructure: {
       starter: {
-        price: 39,
+        price: 3199,
         features: ['Student Portal', 'Basic Course Management', 'Communication Tools']
       },
       pro: {
-        price: 99,
+        price: 8199,
         features: ['Advanced Analytics', 'Automated Grading', 'Parent App Integration']
       },
       enterprise: {
-        price: 249,
+        price: 20499,
         features: ['Multi-Campus Support', 'Custom LMS Integration', 'Advanced Reporting']
       }
     }
@@ -132,15 +132,15 @@ const sectors: Sector[] = [
     ],
     pricingStructure: {
       starter: {
-        price: 49,
+        price: 4099,
         features: ['Basic Inventory', 'Appointment Booking', 'Customer Database']
       },
       pro: {
-        price: 129,
+        price: 10699,
         features: ['Advanced CRM', 'Service Analytics', 'Multi-Location Support']
       },
       enterprise: {
-        price: 299,
+        price: 24999,
         features: ['ERP Integration', 'Custom Workflows', 'Advanced Reporting']
       }
     }
@@ -165,15 +165,15 @@ const sectors: Sector[] = [
     ],
     pricingStructure: {
       starter: {
-        price: 59,
+        price: 4899,
         features: ['Patient Portal', 'Basic Scheduling', 'Records Management']
       },
       pro: {
-        price: 149,
+        price: 12299,
         features: ['Telemedicine', 'Advanced Analytics', 'Insurance Integration']
       },
       enterprise: {
-        price: 349,
+        price: 28999,
         features: ['Hospital Integration', 'HIPAA Compliance', 'Custom Workflows']
       }
     }
@@ -198,15 +198,15 @@ const sectors: Sector[] = [
     ],
     pricingStructure: {
       starter: {
-        price: 34,
+        price: 2799,
         features: ['Basic E-commerce', 'Inventory Management', 'Order Processing']
       },
       pro: {
-        price: 89,
+        price: 7399,
         features: ['Multi-Channel Selling', 'Advanced Analytics', 'Marketing Automation']
       },
       enterprise: {
-        price: 219,
+        price: 18199,
         features: ['Custom Integrations', 'Advanced Reporting', 'API Access']
       }
     }
@@ -231,15 +231,15 @@ const sectors: Sector[] = [
     ],
     pricingStructure: {
       starter: {
-        price: 44,
+        price: 3699,
         features: ['Property Listings', 'Lead Management', 'Basic CRM']
       },
       pro: {
-        price: 119,
+        price: 9899,
         features: ['Virtual Tours', 'Advanced Analytics', 'Marketing Automation']
       },
       enterprise: {
-        price: 279,
+        price: 23199,
         features: ['Multi-Office Support', 'Custom Integrations', 'Advanced Reporting']
       }
     }
@@ -323,7 +323,7 @@ export function SectorSelection({ isOpen, onClose, onSelect }: SectorSelectionPr
                         <div className="flex items-center justify-between">
                           <span className="text-xs text-muted-foreground">Starting from</span>
                           <Badge className={`bg-gradient-to-r ${sector.gradient} text-white`}>
-                            ${sector.pricingStructure.starter.price}/mo
+                            ₹{sector.pricingStructure.starter.price}/mo
                           </Badge>
                         </div>
                       </div>
@@ -363,7 +363,7 @@ export function SectorSelection({ isOpen, onClose, onSelect }: SectorSelectionPr
                         )}
                       </div>
                       <div className="text-3xl font-bold">
-                        ${plan.price}
+                        ₹{plan.price}
                         <span className="text-sm font-normal text-muted-foreground">/month</span>
                       </div>
                     </CardHeader>

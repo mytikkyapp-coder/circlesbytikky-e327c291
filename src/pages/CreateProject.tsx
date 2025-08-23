@@ -41,7 +41,7 @@ const sectors: Sector[] = [
     icon: ChefHat,
     gradient: 'from-orange-500 to-red-500',
     features: ['Online Menu Management', 'Order Processing System', 'Delivery Integration'],
-    pricing: { starter: 29, pro: 79, enterprise: 199 }
+    pricing: { starter: 2499, pro: 6499, enterprise: 16499 }
   },
   {
     id: 'education',
@@ -50,7 +50,7 @@ const sectors: Sector[] = [
     icon: GraduationCap,
     gradient: 'from-blue-500 to-purple-500',
     features: ['Student Management System', 'Course Creation Tools', 'Assignment Tracking'],
-    pricing: { starter: 39, pro: 99, enterprise: 249 }
+    pricing: { starter: 3199, pro: 8199, enterprise: 20499 }
   },
   {
     id: 'automobiles',
@@ -59,7 +59,7 @@ const sectors: Sector[] = [
     icon: Car,
     gradient: 'from-gray-600 to-blue-600',
     features: ['Inventory Management', 'Service Booking System', 'Customer Relationship Management'],
-    pricing: { starter: 49, pro: 129, enterprise: 299 }
+    pricing: { starter: 4099, pro: 10699, enterprise: 24999 }
   },
   {
     id: 'healthcare',
@@ -68,7 +68,7 @@ const sectors: Sector[] = [
     icon: Heart,
     gradient: 'from-green-500 to-teal-500',
     features: ['Patient Management', 'Appointment Scheduling', 'Medical Records System'],
-    pricing: { starter: 59, pro: 149, enterprise: 349 }
+    pricing: { starter: 4899, pro: 12299, enterprise: 28999 }
   },
   {
     id: 'retail',
@@ -77,7 +77,7 @@ const sectors: Sector[] = [
     icon: ShoppingBag,
     gradient: 'from-pink-500 to-rose-500',
     features: ['Product Catalog Management', 'Order Processing', 'Inventory Tracking'],
-    pricing: { starter: 34, pro: 89, enterprise: 219 }
+    pricing: { starter: 2799, pro: 7399, enterprise: 18199 }
   },
   {
     id: 'real-estate',
@@ -86,7 +86,7 @@ const sectors: Sector[] = [
     icon: Home,
     gradient: 'from-yellow-500 to-orange-500',
     features: ['Property Listings Management', 'Lead Generation Tools', 'Virtual Tour Integration'],
-    pricing: { starter: 44, pro: 119, enterprise: 279 }
+    pricing: { starter: 3699, pro: 9899, enterprise: 23199 }
   }
 ];
 
@@ -283,7 +283,7 @@ export default function CreateProject() {
                           <div className="flex items-center justify-between">
                             <span className="text-xs text-muted-foreground">Starting from</span>
                             <Badge className={`bg-gradient-to-r ${sector.gradient} text-white`}>
-                              ${sector.pricing.starter}/mo
+                              ₹{sector.pricing.starter}/mo
                             </Badge>
                           </div>
                         </div>
@@ -358,7 +358,7 @@ export default function CreateProject() {
                                   <span className="text-sm font-semibold capitalize">{planType}</span>
                                   {planType === 'pro' && <Crown className="w-4 h-4 text-primary" />}
                                 </div>
-                                <div className="text-xl font-bold">${price}</div>
+                                <div className="text-xl font-bold">₹{price}</div>
                                 <div className="text-xs text-muted-foreground">/month</div>
                               </CardContent>
                             </Card>
