@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -61,10 +62,10 @@ export const FlowsDashboard: React.FC<FlowsDashboardProps> = ({ onCreateFlow, on
   };
 
   return (
-    <div className="bg-gradient-to-br from-background via-background to-primary/5 p-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="bg-gradient-to-br from-background via-background to-primary/5 min-h-full">
+      <div className="container mx-auto px-4 py-6 max-w-7xl">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
           <div className="flex items-center gap-4">
             <div className="p-3 rounded-xl bg-gradient-to-br from-primary via-accent to-secondary shadow-lg">
               <Bot className="w-8 h-8 text-white" />
@@ -76,14 +77,14 @@ export const FlowsDashboard: React.FC<FlowsDashboardProps> = ({ onCreateFlow, on
               <p className="text-muted-foreground">Create and manage your AI chatbot flows</p>
             </div>
           </div>
-          <Button onClick={onCreateFlow} className="gap-2">
+          <Button onClick={onCreateFlow} className="gap-2 w-full sm:w-auto">
             <Plus className="w-4 h-4" />
             Create New Flow
           </Button>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-8">
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center gap-3">
@@ -142,18 +143,18 @@ export const FlowsDashboard: React.FC<FlowsDashboardProps> = ({ onCreateFlow, on
         </div>
 
         {/* Flows Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-6">
           {mockFlows.map((flow) => (
             <Card key={flow.id} className="group hover:shadow-lg transition-all duration-300">
               <CardHeader className="pb-3">
                 <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <CardTitle className="text-lg mb-2">{flow.name}</CardTitle>
-                    <CardDescription className="text-sm">{flow.description}</CardDescription>
+                  <div className="flex-1 min-w-0">
+                    <CardTitle className="text-lg mb-2 truncate">{flow.name}</CardTitle>
+                    <CardDescription className="text-sm line-clamp-2">{flow.description}</CardDescription>
                   </div>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="sm">
+                      <Button variant="ghost" size="sm" className="ml-2 flex-shrink-0">
                         <MoreHorizontal className="w-4 h-4" />
                       </Button>
                     </DropdownMenuTrigger>
@@ -169,9 +170,11 @@ export const FlowsDashboard: React.FC<FlowsDashboardProps> = ({ onCreateFlow, on
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
-                <Badge className={getStatusColor(flow.status)}>
-                  {flow.status}
-                </Badge>
+                <div className="mt-3">
+                  <Badge className={getStatusColor(flow.status)}>
+                    {flow.status}
+                  </Badge>
+                </div>
               </CardHeader>
               <CardContent className="pt-0">
                 <div className="grid grid-cols-2 gap-4 mb-4">
