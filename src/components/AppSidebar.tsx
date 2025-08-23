@@ -3,22 +3,15 @@ import { TikkyLogo } from "./TikkyLogo";
 import tikkyLogo from "@/assets/tikky-logo.png";
 import { 
   Home, 
-  LayoutDashboard,
-  Circle, 
-  Users,
-  Megaphone, 
-  FileText, 
-  BarChart3, 
-  Zap,
-  Wallet,
-  Plug, 
-  Settings, 
-  HelpCircle, 
-  LogOut,
+  Plus,
   FolderOpen,
+  Briefcase,
   MessageSquare,
   Shield,
-  Bot
+  Wallet,
+  BookOpen,
+  HelpCircle,
+  Settings
 } from "lucide-react";
 
 import {
@@ -33,32 +26,29 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-const projectItems = [
+const navigationItems = [
+  { title: "+ Create Project", url: "/create-project", icon: Plus, special: true },
   { title: "My Projects", url: "/my-projects", icon: FolderOpen },
+  { title: "My Workspace", url: "/my-workspace", icon: Briefcase },
 ];
 
 const businessItems = [
   { title: "WhatsApp API", url: "/whatsapp-setup", icon: MessageSquare },
   { title: "Business KYC", url: "/kyc", icon: Shield },
-  { title: "Integrations", url: "/integrations", icon: Plug },
+  { title: "Pricing & Payments", url: "/pricing", icon: Wallet },
 ];
 
-const coreItems = [
-  { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
-  { title: "Circles", url: "/circles", icon: Circle },
-  { title: "Members", url: "/members", icon: Users },
-  { title: "Campaigns", url: "/campaigns", icon: Megaphone },
-  { title: "Templates", url: "/templates", icon: FileText },
-  { title: "Launch AI Ads", url: "/launch-ads", icon: Zap },
-  { title: "Analytics", url: "/analytics", icon: BarChart3 },
-  { title: "Chatbot Builder", url: "/chatbot-builder", icon: Bot },
+const knowledgeItems = [
+  { title: "How Meta Campaigns", url: "/knowledge/meta-campaigns", icon: BookOpen },
+  { title: "How Circle Works", url: "/knowledge/circle-works", icon: BookOpen },
+  { title: "How to create Templates", url: "/knowledge/create-templates", icon: BookOpen },
+  { title: "How to Launch AI Ads", url: "/knowledge/launch-ai-ads", icon: BookOpen },
+  { title: "How to Build ChatBot", url: "/knowledge/build-chatbot", icon: BookOpen },
 ];
 
 const supportItems = [
-  { title: "Pricing & Payments", url: "/pricing", icon: Wallet },
   { title: "Help Center", url: "/help", icon: HelpCircle },
   { title: "Support Tickets", url: "/support-tickets", icon: MessageSquare },
-  { title: "Settings", url: "/settings", icon: Settings },
 ];
 
 export function AppSidebar() {
@@ -123,19 +113,20 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* Projects */}
+        {/* Navigation */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-bold text-sidebar-foreground px-3 mb-1">
-            {!isCollapsed && "PROJECTS"}
-          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
-              {projectItems.map((item) => (
+              {navigationItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink 
                       to={item.url} 
-                      className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 ${getNavClasses(item.url)}`}
+                      className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-300 ${
+                        item.special 
+                          ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg hover:scale-105 animate-pulse" 
+                          : getNavClasses(item.url)
+                      }`}
                     >
                       <item.icon className="w-4 h-4 flex-shrink-0" />
                       {!isCollapsed && <span className="font-medium">{item.title}</span>}
@@ -171,14 +162,14 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* Core Features */}
+        {/* Knowledge Kit */}
         <SidebarGroup>
           <SidebarGroupLabel className="text-xs font-bold text-sidebar-foreground px-3 mb-1 mt-4">
-            {!isCollapsed && "CORE FEATURES"}
+            {!isCollapsed && "KNOWLEDGE KIT"}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
-              {coreItems.map((item) => (
+              {knowledgeItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink 
@@ -186,7 +177,7 @@ export function AppSidebar() {
                       className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 ${getNavClasses(item.url)}`}
                     >
                       <item.icon className="w-4 h-4 flex-shrink-0" />
-                      {!isCollapsed && <span className="font-medium">{item.title}</span>}
+                      {!isCollapsed && <span className="font-medium text-xs">{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -195,7 +186,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* Support & Settings */}
+        {/* Support */}
         <SidebarGroup>
           <SidebarGroupLabel className="text-xs font-bold text-sidebar-foreground px-3 mb-1 mt-4">
             {!isCollapsed && "SUPPORT"}
