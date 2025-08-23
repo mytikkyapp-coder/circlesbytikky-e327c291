@@ -5,31 +5,23 @@ interface CirclesLogoProps {
 
 export function CirclesLogo({ className = "", size = "md" }: CirclesLogoProps) {
   const sizeClasses = {
-    sm: "w-6 h-6",
-    md: "w-8 h-8", 
-    lg: "w-12 h-12"
-  };
-
-  const textSizeClasses = {
-    sm: "text-lg",
-    md: "text-xl", 
-    lg: "text-3xl"
+    sm: "h-6",
+    md: "h-8", 
+    lg: "h-12"
   };
 
   return (
-    <div className={`flex items-center gap-3 ${className}`}>
+    <div className={`flex items-center gap-2 ${className}`}>
       {/* Circles Logo */}
       <div className="relative">
-        <div className={`${sizeClasses[size]} bg-gradient-to-br from-primary via-accent to-secondary rounded-full flex items-center justify-center shadow-lg`}>
-          <div className="flex items-center justify-center gap-0.5">
-            <div className="w-1.5 h-1.5 bg-white rounded-full opacity-90"></div>
-            <div className="w-2 h-2 bg-white rounded-full"></div>
-            <div className="w-1.5 h-1.5 bg-white rounded-full opacity-90"></div>
-          </div>
+        <div className="flex items-center gap-1">
+          <div className="w-3 h-3 bg-primary rounded-full"></div>
+          <div className="w-4 h-4 bg-accent rounded-full"></div>
+          <div className="w-3 h-3 bg-secondary rounded-full"></div>
         </div>
       </div>
       {/* Circles text */}
-      <span className={`font-bold text-black dark:text-white ${textSizeClasses[size]}`} style={{ fontFamily: 'Inter, Arial, sans-serif', letterSpacing: '-0.02em' }}>
+      <span className={`font-bold text-black dark:text-white ${sizeClasses[size]} text-2xl`} style={{ fontFamily: 'Arial, sans-serif' }}>
         Circles
       </span>
     </div>
