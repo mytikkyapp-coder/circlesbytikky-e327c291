@@ -37,6 +37,8 @@ import ChatbotBuilder from "./pages/ChatbotBuilder";
 import ProjectDashboard from "./pages/ProjectDashboard";
 import AIAdsLanding from "./pages/AIAdsLanding";
 import CallingAPILanding from "./pages/CallingAPILanding";
+import WhatsAppCallingCRM from "./pages/WhatsAppCallingCRM";
+import MetaAPIIntegration from "./pages/MetaAPIIntegration";
 import { ProjectLayout } from "./components/ProjectLayout";
 
 const queryClient = new QueryClient();
@@ -77,6 +79,8 @@ const App = () => (
           <Route path="/member-profile/:id" element={<Layout><MemberProfile /></Layout>} />
           <Route path="/add-member" element={<Layout><AddMember /></Layout>} />
           <Route path="/calling-api" element={<Layout><CallingAPILanding /></Layout>} />
+          <Route path="/whatsapp-calling-crm" element={<Layout><WhatsAppCallingCRM /></Layout>} />
+          <Route path="/meta-api-integration" element={<Layout><MetaAPIIntegration /></Layout>} />
           <Route path="/chatbot-builder" element={<ChatbotBuilder />} />
           
           {/* Project-specific routes */}
