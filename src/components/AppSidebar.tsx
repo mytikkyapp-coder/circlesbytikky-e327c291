@@ -3,22 +3,16 @@ import { TikkyLogo } from "./TikkyLogo";
 import tikkyLogo from "@/assets/tikky-logo.png";
 import { 
   Home, 
-  LayoutDashboard,
-  Circle, 
-  Users,
-  Megaphone, 
-  FileText, 
-  BarChart3, 
-  Zap,
-  Wallet,
-  Plug, 
-  Settings, 
-  HelpCircle, 
-  LogOut,
+  Plus,
   FolderOpen,
+  Briefcase,
   MessageSquare,
   Shield,
-  Bot
+  Wallet,
+  BookOpen,
+  HelpCircle, 
+  LifeBuoy,
+  Settings
 } from "lucide-react";
 
 import {
@@ -34,30 +28,24 @@ import {
 } from "@/components/ui/sidebar";
 
 const projectItems = [
+  { title: "Create Projects", url: "/create-projects", icon: Plus },
   { title: "My Projects", url: "/my-projects", icon: FolderOpen },
+  { title: "My Workspace", url: "/my-workspace", icon: Briefcase },
 ];
 
 const businessItems = [
   { title: "WhatsApp API", url: "/whatsapp-setup", icon: MessageSquare },
   { title: "Business KYC", url: "/kyc", icon: Shield },
-  { title: "Integrations", url: "/integrations", icon: Plug },
+  { title: "Pricing & Payments", url: "/pricing", icon: Wallet },
 ];
 
-const coreItems = [
-  { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
-  { title: "Circles", url: "/circles", icon: Circle },
-  { title: "Members", url: "/members", icon: Users },
-  { title: "Campaigns", url: "/campaigns", icon: Megaphone },
-  { title: "Templates", url: "/templates", icon: FileText },
-  { title: "Launch AI Ads", url: "/launch-ads", icon: Zap },
-  { title: "Analytics", url: "/analytics", icon: BarChart3 },
-  { title: "Chatbot Builder", url: "/chatbot-builder", icon: Bot },
+const knowledgeItems = [
+  { title: "Knowledge Kit", url: "/knowledge-kit", icon: BookOpen },
 ];
 
 const supportItems = [
-  { title: "Pricing & Payments", url: "/pricing", icon: Wallet },
   { title: "Help Center", url: "/help", icon: HelpCircle },
-  { title: "Support Tickets", url: "/support-tickets", icon: MessageSquare },
+  { title: "Support Tickets", url: "/support-tickets", icon: LifeBuoy },
   { title: "Settings", url: "/settings", icon: Settings },
 ];
 
@@ -171,14 +159,14 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* Core Features */}
+        {/* Knowledge Kit */}
         <SidebarGroup>
           <SidebarGroupLabel className="text-xs font-bold text-sidebar-foreground px-3 mb-1 mt-4">
-            {!isCollapsed && "CORE FEATURES"}
+            {!isCollapsed && "KNOWLEDGE KIT"}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
-              {coreItems.map((item) => (
+              {knowledgeItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink 
@@ -195,7 +183,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* Support & Settings */}
+        {/* Support */}
         <SidebarGroup>
           <SidebarGroupLabel className="text-xs font-bold text-sidebar-foreground px-3 mb-1 mt-4">
             {!isCollapsed && "SUPPORT"}
