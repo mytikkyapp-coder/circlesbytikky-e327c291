@@ -7,33 +7,18 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { 
   ArrowRight, 
   MessageCircle, 
   Users, 
   Zap, 
-  CheckCircle, 
-  Settings, 
-  BarChart3,
   Video,
   Plus,
-  Pause,
-  Play,
-  Square,
-  RefreshCw,
-  ExternalLink,
   Facebook,
-  Globe,
   Shield,
-  Crown,
-  MoreHorizontal,
-  TrendingUp,
-  Calendar
+  Bot
 } from "lucide-react";
 import WhatsAppLiveChat from "@/components/WhatsAppLiveChat";
-import PricingPlans from "@/components/PricingPlans";
 
 export default function Home() {
   const [isNewProjectOpen, setIsNewProjectOpen] = useState(false);
@@ -90,30 +75,6 @@ export default function Home() {
       facebookConnected: true
     }
   ];
-
-  const getPlanColor = (plan: string) => {
-    switch (plan) {
-      case "Pro": return "bg-gradient-to-r from-purple-500 to-purple-600 text-white";
-      case "Basic": return "bg-gradient-to-r from-blue-500 to-blue-600 text-white";
-      default: return "bg-muted text-muted-foreground";
-    }
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "Live": return "bg-green-100 text-green-800 border-green-200";
-      case "Paused": return "bg-yellow-100 text-yellow-800 border-yellow-200";
-      default: return "bg-gray-100 text-gray-800 border-gray-200";
-    }
-  };
-
-  const getApiStatusColor = (status: string) => {
-    switch (status) {
-      case "Connected": return "text-green-600";
-      case "Disconnected": return "text-red-600";
-      default: return "text-gray-600";
-    }
-  };
 
   const handleCreateProject = () => {
     console.log("Creating project:", newProject);
@@ -267,168 +228,79 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Connected Projects Section */}
+      {/* Feature Cards Section */}
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-bold text-foreground">Connected Projects</h2>
-            <p className="text-muted-foreground mt-1">Manage your business projects and their status</p>
-          </div>
-          <div className="flex gap-3">
-            <Button variant="outline" className="gap-2">
-              <TrendingUp className="w-4 h-4" />
-              View Analytics
-            </Button>
-            <Dialog open={isNewProjectOpen} onOpenChange={setIsNewProjectOpen}>
-              <DialogTrigger asChild>
-                <Button className="gap-2" disabled={currentProjectCount >= projectLimit}>
-                  <Plus className="w-4 h-4" />
-                  New Project
-                </Button>
-              </DialogTrigger>
-            </Dialog>
-          </div>
+        <div className="text-center space-y-4">
+          <h2 className="text-3xl font-bold text-foreground">Core Features</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Streamline your business operations with our powerful automation tools
+          </p>
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project) => (
-            <Card key={project.id} className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-              <CardHeader className="pb-4">
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center space-x-3">
-                    <Avatar className="h-12 w-12">
-                      <AvatarImage src={project.avatar} alt={project.name} />
-                      <AvatarFallback>{project.name.slice(0, 2)}</AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <CardTitle className="text-lg">{project.name}</CardTitle>
-                      <p className="text-sm text-muted-foreground">{project.description}</p>
-                    </div>
-                  </div>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon" className="h-8 w-8">
-                        <MoreHorizontal className="h-4 w-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem>
-                        <Settings className="h-4 w-4 mr-2" />
-                        Settings
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <a href={`/project/${project.id}/dashboard`}>
-                          <ExternalLink className="h-4 w-4 mr-2" />
-                          Open Project
-                        </a>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-              </CardHeader>
-              
-              <CardContent className="space-y-4">
-                {/* Plan & Status */}
-                <div className="flex items-center justify-between">
-                  <Badge className={getPlanColor(project.plan)}>
-                    {project.plan === "Pro" && <Crown className="w-3 h-3 mr-1" />}
-                    {project.plan}
-                  </Badge>
-                  <Badge variant="outline" className={getStatusColor(project.status)}>
-                    {project.status}
-                  </Badge>
-                </div>
+        {/* Feature Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* WhatsApp Broadcast Card */}
+          <Card className="group hover:shadow-xl transition-all duration-500 hover:-translate-y-2 border border-primary/20 bg-gradient-to-br from-green-50 to-green-100/50 dark:from-green-950/30 dark:to-green-900/20">
+            <CardContent className="p-8 text-center space-y-6">
+              <div className="w-16 h-16 bg-green-600 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
+                <MessageCircle className="w-8 h-8 text-white" />
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-xl font-bold text-foreground">WhatsApp Broadcast</h3>
+                <p className="text-muted-foreground">
+                  Send mass messages to your customers instantly with our powerful WhatsApp API integration
+                </p>
+              </div>
+              <Button className="w-full bg-green-600 hover:bg-green-700" asChild>
+                <a href="/whatsapp-setup">
+                  Get Started
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </a>
+              </Button>
+            </CardContent>
+          </Card>
 
-                {/* API Status */}
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">API Status:</span>
-                    <span className={`font-medium ${getApiStatusColor(project.apiStatus)}`}>
-                      {project.apiStatus}
-                    </span>
-                  </div>
-                  
-                  {/* Integration Status */}
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-1">
-                      <MessageCircle className={`w-4 h-4 ${project.whatsappConnected ? 'text-green-600' : 'text-gray-400'}`} />
-                      <span className="text-xs text-muted-foreground">WhatsApp</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Facebook className={`w-4 h-4 ${project.facebookConnected ? 'text-blue-600' : 'text-gray-400'}`} />
-                      <span className="text-xs text-muted-foreground">Facebook</span>
-                    </div>
-                  </div>
-                </div>
+          {/* AI Flow Builder Card */}
+          <Card className="group hover:shadow-xl transition-all duration-500 hover:-translate-y-2 border border-primary/20 bg-gradient-to-br from-purple-50 to-purple-100/50 dark:from-purple-950/30 dark:to-purple-900/20">
+            <CardContent className="p-8 text-center space-y-6">
+              <div className="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
+                <Bot className="w-8 h-8 text-white" />
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-xl font-bold text-foreground">AI Flow Builder</h3>
+                <p className="text-muted-foreground">
+                  Create intelligent chatbots and automation workflows with our visual flow builder
+                </p>
+              </div>
+              <Button className="w-full bg-purple-600 hover:bg-purple-700" asChild>
+                <a href="/chatbot-builder">
+                  Build Flows
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </a>
+              </Button>
+            </CardContent>
+          </Card>
 
-                {/* Stats */}
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div className="flex items-center space-x-2">
-                    <Users className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-muted-foreground">Members:</span>
-                    <span className="font-medium">{project.members}</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <BarChart3 className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-muted-foreground">Campaigns:</span>
-                    <span className="font-medium">{project.campaigns}</span>
-                  </div>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex gap-2 pt-2">
-                  {project.status === "Live" ? (
-                    <Button size="sm" variant="outline" className="flex-1 gap-1">
-                      <Pause className="w-3 h-3" />
-                      Pause
-                    </Button>
-                  ) : (
-                    <Button size="sm" className="flex-1 gap-1">
-                      <Play className="w-3 h-3" />
-                      Resume
-                    </Button>
-                  )}
-                  <Button size="sm" variant="outline" className="gap-1">
-                    <RefreshCw className="w-3 h-3" />
-                    Renew
-                  </Button>
-                  <Button size="sm" variant="destructive" className="gap-1">
-                    <Square className="w-3 h-3" />
-                    Stop
-                  </Button>
-                </div>
-
-                {/* Last Active */}
-                <div className="text-xs text-muted-foreground border-t pt-3">
-                  <div className="flex items-center gap-1">
-                    <Calendar className="w-3 h-3" />
-                    Last active: {project.lastActive}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-
-          {/* Add New Project Card */}
-          {currentProjectCount < projectLimit && (
-            <Dialog open={isNewProjectOpen} onOpenChange={setIsNewProjectOpen}>
-              <DialogTrigger asChild>
-                <Card className="border-dashed border-2 border-primary/20 hover:border-primary/40 transition-colors cursor-pointer group">
-                  <CardContent className="flex flex-col items-center justify-center py-12 space-y-4">
-                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                      <Plus className="w-6 h-6 text-primary" />
-                    </div>
-                    <div className="text-center">
-                      <h3 className="font-semibold">Create New Project</h3>
-                      <p className="text-sm text-muted-foreground">Start your next business venture</p>
-                    </div>
-                    <Button>Get Started</Button>
-                  </CardContent>
-                </Card>
-              </DialogTrigger>
-            </Dialog>
-          )}
+          {/* Meta Ads Card */}
+          <Card className="group hover:shadow-xl transition-all duration-500 hover:-translate-y-2 border border-primary/20 bg-gradient-to-br from-blue-50 to-blue-100/50 dark:from-blue-950/30 dark:to-blue-900/20">
+            <CardContent className="p-8 text-center space-y-6">
+              <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
+                <Zap className="w-8 h-8 text-white" />
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-xl font-bold text-foreground">Meta Ads</h3>
+                <p className="text-muted-foreground">
+                  Launch high-converting Facebook and Instagram ads with AI-powered optimization
+                </p>
+              </div>
+              <Button className="w-full bg-blue-600 hover:bg-blue-700" asChild>
+                <a href="/ai-ads">
+                  Launch Ads
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </a>
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </div>
 
@@ -551,11 +423,6 @@ export default function Home() {
           </div>
         </DialogContent>
       </Dialog>
-
-      {/* Pricing Plans Section */}
-      <div className="bg-muted/30 rounded-3xl p-8 lg:p-12 mt-12">
-        <PricingPlans currentPlan="pro" />
-      </div>
 
       {/* WhatsApp Live Chat Component */}
       <WhatsAppLiveChat />

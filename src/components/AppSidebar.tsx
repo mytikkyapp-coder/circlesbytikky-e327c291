@@ -33,6 +33,10 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
+const projectItems = [
+  { title: "My Projects", url: "/my-projects", icon: FolderOpen },
+];
+
 const businessItems = [
   { title: "WhatsApp API", url: "/whatsapp-setup", icon: MessageSquare },
   { title: "Business KYC", url: "/kyc", icon: Shield },
@@ -40,26 +44,19 @@ const businessItems = [
   { title: "Integrations", url: "/integrations", icon: Plug },
 ];
 
+const pricingItems = [
+  { title: "Pricing & Payments", url: "/pricing", icon: Wallet },
+];
+
 const coreItems = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "Circles", url: "/circles", icon: Circle },
   { title: "Members", url: "/members", icon: Users },
-  { title: "Settings", url: "/settings", icon: Settings },
-];
-
-const marketingItems = [
   { title: "Campaigns", url: "/campaigns", icon: Megaphone },
   { title: "Templates", url: "/templates", icon: FileText },
   { title: "Launch AI Ads", url: "/launch-ads", icon: Zap },
   { title: "Analytics", url: "/analytics", icon: BarChart3 },
-];
-
-const projectItems = [
-  { title: "My Projects", url: "/my-projects", icon: FolderOpen },
-];
-
-const pricingItems = [
-  { title: "Pricing & Payments", url: "/pricing", icon: Wallet },
+  { title: "Settings", url: "/settings", icon: Settings },
 ];
 
 const helpItems = [
@@ -121,9 +118,30 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
+        {/* Projects */}
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu className="space-y-1">
+              {projectItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink 
+                      to={item.url} 
+                      className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 ${getNavClasses(item.url)}`}
+                    >
+                      <item.icon className="w-5 h-5 flex-shrink-0" />
+                      {!isCollapsed && <span className="font-medium">{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
         {/* Business Setup */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground px-3 mb-2">
+          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground px-3 mb-2 mt-6">
             {!isCollapsed && "Business Setup"}
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -145,6 +163,27 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
+        {/* Pricing */}
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu className="space-y-1 mt-6">
+              {pricingItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink 
+                      to={item.url} 
+                      className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 ${getNavClasses(item.url)}`}
+                    >
+                      <item.icon className="w-5 h-5 flex-shrink-0" />
+                      {!isCollapsed && <span className="font-medium">{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
         {/* Core Features */}
         <SidebarGroup>
           <SidebarGroupLabel className="text-xs font-medium text-muted-foreground px-3 mb-2 mt-6">
@@ -153,54 +192,6 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
               {coreItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <NavLink 
-                      to={item.url} 
-                      className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 ${getNavClasses(item.url)}`}
-                    >
-                      <item.icon className="w-5 h-5 flex-shrink-0" />
-                      {!isCollapsed && <span className="font-medium">{item.title}</span>}
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        {/* Projects */}
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground px-3 mb-2 mt-6">
-            {!isCollapsed && "Projects"}
-          </SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu className="space-y-1">
-              {projectItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <NavLink 
-                      to={item.url} 
-                      className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 ${getNavClasses(item.url)}`}
-                    >
-                      <item.icon className="w-5 h-5 flex-shrink-0" />
-                      {!isCollapsed && <span className="font-medium">{item.title}</span>}
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        {/* Pricing */}
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground px-3 mb-2 mt-6">
-            {!isCollapsed && "Billing"}
-          </SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu className="space-y-1">
-              {pricingItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink 
@@ -239,20 +230,17 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* Logout */}
+        {/* Made with Love in India */}
         <div className="mt-auto pt-4 border-t border-border">
-          <SidebarMenuButton asChild>
-            <button 
-              className="flex items-center gap-3 px-3 py-2 w-full text-left rounded-xl transition-all duration-200 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
-              onClick={() => {
-                // Navigate to login page
-                window.location.href = "/login";
-              }}
-            >
-              <LogOut className="w-5 h-5 flex-shrink-0" />
-              {!isCollapsed && <span className="font-medium">Logout</span>}
-            </button>
-          </SidebarMenuButton>
+          <div className="text-center px-3 py-2">
+            {!isCollapsed ? (
+              <p className="text-xs text-muted-foreground">
+                Made with ❤️ in India 🇮🇳
+              </p>
+            ) : (
+              <div className="text-xs">❤️🇮🇳</div>
+            )}
+          </div>
         </div>
       </SidebarContent>
     </Sidebar>
