@@ -92,25 +92,39 @@ const sectors: Sector[] = [
 
 const workspaceCategories = [
   {
-    id: 'marketing',
-    name: 'Marketing Hub',
-    description: 'Campaigns, analytics, and customer engagement',
-    icon: TrendingUp,
-    gradient: 'from-purple-500 to-pink-500'
-  },
-  {
-    id: 'sales',
-    name: 'Sales Operations',
-    description: 'Lead management and sales tracking',
+    id: "tech-support",
+    name: "Tech Support",
     icon: Users,
+    description: "Customer service and technical support management",
     gradient: 'from-blue-500 to-cyan-500'
   },
   {
-    id: 'business',
-    name: 'Business Intelligence',
-    description: 'Analytics, reporting, and insights',
-    icon: Building,
+    id: "marketing",
+    name: "Marketing",
+    icon: TrendingUp,
+    description: "Campaign management and lead generation tools",
+    gradient: 'from-pink-500 to-rose-500'
+  },
+  {
+    id: "hr-management",
+    name: "HR Management",
+    icon: Users,
+    description: "Human resources and employee management system",
     gradient: 'from-green-500 to-emerald-500'
+  },
+  {
+    id: "dealers",
+    name: "Dealers",
+    icon: Building,
+    description: "Dealer network management and coordination",
+    gradient: 'from-orange-500 to-amber-500'
+  },
+  {
+    id: "distributors",
+    name: "Distributors",
+    icon: Building,
+    description: "Distribution network and supply chain management",
+    gradient: 'from-purple-500 to-violet-500'
   }
 ];
 
@@ -213,7 +227,7 @@ export default function CreateProject() {
                 <p className="text-muted-foreground">Select the type of workspace that best fits your project needs</p>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {workspaceCategories.map((category) => {
                   const IconComponent = category.icon;
                   return (
@@ -232,6 +246,103 @@ export default function CreateProject() {
                     </Card>
                   );
                 })}
+              </div>
+              
+              {/* New Workspace Categories from My Projects */}
+              <div className="mt-12 space-y-6">
+                <div className="text-center">
+                  <h3 className="text-xl font-semibold mb-2">Business Category Workspaces</h3>
+                  <p className="text-muted-foreground">Specialized workspaces for different business sectors</p>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[
+                    {
+                      id: "tech-support-business",
+                      name: "Tech Support",
+                      icon: Users,
+                      description: "Customer service and technical support management",
+                      basePrice: 8199,
+                      features: ["Ticket Management", "Live Chat", "Knowledge Base", "SLA Tracking"],
+                      color: "from-blue-500 to-cyan-500"
+                    },
+                    {
+                      id: "marketing-business",
+                      name: "Marketing",
+                      icon: TrendingUp,
+                      description: "Campaign management and lead generation tools",
+                      basePrice: 12299,
+                      features: ["Campaign Builder", "Lead Tracking", "Analytics", "Social Media Integration"],
+                      color: "from-pink-500 to-rose-500"
+                    },
+                    {
+                      id: "hr-management-business",
+                      name: "HR Management",
+                      icon: Users,
+                      description: "Human resources and employee management system",
+                      basePrice: 10699,
+                      features: ["Employee Database", "Payroll", "Performance Tracking", "Recruitment"],
+                      color: "from-green-500 to-emerald-500"
+                    },
+                    {
+                      id: "dealers-business",
+                      name: "Dealers",
+                      icon: Building,
+                      description: "Dealer network management and coordination",
+                      basePrice: 16499,
+                      features: ["Dealer Portal", "Inventory Tracking", "Commission Management", "Performance Analytics"],
+                      color: "from-orange-500 to-amber-500"
+                    },
+                    {
+                      id: "distributors-business",
+                      name: "Distributors",
+                      icon: Building,
+                      description: "Distribution network and supply chain management",
+                      basePrice: 20499,
+                      features: ["Supply Chain Tracking", "Order Management", "Territory Management", "Reporting"],
+                      color: "from-purple-500 to-violet-500"
+                    }
+                  ].map((category) => {
+                    const IconComponent = category.icon;
+                    return (
+                      <Card 
+                        key={category.id} 
+                        className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer border-2 hover:border-primary/30"
+                        onClick={() => handleWorkspaceSelect(category)}
+                      >
+                        <CardContent className="p-6 text-center space-y-4">
+                          <div className={`w-16 h-16 bg-gradient-to-r ${category.color} rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300`}>
+                            <IconComponent className="w-8 h-8 text-white" />
+                          </div>
+                          
+                          <div className="space-y-2">
+                            <h3 className="text-xl font-bold text-foreground">{category.name}</h3>
+                            <p className="text-muted-foreground text-sm">{category.description}</p>
+                          </div>
+
+                          <div className="space-y-3">
+                            <div className="text-2xl font-bold text-primary">
+                              ₹{category.basePrice.toLocaleString()}/month
+                            </div>
+                            
+                            <div className="space-y-2">
+                              {category.features.map((feature, index) => (
+                                <div key={index} className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                                  <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+                                  {feature}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          <Button className={`w-full bg-gradient-to-r ${category.color} hover:opacity-90 text-white border-0`}>
+                            Get Started
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           )}

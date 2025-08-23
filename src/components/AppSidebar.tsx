@@ -124,7 +124,7 @@ export function AppSidebar() {
                       to={item.url} 
                       className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-300 ${
                         item.special 
-                          ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg hover:scale-105 animate-pulse" 
+                          ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg hover:scale-105" 
                           : getNavClasses(item.url)
                       }`}
                     >
