@@ -1,10 +1,14 @@
 import React from 'react';
-import { Save, Download, Rocket, Play, Eye } from 'lucide-react';
+import { Save, Download, Rocket, Play, Eye, Sparkles, Brain } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 
-export const ChatbotToolbar = () => {
+interface ChatbotToolbarProps {
+  onPreview?: () => void;
+}
+
+export const ChatbotToolbar: React.FC<ChatbotToolbarProps> = ({ onPreview }) => {
   const handleSave = () => {
     // TODO: Implement save functionality
     console.log('Save chatbot');
@@ -26,16 +30,26 @@ export const ChatbotToolbar = () => {
   };
 
   const handlePreview = () => {
-    // TODO: Implement preview functionality
-    console.log('Preview chatbot');
+    onPreview?.();
   };
 
   return (
-    <div className="bg-card border-b border-border px-6 py-3 flex items-center justify-between">
+    <div className="bg-gradient-to-r from-card via-card/80 to-card border-b border-border/50 px-6 py-4 flex items-center justify-between backdrop-blur-sm">
       <div className="flex items-center gap-4">
-        <h1 className="text-xl font-semibold">Chatbot Builder</h1>
-        <Badge variant="secondary" className="bg-primary/10 text-primary">
-          PRO
+        <div className="flex items-center gap-3">
+          <div className="p-2 rounded-xl bg-gradient-to-br from-primary via-accent to-secondary shadow-lg">
+            <Brain className="w-6 h-6 text-white" />
+          </div>
+          <div>
+            <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              AI Chatbot Builder
+            </h1>
+            <p className="text-xs text-muted-foreground">Build intelligent conversations</p>
+          </div>
+        </div>
+        <Badge variant="secondary" className="bg-gradient-to-r from-primary/20 to-accent/20 text-primary border-primary/30 shadow-sm">
+          <Sparkles className="w-3 h-3 mr-1" />
+          GPT Enabled
         </Badge>
       </div>
 

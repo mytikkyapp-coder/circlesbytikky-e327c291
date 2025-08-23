@@ -14,22 +14,22 @@ interface MessageNodeProps {
 
 export const MessageNode: React.FC<MessageNodeProps> = ({ data, selected }) => {
   return (
-    <Card className={`min-w-[200px] p-3 shadow-md transition-all duration-200 ${
-      selected ? 'ring-2 ring-primary ring-offset-2' : ''
-    } ${data.isStart ? 'border-primary bg-primary/5' : ''}`}>
-      <div className="flex items-center gap-2 mb-2">
-        <div className="p-1.5 rounded-md bg-blue-100 dark:bg-blue-900/30">
-          <MessageSquare className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+    <Card className={`min-w-[220px] p-4 shadow-lg transition-all duration-300 ${
+      selected ? 'ring-2 ring-primary ring-offset-2 shadow-primary/20' : 'hover:shadow-xl'
+    } ${data.isStart ? 'border-primary bg-gradient-to-br from-primary/10 via-primary/5 to-transparent' : 'bg-gradient-to-br from-card via-card/90 to-accent/5 border-accent/20 hover:border-accent/30'}`}>
+      <div className="flex items-center gap-2 mb-3">
+        <div className={`p-2 rounded-xl shadow-sm ${data.isStart ? 'bg-gradient-to-br from-primary/20 to-accent/20' : 'bg-gradient-to-br from-blue-500/20 to-cyan-500/20'}`}>
+          <MessageSquare className={`w-5 h-5 ${data.isStart ? 'text-primary' : 'text-blue-500'}`} />
         </div>
-        <span className="font-medium text-sm">{data.label}</span>
+        <span className="font-semibold text-sm">{data.label}</span>
         {data.isStart && (
-          <span className="text-xs bg-primary text-primary-foreground px-1.5 py-0.5 rounded">
+          <span className="text-xs bg-gradient-to-r from-primary to-accent text-white px-2 py-1 rounded-full shadow-sm font-medium">
             START
           </span>
         )}
       </div>
       
-      <div className="text-sm text-muted-foreground mb-3 min-h-[40px]">
+      <div className="text-sm text-muted-foreground mb-3 min-h-[50px] bg-gradient-to-r from-muted/20 to-primary/5 p-3 rounded-lg border border-primary/10">
         {data.message || 'Enter your message...'}
       </div>
 

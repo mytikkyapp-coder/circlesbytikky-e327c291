@@ -2,10 +2,10 @@ import React from 'react';
 import { Node } from '@xyflow/react';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
+import { GPTModelSelector } from '../GPTModelSelector';
 
 interface KnowledgeBasePropertiesProps {
   node: Node;
@@ -17,13 +17,6 @@ export const KnowledgeBaseProperties: React.FC<KnowledgeBasePropertiesProps> = (
     onUpdate({ [field]: value });
   };
 
-  const providers = [
-    { value: 'chatgpt', label: 'ChatGPT (OpenAI)', color: 'bg-green-500' },
-    { value: 'gemini', label: 'Gemini (Google)', color: 'bg-blue-500' },
-    { value: 'perplexity', label: 'Perplexity AI', color: 'bg-purple-500' },
-  ];
-
-  const selectedProvider = providers.find(p => p.value === String(node.data.provider)) || providers[0];
 
   return (
     <div className="space-y-4">
@@ -42,27 +35,10 @@ export const KnowledgeBaseProperties: React.FC<KnowledgeBasePropertiesProps> = (
         />
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="provider">AI Provider</Label>
-        <Select
-          value={String(node.data.provider || 'chatgpt')}
-          onValueChange={(value) => handleChange('provider', value)}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Select AI provider" />
-          </SelectTrigger>
-          <SelectContent>
-            {providers.map((provider) => (
-              <SelectItem key={provider.value} value={provider.value}>
-                <div className="flex items-center gap-2">
-                  <div className={`w-2 h-2 rounded-full ${provider.color}`} />
-                  {provider.label}
-                </div>
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+      <GPTModelSelector 
+        value={String(node.data.model || 'gpt-5-mini-2025-08-07')}
+        onValueChange={(value) => handleChange('model', value)}
+      />
 
       <div className="space-y-2">
         <Label htmlFor="systemPrompt">System Prompt</Label>
@@ -114,30 +90,15 @@ export const KnowledgeBaseProperties: React.FC<KnowledgeBasePropertiesProps> = (
         />
       </div>
 
-      <div className="p-3 bg-muted/30 rounded-lg">
+      <div className="p-4 bg-gradient-to-r from-primary/5 to-accent/5 rounded-lg border border-primary/20">
         <div className="flex items-center gap-2 mb-2">
-          <div className={`w-2 h-2 rounded-full ${selectedProvider.color}`} />
-          <p className="text-sm font-medium">{selectedProvider.label}</p>
+          <div className="w-3 h-3 rounded-full bg-gradient-to-r from-primary to-accent" />
+          <p className="text-sm font-semibold">AI-Powered Knowledge Base</p>
         </div>
         <div className="space-y-1 text-xs text-muted-foreground">
-          {String(node.data.provider) === 'chatgpt' && (
-            <>
-              <p>• Uses OpenAI's GPT models</p>
-              <p>• Best for general conversation</p>
-            </>
-          )}
-          {String(node.data.provider) === 'gemini' && (
-            <>
-              <p>• Uses Google's Gemini models</p>
-              <p>• Great for factual information</p>
-            </>
-          )}
-          {String(node.data.provider) === 'perplexity' && (
-            <>
-              <p>• Real-time web search capabilities</p>
-              <p>• Perfect for current information</p>
-            </>
-          )}
+          <p>• Intelligent responses using latest GPT models</p>
+          <p>• Context-aware conversation handling</p>
+          <p>• Dynamic knowledge integration</p>
         </div>
       </div>
 

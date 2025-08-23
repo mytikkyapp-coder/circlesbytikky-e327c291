@@ -80,9 +80,12 @@ export const NodeLibrary: React.FC<NodeLibraryProps> = ({ onAddNode }) => {
   };
 
   return (
-    <Card className="w-64 h-full rounded-none border-r border-l-0 border-t-0 border-b-0">
-      <CardHeader className="pb-3">
-        <CardTitle className="text-sm font-medium">Node Library</CardTitle>
+    <Card className="w-72 h-full rounded-none border-r border-l-0 border-t-0 border-b-0 bg-gradient-to-b from-card to-card/50">
+      <CardHeader className="pb-3 border-b border-border/50">
+        <CardTitle className="text-sm font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          🎨 Node Library
+        </CardTitle>
+        <p className="text-xs text-muted-foreground">Drag & drop to build your flow</p>
       </CardHeader>
       <CardContent className="p-0">
         <ScrollArea className="h-[calc(100vh-120px)]">
@@ -93,18 +96,18 @@ export const NodeLibrary: React.FC<NodeLibraryProps> = ({ onAddNode }) => {
                 <Button
                   key={nodeType.type}
                   variant="ghost"
-                  className="w-full justify-start h-auto p-3 hover:bg-accent/50 transition-colors group"
+                  className="w-full justify-start h-auto p-4 hover:bg-gradient-to-r hover:from-accent/20 hover:to-primary/10 transition-all duration-300 group border border-transparent hover:border-primary/20 rounded-xl"
                   onClick={() => handleNodeAdd(nodeType.type)}
                 >
                   <div className="flex items-start gap-3 w-full">
-                    <div className={`p-2 rounded-lg bg-accent/30 group-hover:bg-accent/50 transition-colors`}>
-                      <Icon className={`w-4 h-4 ${nodeType.color}`} />
+                    <div className={`p-2.5 rounded-xl bg-gradient-to-br from-accent/20 to-primary/10 group-hover:from-accent/30 group-hover:to-primary/20 transition-all duration-300 shadow-sm`}>
+                      <Icon className={`w-5 h-5 ${nodeType.color} group-hover:scale-110 transition-transform`} />
                     </div>
                     <div className="flex-1 text-left">
-                      <div className="font-medium text-sm">{nodeType.label}</div>
-                      <div className="text-xs text-muted-foreground">{nodeType.description}</div>
+                      <div className="font-semibold text-sm group-hover:text-primary transition-colors">{nodeType.label}</div>
+                      <div className="text-xs text-muted-foreground group-hover:text-foreground/70 transition-colors">{nodeType.description}</div>
                     </div>
-                    <Plus className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <Plus className="w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary transition-all duration-300 group-hover:scale-110" />
                   </div>
                 </Button>
               );

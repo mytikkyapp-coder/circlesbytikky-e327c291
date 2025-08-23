@@ -7,49 +7,51 @@ import { Badge } from '@/components/ui/badge';
 interface KnowledgeBaseNodeProps {
   data: {
     label: string;
-    provider: string;
+    provider?: string;
+    model?: string;
     query?: string;
   };
   selected: boolean;
 }
 
 export const KnowledgeBaseNode: React.FC<KnowledgeBaseNodeProps> = ({ data, selected }) => {
-  const getProviderColor = (provider: string) => {
-    switch (provider) {
-      case 'chatgpt':
-        return 'bg-green-500';
-      case 'gemini':
-        return 'bg-blue-500';
-      case 'perplexity':
-        return 'bg-purple-500';
-      default:
-        return 'bg-gray-500';
-    }
+  const getModelInfo = (model: string) => {
+    if (model?.includes('gpt-5')) return { color: 'bg-gradient-to-r from-amber-500 to-orange-500', name: 'GPT-5' };
+    if (model?.includes('gpt-4')) return { color: 'bg-gradient-to-r from-purple-500 to-indigo-500', name: 'GPT-4.1' };
+    if (model?.includes('o3')) return { color: 'bg-gradient-to-r from-pink-500 to-rose-500', name: 'O3' };
+    if (model?.includes('o4')) return { color: 'bg-gradient-to-r from-violet-500 to-purple-500', name: 'O4' };
+    return { color: 'bg-gradient-to-r from-green-500 to-emerald-500', name: 'AI Model' };
   };
 
+  const modelInfo = getModelInfo(data.model || 'gpt-5-mini-2025-08-07');
+
   return (
-    <Card className={`min-w-[220px] p-3 shadow-md transition-all duration-200 ${
-      selected ? 'ring-2 ring-primary ring-offset-2' : ''
+    <Card className={`min-w-[240px] p-4 shadow-lg transition-all duration-300 bg-gradient-to-br from-card via-card/90 to-primary/5 border-primary/20 ${
+      selected ? 'ring-2 ring-primary ring-offset-2 shadow-primary/20' : 'hover:shadow-xl hover:border-primary/30'
     }`}>
-      <div className="flex items-center gap-2 mb-2">
-        <div className="p-1.5 rounded-md bg-pink-100 dark:bg-pink-900/30">
-          <Brain className="w-4 h-4 text-pink-600 dark:text-pink-400" />
+      <div className="flex items-center gap-2 mb-3">
+        <div className="p-2 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 shadow-sm">
+          <Brain className="w-5 h-5 text-primary" />
         </div>
-        <span className="font-medium text-sm">{data.label}</span>
+        <span className="font-semibold text-sm">{data.label}</span>
       </div>
       
-      <div className="space-y-2 mb-3">
+      <div className="space-y-3 mb-3">
         <div className="flex items-center gap-2">
-          <div className={`w-2 h-2 rounded-full ${getProviderColor(data.provider)}`} />
-          <Badge variant="outline" className="text-xs capitalize">
-            {data.provider || 'chatgpt'}
+          <div className={`w-3 h-3 rounded-full ${modelInfo.color} shadow-sm`} />
+          <Badge variant="outline" className={`text-xs font-medium ${modelInfo.color} text-white border-0`}>
+            {modelInfo.name}
           </Badge>
         </div>
         {data.query && (
-          <div className="text-sm text-muted-foreground bg-muted/20 p-2 rounded min-h-[40px]">
+          <div className="text-sm text-muted-foreground bg-gradient-to-r from-muted/30 to-primary/10 p-3 rounded-lg border border-primary/10 min-h-[50px]">
             {data.query}
           </div>
         )}
+        <div className="flex items-center gap-1 text-xs text-primary/80">
+          <Brain className="w-3 h-3" />
+          <span>AI-Powered Responses</span>
+        </div>
       </div>
 
       <Handle

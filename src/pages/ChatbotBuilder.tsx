@@ -17,6 +17,7 @@ import '@xyflow/react/dist/style.css';
 import { ChatbotToolbar } from '@/components/chatbot/ChatbotToolbar';
 import { NodeLibrary } from '@/components/chatbot/NodeLibrary';
 import { PropertiesPanel } from '@/components/chatbot/PropertiesPanel';
+import { ChatbotPreview } from '@/components/chatbot/ChatbotPreview';
 import { MessageNode } from '@/components/chatbot/nodes/MessageNode';
 import { InputNode } from '@/components/chatbot/nodes/InputNode';
 import { ConditionNode } from '@/components/chatbot/nodes/ConditionNode';
@@ -55,6 +56,7 @@ const ChatbotBuilder = () => {
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [selectedNode, setSelectedNode] = useState<Node | null>(null);
   const [showPropertiesPanel, setShowPropertiesPanel] = useState(true);
+  const [showPreview, setShowPreview] = useState(false);
 
   const onConnect = useCallback(
     (params: Connection) => setEdges((eds) => addEdge({
@@ -95,7 +97,7 @@ const ChatbotBuilder = () => {
       case 'integration':
         return { label: 'Integration', service: 'webhook', url: '' };
       case 'knowledgeBase':
-        return { label: 'Knowledge Base', provider: 'chatgpt', query: '' };
+        return { label: 'Knowledge Base', model: 'gpt-5-mini-2025-08-07', query: 'Answer user questions based on the context' };
       case 'end':
         return { label: 'End Conversation', message: 'Thank you for using our chatbot!' };
       default:
@@ -115,8 +117,8 @@ const ChatbotBuilder = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-background">
-      <ChatbotToolbar />
+    <div className="h-screen flex flex-col bg-gradient-to-br from-background via-background to-primary/5">
+      <ChatbotToolbar onPreview={() => setShowPreview(true)} />
       
       <div className="flex-1 flex">
         <NodeLibrary onAddNode={addNode} />
@@ -145,9 +147,10 @@ const ChatbotBuilder = () => {
             />
             <Background 
               variant={BackgroundVariant.Dots} 
-              gap={20} 
-              size={1}
-              color="hsl(var(--border))"
+              gap={24} 
+              size={1.5}
+              color="hsl(var(--primary) / 0.1)"
+              className="opacity-60"
             />
           </ReactFlow>
         </div>
@@ -160,6 +163,11 @@ const ChatbotBuilder = () => {
           />
         )}
       </div>
+
+      <ChatbotPreview 
+        open={showPreview}
+        onOpenChange={setShowPreview}
+      />
     </div>
   );
 };
