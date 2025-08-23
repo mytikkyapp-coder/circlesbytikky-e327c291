@@ -40,12 +40,7 @@ const projectItems = [
 const businessItems = [
   { title: "WhatsApp API", url: "/whatsapp-setup", icon: MessageSquare },
   { title: "Business KYC", url: "/kyc", icon: Shield },
-  { title: "Wallet", url: "/wallet", icon: Wallet },
   { title: "Integrations", url: "/integrations", icon: Plug },
-];
-
-const pricingItems = [
-  { title: "Pricing & Payments", url: "/pricing", icon: Wallet },
 ];
 
 const coreItems = [
@@ -56,12 +51,14 @@ const coreItems = [
   { title: "Templates", url: "/templates", icon: FileText },
   { title: "Launch AI Ads", url: "/launch-ads", icon: Zap },
   { title: "Analytics", url: "/analytics", icon: BarChart3 },
-  { title: "Settings", url: "/settings", icon: Settings },
+  { title: "Chatbot Builder", url: "/chatbot-builder", icon: Bot },
 ];
 
-const helpItems = [
+const supportItems = [
+  { title: "Pricing & Payments", url: "/pricing", icon: Wallet },
   { title: "Help Center", url: "/help", icon: HelpCircle },
   { title: "Support Tickets", url: "/support-tickets", icon: MessageSquare },
+  { title: "Settings", url: "/settings", icon: Settings },
 ];
 
 export function AppSidebar() {
@@ -110,14 +107,14 @@ export function AppSidebar() {
         {/* Home */}
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarMenu className="space-y-1 mb-4">
+            <SidebarMenu className="space-y-1 mb-2">
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
                   <NavLink 
                     to="/" 
-                    className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 ${getNavClasses("/")}`}
+                    className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 ${getNavClasses("/")}`}
                   >
-                    <Home className="w-5 h-5 flex-shrink-0" />
+                    <Home className="w-4 h-4 flex-shrink-0" />
                     {!isCollapsed && <span className="font-medium">Home</span>}
                   </NavLink>
                 </SidebarMenuButton>
@@ -128,6 +125,9 @@ export function AppSidebar() {
 
         {/* Projects */}
         <SidebarGroup>
+          <SidebarGroupLabel className="text-xs font-bold text-sidebar-foreground px-3 mb-1">
+            {!isCollapsed && "PROJECTS"}
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
               {projectItems.map((item) => (
@@ -135,9 +135,9 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <NavLink 
                       to={item.url} 
-                      className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 ${getNavClasses(item.url)}`}
+                      className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 ${getNavClasses(item.url)}`}
                     >
-                      <item.icon className="w-5 h-5 flex-shrink-0" />
+                      <item.icon className="w-4 h-4 flex-shrink-0" />
                       {!isCollapsed && <span className="font-medium">{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
@@ -149,8 +149,8 @@ export function AppSidebar() {
 
         {/* Business Setup */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground px-3 mb-2 mt-6">
-            {!isCollapsed && "Business Setup"}
+          <SidebarGroupLabel className="text-xs font-bold text-sidebar-foreground px-3 mb-1 mt-4">
+            {!isCollapsed && "BUSINESS SETUP"}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
@@ -159,30 +159,9 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <NavLink 
                       to={item.url} 
-                      className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 ${getNavClasses(item.url)}`}
+                      className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 ${getNavClasses(item.url)}`}
                     >
-                      <item.icon className="w-5 h-5 flex-shrink-0" />
-                      {!isCollapsed && <span className="font-medium">{item.title}</span>}
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        {/* Pricing */}
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu className="space-y-1 mt-6">
-              {pricingItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <NavLink 
-                      to={item.url} 
-                      className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 ${getNavClasses(item.url)}`}
-                    >
-                      <item.icon className="w-5 h-5 flex-shrink-0" />
+                      <item.icon className="w-4 h-4 flex-shrink-0" />
                       {!isCollapsed && <span className="font-medium">{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
@@ -194,8 +173,8 @@ export function AppSidebar() {
 
         {/* Core Features */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground px-3 mb-2 mt-6">
-            {!isCollapsed && "Core"}
+          <SidebarGroupLabel className="text-xs font-bold text-sidebar-foreground px-3 mb-1 mt-4">
+            {!isCollapsed && "CORE FEATURES"}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
@@ -204,9 +183,9 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <NavLink 
                       to={item.url} 
-                      className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 ${getNavClasses(item.url)}`}
+                      className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 ${getNavClasses(item.url)}`}
                     >
-                      <item.icon className="w-5 h-5 flex-shrink-0" />
+                      <item.icon className="w-4 h-4 flex-shrink-0" />
                       {!isCollapsed && <span className="font-medium">{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
@@ -216,19 +195,21 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-
-        {/* Help */}
+        {/* Support & Settings */}
         <SidebarGroup>
+          <SidebarGroupLabel className="text-xs font-bold text-sidebar-foreground px-3 mb-1 mt-4">
+            {!isCollapsed && "SUPPORT"}
+          </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu className="space-y-1 mt-6">
-              {helpItems.map((item) => (
+            <SidebarMenu className="space-y-1">
+              {supportItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink 
                       to={item.url} 
-                      className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 ${getNavClasses(item.url)}`}
+                      className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 ${getNavClasses(item.url)}`}
                     >
-                      <item.icon className="w-5 h-5 flex-shrink-0" />
+                      <item.icon className="w-4 h-4 flex-shrink-0" />
                       {!isCollapsed && <span className="font-medium">{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
