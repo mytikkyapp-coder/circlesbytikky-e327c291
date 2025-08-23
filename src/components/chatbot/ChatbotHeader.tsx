@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Switch } from '@/components/ui/switch';
 import { 
   ArrowLeft, 
   Save, 
@@ -12,7 +18,13 @@ import {
   Sparkles, 
   Brain,
   Settings,
-  Share2
+  Share2,
+  ChevronDown,
+  Smartphone,
+  Globe,
+  Code,
+  Link,
+  Zap
 } from 'lucide-react';
 
 interface ChatbotHeaderProps {
@@ -21,11 +33,27 @@ interface ChatbotHeaderProps {
   onPreview: () => void;
 }
 
+interface DeploymentSettings {
+  name: string;
+  description: string;
+  whatsappEnabled: boolean;
+  webEnabled: boolean;
+  webhookUrl: string;
+}
+
 export const ChatbotHeader: React.FC<ChatbotHeaderProps> = ({ 
   currentFlow, 
   onBackToDashboard, 
   onPreview 
 }) => {
+  const [deploymentSettings, setDeploymentSettings] = useState<DeploymentSettings>({
+    name: 'Customer Support Bot',
+    description: 'AI-powered customer support chatbot',
+    whatsappEnabled: true,
+    webEnabled: true,
+    webhookUrl: 'https://your-domain.com/webhook'
+  });
+  const [showDeployDialog, setShowDeployDialog] = useState(false);
   const handleSave = () => {
     console.log('Save chatbot');
   };
@@ -35,7 +63,7 @@ export const ChatbotHeader: React.FC<ChatbotHeaderProps> = ({
   };
 
   const handleDeploy = () => {
-    console.log('Deploy chatbot');
+    setShowDeployDialog(true);
   };
 
   const handleTest = () => {
@@ -48,6 +76,11 @@ export const ChatbotHeader: React.FC<ChatbotHeaderProps> = ({
 
   const handleSettings = () => {
     console.log('Open settings');
+  };
+
+  const handleDeploySubmit = () => {
+    console.log('Deploying with settings:', deploymentSettings);
+    setShowDeployDialog(false);
   };
 
   return (
@@ -77,22 +110,42 @@ export const ChatbotHeader: React.FC<ChatbotHeaderProps> = ({
           </div>
         </div>
         
-        <Badge variant="secondary" className="bg-gradient-to-r from-primary/20 to-accent/20 text-primary border-primary/30 shadow-sm">
-          <Sparkles className="w-3 h-3 mr-1" />
-          GPT Enabled
-        </Badge>
+        <div className="flex items-center gap-2">
+          <Badge variant="secondary" className="bg-gradient-to-r from-primary/20 to-accent/20 text-primary border-primary/30 shadow-sm">
+            <Sparkles className="w-3 h-3 mr-1" />
+            GPT Enabled
+          </Badge>
+          <Badge className="bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400">
+            <Smartphone className="w-3 h-3 mr-1" />
+            WhatsApp Ready
+          </Badge>
+        </div>
       </div>
 
       <div className="flex items-center gap-2">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handleSettings}
-          className="gap-2"
-        >
-          <Settings className="w-4 h-4" />
-          Settings
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" size="sm" className="gap-2">
+              <Settings className="w-4 h-4" />
+              Settings
+              <ChevronDown className="w-3 h-3" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={handleSettings}>
+              <Settings className="w-4 h-4 mr-2" />
+              Bot Settings
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Smartphone className="w-4 h-4 mr-2" />
+              WhatsApp Config
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Code className="w-4 h-4 mr-2" />
+              API Settings
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
 
         <Button
           variant="outline"
@@ -146,14 +199,103 @@ export const ChatbotHeader: React.FC<ChatbotHeaderProps> = ({
           Export
         </Button>
 
-        <Button
-          size="sm"
-          onClick={handleDeploy}
-          className="gap-2 bg-primary hover:bg-primary/90"
-        >
-          <Rocket className="w-4 h-4" />
-          Deploy
-        </Button>
+        <Dialog open={showDeployDialog} onOpenChange={setShowDeployDialog}>
+          <DialogTrigger asChild>
+            <Button
+              size="sm"
+              onClick={handleDeploy}
+              className="gap-2 bg-primary hover:bg-primary/90"
+            >
+              <Rocket className="w-4 h-4" />
+              Deploy
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[500px]">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <Rocket className="w-5 h-5" />
+                Deploy Chatbot
+              </DialogTitle>
+            </DialogHeader>
+            <div className="space-y-6 py-4">
+              <div className="space-y-2">
+                <Label htmlFor="bot-name">Bot Name</Label>
+                <Input
+                  id="bot-name"
+                  value={deploymentSettings.name}
+                  onChange={(e) => setDeploymentSettings(prev => ({ ...prev, name: e.target.value }))}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="bot-description">Description</Label>
+                <Textarea
+                  id="bot-description"
+                  value={deploymentSettings.description}
+                  onChange={(e) => setDeploymentSettings(prev => ({ ...prev, description: e.target.value }))}
+                  rows={3}
+                />
+              </div>
+
+              <div className="space-y-4">
+                <h4 className="text-sm font-medium">Deployment Channels</h4>
+                
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Smartphone className="w-4 h-4 text-green-600" />
+                    <span className="text-sm">WhatsApp Business</span>
+                  </div>
+                  <Switch
+                    checked={deploymentSettings.whatsappEnabled}
+                    onCheckedChange={(checked) => 
+                      setDeploymentSettings(prev => ({ ...prev, whatsappEnabled: checked }))
+                    }
+                  />
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Globe className="w-4 h-4 text-blue-600" />
+                    <span className="text-sm">Web Widget</span>
+                  </div>
+                  <Switch
+                    checked={deploymentSettings.webEnabled}
+                    onCheckedChange={(checked) => 
+                      setDeploymentSettings(prev => ({ ...prev, webEnabled: checked }))
+                    }
+                  />
+                </div>
+              </div>
+
+              {deploymentSettings.whatsappEnabled && (
+                <div className="space-y-2">
+                  <Label htmlFor="webhook-url">Webhook URL</Label>
+                  <div className="flex gap-2">
+                    <Input
+                      id="webhook-url"
+                      value={deploymentSettings.webhookUrl}
+                      onChange={(e) => setDeploymentSettings(prev => ({ ...prev, webhookUrl: e.target.value }))}
+                      placeholder="https://your-domain.com/webhook"
+                    />
+                    <Button variant="outline" size="sm">
+                      <Zap className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+              )}
+
+              <div className="flex justify-end gap-3">
+                <Button variant="outline" onClick={() => setShowDeployDialog(false)}>
+                  Cancel
+                </Button>
+                <Button onClick={handleDeploySubmit} className="gap-2">
+                  <Rocket className="w-4 h-4" />
+                  Deploy Now
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

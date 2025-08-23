@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+import { Separator } from '@/components/ui/separator';
 import { 
   BarChart3, 
   MessageSquare, 
@@ -12,7 +17,14 @@ import {
   Activity,
   X,
   CheckCircle,
-  AlertCircle
+  AlertCircle,
+  Settings,
+  Smartphone,
+  Link,
+  Zap,
+  Shield,
+  Globe,
+  QrCode
 } from 'lucide-react';
 
 interface ChatMessage {
@@ -63,6 +75,8 @@ const mockChats: ChatMessage[] = [
 
 export const ChatbotRightSidebar: React.FC = () => {
   const [activeTab, setActiveTab] = useState('analytics');
+  const [whatsappConnected, setWhatsappConnected] = useState(false);
+  const [webhookUrl, setWebhookUrl] = useState('https://your-domain.com/webhook');
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -90,14 +104,18 @@ export const ChatbotRightSidebar: React.FC = () => {
     <div className="w-80 border-l border-border bg-card/50 backdrop-blur-sm">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full">
         <div className="p-4 border-b border-border">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="analytics" className="gap-2">
-              <BarChart3 className="w-4 h-4" />
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="analytics" className="gap-1 text-xs">
+              <BarChart3 className="w-3 h-3" />
               Analytics
             </TabsTrigger>
-            <TabsTrigger value="chats" className="gap-2">
-              <MessageSquare className="w-4 h-4" />
-              Live Chats
+            <TabsTrigger value="chats" className="gap-1 text-xs">
+              <MessageSquare className="w-3 h-3" />
+              Chats
+            </TabsTrigger>
+            <TabsTrigger value="connect" className="gap-1 text-xs">
+              <Smartphone className="w-3 h-3" />
+              Connect
             </TabsTrigger>
           </TabsList>
         </div>
@@ -211,6 +229,140 @@ export const ChatbotRightSidebar: React.FC = () => {
                   </div>
                 </Card>
               ))}
+            </div>
+          </ScrollArea>
+        </TabsContent>
+
+        <TabsContent value="connect" className="m-0 h-full">
+          <ScrollArea className="h-full p-4">
+            <div className="space-y-6">
+              {/* WhatsApp Business Connection */}
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <Smartphone className="w-4 h-4 text-green-600" />
+                    WhatsApp Business
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className={`w-2 h-2 rounded-full ${whatsappConnected ? 'bg-green-500' : 'bg-red-500'}`} />
+                      <span className="text-sm">{whatsappConnected ? 'Connected' : 'Not Connected'}</span>
+                    </div>
+                    <Switch 
+                      checked={whatsappConnected} 
+                      onCheckedChange={setWhatsappConnected}
+                    />
+                  </div>
+                  
+                  {!whatsappConnected && (
+                    <div className="space-y-3">
+                      <Button className="w-full gap-2 bg-green-600 hover:bg-green-700">
+                        <QrCode className="w-4 h-4" />
+                        Scan QR Code
+                      </Button>
+                      <p className="text-xs text-muted-foreground">
+                        Scan QR code with WhatsApp Business to connect
+                      </p>
+                    </div>
+                  )}
+
+                  {whatsappConnected && (
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2 p-2 bg-green-50 rounded-lg dark:bg-green-900/20">
+                        <CheckCircle className="w-4 h-4 text-green-600" />
+                        <span className="text-sm text-green-700 dark:text-green-400">
+                          Business account linked
+                        </span>
+                      </div>
+                      <Button variant="outline" className="w-full gap-2">
+                        <Settings className="w-4 h-4" />
+                        Configure Settings
+                      </Button>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Webhook Configuration */}
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <Link className="w-4 h-4" />
+                    Webhook Setup
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="webhook-url" className="text-xs">Webhook URL</Label>
+                    <Input
+                      id="webhook-url"
+                      value={webhookUrl}
+                      onChange={(e) => setWebhookUrl(e.target.value)}
+                      className="text-xs"
+                      placeholder="https://your-domain.com/webhook"
+                    />
+                  </div>
+                  <Button className="w-full gap-2" size="sm">
+                    <Zap className="w-3 h-3" />
+                    Test Webhook
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Security Settings */}
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <Shield className="w-4 h-4" />
+                    Security
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm">End-to-End Encryption</span>
+                    <Switch defaultChecked />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm">Message Logging</span>
+                    <Switch defaultChecked />
+                  </div>
+                  <Separator />
+                  <Button variant="outline" className="w-full gap-2" size="sm">
+                    <Globe className="w-3 h-3" />
+                    Privacy Settings
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Integration Status */}
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <Activity className="w-4 h-4" />
+                    Integration Status
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs">Meta API</span>
+                    <Badge className="bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400">
+                      Active
+                    </Badge>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs">Business Verification</span>
+                    <Badge className="bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400">
+                      Verified
+                    </Badge>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs">Rate Limit</span>
+                    <Badge variant="secondary">1000/hour</Badge>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </ScrollArea>
         </TabsContent>
