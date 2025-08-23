@@ -1,8 +1,11 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./hooks/useAuth";
+import { AuthGuard } from "./components/AuthGuard";
 import { Layout } from "./components/Layout";
 import Home from "./pages/Home";
 import ProjectFeatures from "./pages/ProjectFeatures";
@@ -25,6 +28,7 @@ import HelpArticle from "./pages/help/HelpArticle";
 import HelpCategory from "./pages/help/HelpCategory";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
+import Auth from "./pages/Auth";
 import MemberProfile from "./pages/MemberProfile";
 import MyProjects from "./pages/MyProjects";
 import CreateProject from "./pages/CreateProject";
@@ -55,72 +59,75 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          {/* Public routes without Layout */}
-          <Route path="/login" element={<Login />} />
-          
-          {/* Protected routes with Layout */}
-          <Route path="/" element={<Layout><Home /></Layout>} />
-          <Route path="/create-project" element={<Layout><CreateProject /></Layout>} />
-          <Route path="/my-projects" element={<Layout><MyProjects /></Layout>} />
-          <Route path="/my-workspace" element={<Layout><MyWorkspace /></Layout>} />
-          <Route path="/home" element={<Layout><Home /></Layout>} />
-          <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
-          <Route path="/circles" element={<Layout><Circles /></Layout>} />
-          <Route path="/circles/:circleId/manage" element={<Layout><ManageCircle /></Layout>} />
-          <Route path="/members" element={<Layout><Members /></Layout>} />
-          <Route path="/campaigns" element={<Layout><Campaigns /></Layout>} />
-          <Route path="/templates" element={<Layout><Templates /></Layout>} />
-          <Route path="/analytics" element={<Layout><Analytics /></Layout>} />
-          <Route path="/launch-ads" element={<Layout><LaunchAds /></Layout>} />
-          <Route path="/whatsapp-setup" element={<Layout><WhatsAppSetup /></Layout>} />
-          <Route path="/kyc" element={<Layout><KYC /></Layout>} />
-          <Route path="/wallet" element={<Layout><Wallet /></Layout>} />
-          <Route path="/integrations" element={<Layout><Integrations /></Layout>} />
-          <Route path="/settings" element={<Layout><Settings /></Layout>} />
-          <Route path="/help" element={<Layout><Help /></Layout>} />
-          <Route path="/help/article/:id" element={<Layout><HelpArticle /></Layout>} />
-          <Route path="/help/category/:category" element={<Layout><HelpCategory /></Layout>} />
-          <Route path="/support-tickets" element={<Layout><SupportTickets /></Layout>} />
-          <Route path="/pricing" element={<Layout><Pricing /></Layout>} />
-          <Route path="/project-features" element={<Layout><ProjectFeatures /></Layout>} />
-          <Route path="/ai-ads" element={<Layout><AIAdsLanding /></Layout>} />
-          <Route path="/member-profile/:id" element={<Layout><MemberProfile /></Layout>} />
-          <Route path="/add-member" element={<Layout><AddMember /></Layout>} />
-          <Route path="/calling-api" element={<Layout><CallingAPILanding /></Layout>} />
-          <Route path="/whatsapp-calling-crm" element={<Layout><WhatsAppCallingCRM /></Layout>} />
-          <Route path="/meta-api-integration" element={<Layout><MetaAPIIntegration /></Layout>} />
-          <Route path="/workspace/:categoryId/setup" element={<Layout><WorkspaceSetup /></Layout>} />
-          <Route path="/chatbot-builder" element={<ChatbotBuilder />} />
-          
-          {/* Project-specific routes */}
-          <Route path="/project/:projectId/dashboard" element={<ProjectLayout><ProjectDashboard /></ProjectLayout>} />
-          <Route path="/project/:projectId/business-setup" element={<ProjectLayout><BusinessSetup /></ProjectLayout>} />
-          <Route path="/project/:projectId/core-features" element={<ProjectLayout><CoreFeatures /></ProjectLayout>} />
-          <Route path="/project/:projectId/circles" element={<ProjectLayout><Circles /></ProjectLayout>} />
-          <Route path="/project/:projectId/circles/:circleId/manage" element={<ProjectLayout><ManageCircle /></ProjectLayout>} />
-          <Route path="/project/:projectId/members" element={<ProjectLayout><Members /></ProjectLayout>} />
-          <Route path="/project/:projectId/campaigns" element={<ProjectLayout><Campaigns /></ProjectLayout>} />
-          <Route path="/project/:projectId/campaigns/create" element={<ProjectLayout><CreateCampaign /></ProjectLayout>} />
-          <Route path="/project/:projectId/campaigns/:campaignId/analytics" element={<ProjectLayout><CampaignAnalytics /></ProjectLayout>} />
-          <Route path="/project/:projectId/templates" element={<ProjectLayout><Templates /></ProjectLayout>} />
-          <Route path="/project/:projectId/templates/create" element={<ProjectLayout><TemplateBuilder /></ProjectLayout>} />
-          <Route path="/project/:projectId/analytics" element={<ProjectLayout><Analytics /></ProjectLayout>} />
-          <Route path="/project/:projectId/launch-ads" element={<ProjectLayout><LaunchAds /></ProjectLayout>} />
-          <Route path="/project/:projectId/whatsapp-setup" element={<ProjectLayout><WhatsAppSetup /></ProjectLayout>} />
-          <Route path="/project/:projectId/whatsapp-chat" element={<ProjectLayout><WhatsAppChat /></ProjectLayout>} />
-          <Route path="/project/:projectId/kyc" element={<ProjectLayout><KYC /></ProjectLayout>} />
-          <Route path="/project/:projectId/wallet" element={<ProjectLayout><Wallet /></ProjectLayout>} />
-          <Route path="/project/:projectId/integrations" element={<ProjectLayout><Integrations /></ProjectLayout>} />
-          <Route path="/project/:projectId/settings" element={<ProjectLayout><Settings /></ProjectLayout>} />
-          <Route path="/project/:projectId/chatbot-builder" element={<ProjectLayout><ChatbotBuilder /></ProjectLayout>} />
-          <Route path="/project/:projectId/dev-tools" element={<ProjectLayout><Settings /></ProjectLayout>} />
-          <Route path="/project/:projectId/api-management" element={<ProjectLayout><Integrations /></ProjectLayout>} />
-          <Route path="/project/:projectId/lead-gen" element={<ProjectLayout><LaunchAds /></ProjectLayout>} />
-          <Route path="/project/:projectId/whatsapp-calling-crm" element={<ProjectLayout><WhatsAppCallingCRM /></ProjectLayout>} />
-          
-          <Route path="*" element={<Layout><NotFound /></Layout>} />
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            {/* Public routes */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/auth" element={<Auth />} />
+            
+            {/* Protected routes with Layout */}
+            <Route path="/" element={<AuthGuard><Layout><Home /></Layout></AuthGuard>} />
+            <Route path="/create-project" element={<AuthGuard><Layout><CreateProject /></Layout></AuthGuard>} />
+            <Route path="/my-projects" element={<AuthGuard><Layout><MyProjects /></Layout></AuthGuard>} />
+            <Route path="/my-workspace" element={<AuthGuard><Layout><MyWorkspace /></Layout></AuthGuard>} />
+            <Route path="/home" element={<AuthGuard><Layout><Home /></Layout></AuthGuard>} />
+            <Route path="/dashboard" element={<AuthGuard><Layout><Dashboard /></Layout></AuthGuard>} />
+            <Route path="/circles" element={<AuthGuard><Layout><Circles /></Layout></AuthGuard>} />
+            <Route path="/circles/:circleId/manage" element={<AuthGuard><Layout><ManageCircle /></Layout></AuthGuard>} />
+            <Route path="/members" element={<AuthGuard><Layout><Members /></Layout></AuthGuard>} />
+            <Route path="/campaigns" element={<AuthGuard><Layout><Campaigns /></Layout></AuthGuard>} />
+            <Route path="/templates" element={<AuthGuard><Layout><Templates /></Layout></AuthGuard>} />
+            <Route path="/analytics" element={<AuthGuard><Layout><Analytics /></Layout></AuthGuard>} />
+            <Route path="/launch-ads" element={<AuthGuard><Layout><LaunchAds /></Layout></AuthGuard>} />
+            <Route path="/whatsapp-setup" element={<AuthGuard><Layout><WhatsAppSetup /></Layout></AuthGuard>} />
+            <Route path="/kyc" element={<AuthGuard><Layout><KYC /></Layout></AuthGuard>} />
+            <Route path="/wallet" element={<AuthGuard><Layout><Wallet /></Layout></AuthGuard>} />
+            <Route path="/integrations" element={<AuthGuard><Layout><Integrations /></Layout></AuthGuard>} />
+            <Route path="/settings" element={<AuthGuard><Layout><Settings /></Layout></AuthGuard>} />
+            <Route path="/help" element={<AuthGuard><Layout><Help /></Layout></AuthGuard>} />
+            <Route path="/help/article/:id" element={<AuthGuard><Layout><HelpArticle /></Layout></AuthGuard>} />
+            <Route path="/help/category/:category" element={<AuthGuard><Layout><HelpCategory /></Layout></AuthGuard>} />
+            <Route path="/support-tickets" element={<AuthGuard><Layout><SupportTickets /></Layout></AuthGuard>} />
+            <Route path="/pricing" element={<AuthGuard><Layout><Pricing /></Layout></AuthGuard>} />
+            <Route path="/project-features" element={<AuthGuard><Layout><ProjectFeatures /></Layout></AuthGuard>} />
+            <Route path="/ai-ads" element={<AuthGuard><Layout><AIAdsLanding /></Layout></AuthGuard>} />
+            <Route path="/member-profile/:id" element={<AuthGuard><Layout><MemberProfile /></Layout></AuthGuard>} />
+            <Route path="/add-member" element={<AuthGuard><Layout><AddMember /></Layout></AuthGuard>} />
+            <Route path="/calling-api" element={<AuthGuard><Layout><CallingAPILanding /></Layout></AuthGuard>} />
+            <Route path="/whatsapp-calling-crm" element={<AuthGuard><Layout><WhatsAppCallingCRM /></Layout></AuthGuard>} />
+            <Route path="/meta-api-integration" element={<AuthGuard><Layout><MetaAPIIntegration /></Layout></AuthGuard>} />
+            <Route path="/workspace/:categoryId/setup" element={<AuthGuard><Layout><WorkspaceSetup /></Layout></AuthGuard>} />
+            <Route path="/chatbot-builder" element={<AuthGuard><ChatbotBuilder /></AuthGuard>} />
+            
+            {/* Project-specific routes */}
+            <Route path="/project/:projectId/dashboard" element={<AuthGuard><ProjectLayout><ProjectDashboard /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/business-setup" element={<AuthGuard><ProjectLayout><BusinessSetup /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/core-features" element={<AuthGuard><ProjectLayout><CoreFeatures /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/circles" element={<AuthGuard><ProjectLayout><Circles /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/circles/:circleId/manage" element={<AuthGuard><ProjectLayout><ManageCircle /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/members" element={<AuthGuard><ProjectLayout><Members /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/campaigns" element={<AuthGuard><ProjectLayout><Campaigns /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/campaigns/create" element={<AuthGuard><ProjectLayout><CreateCampaign /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/campaigns/:campaignId/analytics" element={<AuthGuard><ProjectLayout><CampaignAnalytics /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/templates" element={<AuthGuard><ProjectLayout><Templates /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/templates/create" element={<AuthGuard><ProjectLayout><TemplateBuilder /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/analytics" element={<AuthGuard><ProjectLayout><Analytics /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/launch-ads" element={<AuthGuard><ProjectLayout><LaunchAds /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/whatsapp-setup" element={<AuthGuard><ProjectLayout><WhatsAppSetup /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/whatsapp-chat" element={<AuthGuard><ProjectLayout><WhatsAppChat /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/kyc" element={<AuthGuard><ProjectLayout><KYC /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/wallet" element={<AuthGuard><ProjectLayout><Wallet /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/integrations" element={<AuthGuard><ProjectLayout><Integrations /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/settings" element={<AuthGuard><ProjectLayout><Settings /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/chatbot-builder" element={<AuthGuard><ProjectLayout><ChatbotBuilder /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/dev-tools" element={<AuthGuard><ProjectLayout><Settings /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/api-management" element={<AuthGuard><ProjectLayout><Integrations /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/lead-gen" element={<AuthGuard><ProjectLayout><LaunchAds /></ProjectLayout></AuthGuard>} />
+            <Route path="/project/:projectId/whatsapp-calling-crm" element={<AuthGuard><ProjectLayout><WhatsAppCallingCRM /></ProjectLayout></AuthGuard>} />
+            
+            <Route path="*" element={<AuthGuard><Layout><NotFound /></Layout></AuthGuard>} />
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
