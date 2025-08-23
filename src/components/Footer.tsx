@@ -35,16 +35,17 @@ export function Footer() {
             <div className="md:col-span-2">
               <div className="flex items-center space-x-2 mb-3">
                 <TikkyLogo size="sm" />
+                <span className="text-lg font-bold">Tikky</span>
               </div>
               <p className="text-muted-foreground text-sm mb-4">
-                Social Media Management platform for modern businesses.
+                AI-driven WhatsApp Business platform for modern businesses.
               </p>
               
               {/* Contact info */}
               <div className="space-y-1 text-sm text-muted-foreground">
                 <div className="flex items-center space-x-2">
                   <Mail className="h-3 w-3" />
-                  <span>support@circles.com</span>
+                  <span>support@tikky.com</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Phone className="h-3 w-3" />
@@ -108,7 +109,7 @@ export function Footer() {
 
             {/* Center - Copyright */}
             <div className="text-sm text-muted-foreground">
-              © {currentYear} Circles. All rights reserved.
+              © {currentYear} Tikky. All rights reserved.
             </div>
 
             {/* Right side - Social links */}
