@@ -90,12 +90,20 @@ export function AppSidebar() {
         <div className="mb-8 px-3 border-b border-sidebar-border pb-6">
           {!isCollapsed ? (
             <div className="text-center">
-              <TikkyLogo className="mx-auto mb-3" />
+              <div className="flex justify-center mb-3">
+                <div className="w-12 h-12 bg-gradient-to-br from-primary via-primary/80 to-primary/60 rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-br from-primary-foreground via-primary-foreground/90 to-primary-foreground/80 rounded-full"></div>
+                </div>
+              </div>
               <h2 className="text-xl font-bold text-sidebar-foreground">Circles</h2>
-              <p className="text-xs text-muted-foreground">by Tikky</p>
+              <p className="text-xs text-muted-foreground">Business Platform</p>
             </div>
           ) : (
-            <TikkyLogo size="sm" className="mx-auto" />
+            <div className="flex justify-center">
+              <div className="w-8 h-8 bg-gradient-to-br from-primary via-primary/80 to-primary/60 rounded-full flex items-center justify-center">
+                <div className="w-5 h-5 bg-gradient-to-br from-primary-foreground via-primary-foreground/90 to-primary-foreground/80 rounded-full"></div>
+              </div>
+            </div>
           )}
         </div>
 

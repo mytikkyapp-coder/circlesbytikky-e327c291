@@ -11,10 +11,12 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { SectorSelection } from "@/components/SectorSelection";
 
 const MyProjects = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isNewProjectOpen, setIsNewProjectOpen] = useState(false);
+  const [isSectorSelectionOpen, setIsSectorSelectionOpen] = useState(false);
   const [newProject, setNewProject] = useState({
     name: "",
     description: "",
@@ -95,6 +97,12 @@ const MyProjects = () => {
       facebookConnected: false
     });
   };
+
+  const handleSectorSelect = (sector: any) => {
+    console.log("Selected sector:", sector);
+    // This would create a new project with sector-specific configurations
+  };
+
 
   const handleWhatsAppConnect = () => {
     // WhatsApp Business API integration would go here
@@ -500,21 +508,78 @@ const MyProjects = () => {
       )}
 
       {/* Create New Project Card */}
+      <Card className="border-dashed border-2 border-primary/30 hover:border-primary/50 transition-all duration-200 hover:shadow-lg group cursor-pointer">
+        <CardContent className="flex flex-col items-center justify-center p-8 h-full min-h-[200px]">
+          <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center mb-4 group-hover:from-primary/20 group-hover:to-primary/10 transition-all duration-300 group-hover:scale-110">
+            <Plus className="w-8 h-8 text-primary" />
+          </div>
+          <h3 className="text-lg font-semibold mb-2 text-center">Create New Workspace</h3>
+          <p className="text-sm text-muted-foreground text-center mb-4">
+            Choose across business sectors with customized features
+          </p>
+          <Button 
+            onClick={() => setIsSectorSelectionOpen(true)}
+            className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Across Sectors
+          </Button>
+        </CardContent>
+      </Card>
+
+      {/* Sector Selection Dialog */}
+      <SectorSelection
+        isOpen={isSectorSelectionOpen}
+        onClose={() => setIsSectorSelectionOpen(false)}
+        onSelect={handleSectorSelect}
+      />
+
+      {/* Legacy Create New Project Dialog */}
       <Dialog open={isNewProjectOpen} onOpenChange={setIsNewProjectOpen}>
-        <DialogTrigger asChild>
-          <Card className="border-dashed border-2 hover:border-primary transition-colors cursor-pointer">
-            <CardContent className="flex flex-col items-center justify-center py-12 space-y-4">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                <Plus className="w-6 h-6 text-primary" />
-              </div>
-              <div className="text-center">
-                <h3 className="font-semibold">Create New Project</h3>
-                <p className="text-sm text-muted-foreground">Start managing a new business profile</p>
-              </div>
-              <Button>Get Started</Button>
-            </CardContent>
-          </Card>
-        </DialogTrigger>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Create New Project</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="project-name">Project Name</Label>
+              <Input
+                id="project-name"
+                value={newProject.name}
+                onChange={(e) => setNewProject({...newProject, name: e.target.value})}
+                placeholder="Enter project name"
+              />
+            </div>
+            <div>
+              <Label htmlFor="project-description">Description</Label>
+              <Textarea
+                id="project-description"
+                value={newProject.description}
+                onChange={(e) => setNewProject({...newProject, description: e.target.value})}
+                placeholder="Describe your project"
+              />
+            </div>
+            <div>
+              <Label htmlFor="project-industry">Industry</Label>
+              <Select value={newProject.industry} onValueChange={(value) => setNewProject({...newProject, industry: value})}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select industry" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="cloud-kitchen">Cloud Kitchen</SelectItem>
+                  <SelectItem value="education">Education</SelectItem>
+                  <SelectItem value="automobiles">Automobiles</SelectItem>
+                  <SelectItem value="healthcare">Healthcare</SelectItem>
+                  <SelectItem value="retail">Retail & E-commerce</SelectItem>
+                  <SelectItem value="real-estate">Real Estate</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <Button onClick={handleCreateProject} className="w-full">
+              Create Project
+            </Button>
+          </div>
+        </DialogContent>
       </Dialog>
     </div>
   );
