@@ -380,90 +380,151 @@ const WhatsAppSetup = () => {
             </CardContent>
           </Card>
 
-          {/* Connected Projects */}
+          {/* Connected Projects with Billing */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <MessageSquare className="w-5 h-5" />
-                Connected Projects
+                My Connected Projects
               </CardTitle>
               <CardDescription>
-                WhatsApp integrations across your projects
+                WhatsApp integrations with billing and status details
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 bg-muted/50 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
-                      <MessageSquare className="w-5 h-5 text-primary" />
+              <div className="space-y-6">
+                {/* E-commerce Store Project */}
+                <div className="p-6 bg-muted/50 rounded-lg space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
+                        <MessageSquare className="w-6 h-6 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold">E-commerce Store</h4>
+                        <p className="text-sm text-muted-foreground">Customer support & order updates</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-medium">E-commerce Store</h4>
-                      <p className="text-sm text-muted-foreground">Customer support & order updates</p>
+                    <Badge variant="default">Active</Badge>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4 pt-2">
+                    <div className="space-y-1">
+                      <p className="text-xs text-muted-foreground">Current Plan</p>
+                      <p className="font-medium">Pro Plan</p>
+                      <p className="text-sm text-muted-foreground">$49/month</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-xs text-muted-foreground">Next Billing</p>
+                      <p className="font-medium">Dec 25, 2024</p>
+                      <p className="text-sm text-green-600">Auto-renew ON</p>
                     </div>
                   </div>
-                  <Badge variant="default">Active</Badge>
+                  
+                  <div className="flex gap-2 pt-2">
+                    <Button size="sm" variant="outline">
+                      <RefreshCw className="w-3 h-3 mr-1" />
+                      Renew Now
+                    </Button>
+                    <Button size="sm" variant="outline">
+                      View Usage
+                    </Button>
+                  </div>
                 </div>
 
-                <div className="flex items-center justify-between p-4 bg-muted/50 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
-                      <MessageSquare className="w-5 h-5 text-primary" />
+                {/* Marketing Campaign Project */}
+                <div className="p-6 bg-muted/50 rounded-lg space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
+                        <MessageSquare className="w-6 h-6 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold">Marketing Campaign</h4>
+                        <p className="text-sm text-muted-foreground">Promotional broadcasts & engagement</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-medium">Marketing Campaign</h4>
-                      <p className="text-sm text-muted-foreground">Promotional broadcasts & engagement</p>
+                    <Badge variant="default">Active</Badge>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4 pt-2">
+                    <div className="space-y-1">
+                      <p className="text-xs text-muted-foreground">Current Plan</p>
+                      <p className="font-medium">Starter Plan</p>
+                      <p className="text-sm text-muted-foreground">$19/month</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-xs text-muted-foreground">Next Billing</p>
+                      <p className="font-medium">Jan 5, 2025</p>
+                      <p className="text-sm text-green-600">Auto-renew ON</p>
                     </div>
                   </div>
-                  <Badge variant="default">Active</Badge>
+                  
+                  <div className="flex gap-2 pt-2">
+                    <Button size="sm" variant="outline">
+                      <RefreshCw className="w-3 h-3 mr-1" />
+                      Renew Now
+                    </Button>
+                    <Button size="sm" variant="outline">
+                      Upgrade Plan
+                    </Button>
+                  </div>
                 </div>
 
-                <div className="flex items-center justify-between p-4 bg-muted/50 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-secondary/20 rounded-lg flex items-center justify-center">
-                      <MessageSquare className="w-5 h-5 text-secondary-foreground" />
+                {/* Lead Generation Project */}
+                <div className="p-6 bg-muted/50 rounded-lg space-y-4 opacity-75">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center">
+                        <AlertCircle className="w-6 h-6 text-yellow-600" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold">Lead Generation</h4>
+                        <p className="text-sm text-muted-foreground">Automated follow-ups & nurturing</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-medium">Lead Generation</h4>
-                      <p className="text-sm text-muted-foreground">Automated follow-ups & nurturing</p>
+                    <Badge variant="outline">Payment Required</Badge>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4 pt-2">
+                    <div className="space-y-1">
+                      <p className="text-xs text-muted-foreground">Selected Plan</p>
+                      <p className="font-medium">Pro Plan</p>
+                      <p className="text-sm text-muted-foreground">$49/month</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-xs text-muted-foreground">Status</p>
+                      <p className="font-medium text-yellow-600">Setup Required</p>
+                      <p className="text-sm text-muted-foreground">Payment pending</p>
                     </div>
                   </div>
-                  <Badge variant="outline">Setup Required</Badge>
+                  
+                  <div className="flex gap-2 pt-2">
+                    <Button size="sm" className="bg-primary">
+                      Complete Setup
+                    </Button>
+                    <Button size="sm" variant="outline">
+                      Change Plan
+                    </Button>
+                  </div>
                 </div>
 
-                <Button variant="outline" className="w-full">
+                <Separator />
+
+                <div className="flex items-center justify-between">
+                  <div className="space-y-1">
+                    <p className="font-medium">Total Monthly Cost</p>
+                    <p className="text-sm text-muted-foreground">2 active projects + 1 pending</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-2xl font-bold">$68</p>
+                    <p className="text-sm text-muted-foreground">per month</p>
+                  </div>
+                </div>
+
+                <Button className="w-full">
                   <ExternalLink className="w-4 h-4 mr-2" />
-                  Manage All Projects
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* QR Code Option */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <QrCode className="w-5 h-5" />
-                Alternative: QR Code Setup
-              </CardTitle>
-              <CardDescription>
-                Quick setup using WhatsApp Web QR code
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center space-y-4">
-                <div className="w-32 h-32 bg-muted border-2 border-dashed border-muted-foreground/50 rounded-lg flex items-center justify-center mx-auto">
-                  <QrCode className="w-8 h-8 text-muted-foreground" />
-                </div>
-                <div>
-                  <h4 className="font-medium">Scan to Connect</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Open WhatsApp Web and scan this QR code
-                  </p>
-                </div>
-                <Button variant="outline" disabled>
-                  Generate QR Code
+                  Manage All Projects & Billing
                 </Button>
               </div>
             </CardContent>
