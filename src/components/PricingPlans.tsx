@@ -12,7 +12,12 @@ import {
   BarChart3,
   CreditCard,
   Smartphone,
-  Shield
+  Shield,
+  Video, 
+  Wallet,
+  Bot,
+  Settings,
+  Phone
 } from "lucide-react";
 
 interface PricingPlansProps {
@@ -363,17 +368,110 @@ export default function PricingPlans({ currentPlan = "standard" }: PricingPlansP
         </DialogContent>
       </Dialog>
 
-      {/* Features Comparison */}
-      <div className="mt-12 text-center space-y-4">
-        <Button variant="outline" className="gap-2" asChild>
-          <a href="/project-features">
-            <BarChart3 className="w-4 h-4" />
-            View Detailed Features Overview
-          </a>
-        </Button>
-        <p className="text-sm text-muted-foreground">
-          Explore all features across Standard, Pro, and Enterprise plans
-        </p>
+      {/* Enhanced Features Section */}
+      <div className="mt-12 space-y-8">
+        <div className="text-center space-y-4">
+          <h3 className="text-2xl font-bold text-foreground">Platform Features</h3>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Comprehensive business automation tools designed for Indian entrepreneurs
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* WhatsApp Business API */}
+          <Card className="bg-gradient-to-br from-green-50 to-green-100/50 dark:from-green-950/30 dark:to-green-900/20 border-green-200/50">
+            <CardContent className="p-6 text-center space-y-4">
+              <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center mx-auto">
+                <MessageCircle className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-foreground">WhatsApp Business API</h4>
+                <p className="text-sm text-muted-foreground">Send bulk messages, automate responses, and manage customer conversations</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* AI ChatBot Builder */}
+          <Card className="bg-gradient-to-br from-purple-50 to-purple-100/50 dark:from-purple-950/30 dark:to-purple-900/20 border-purple-200/50">
+            <CardContent className="p-6 text-center space-y-4">
+              <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center mx-auto">
+                <Bot className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-foreground">AI ChatBot Builder</h4>
+                <p className="text-sm text-muted-foreground">Create intelligent chatbots with visual flow builder and AI responses</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Meta Ads AI */}
+          <Card className="bg-gradient-to-br from-blue-50 to-blue-100/50 dark:from-blue-950/30 dark:to-blue-900/20 border-blue-200/50">
+            <CardContent className="p-6 text-center space-y-4">
+              <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center mx-auto">
+                <Zap className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-foreground">Meta Ads AI</h4>
+                <p className="text-sm text-muted-foreground">AI-powered Facebook & Instagram ad campaigns with optimization</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Advanced Analytics */}
+          <Card className="bg-gradient-to-br from-orange-50 to-orange-100/50 dark:from-orange-950/30 dark:to-orange-900/20 border-orange-200/50">
+            <CardContent className="p-6 text-center space-y-4">
+              <div className="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center mx-auto">
+                <BarChart3 className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-foreground">Advanced Analytics</h4>
+                <p className="text-sm text-muted-foreground">Detailed insights, performance tracking, and business intelligence</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* API Integrations */}
+          <Card className="bg-gradient-to-br from-indigo-50 to-indigo-100/50 dark:from-indigo-950/30 dark:to-indigo-900/20 border-indigo-200/50">
+            <CardContent className="p-6 text-center space-y-4">
+              <div className="w-12 h-12 bg-indigo-500 rounded-xl flex items-center justify-center mx-auto">
+                <Settings className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-foreground">API Integrations</h4>
+                <p className="text-sm text-muted-foreground">Connect with ZOHO, Mailchimp, Zapier, and custom integrations</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Voice Calling API */}
+          <Card className="bg-gradient-to-br from-amber-50 to-amber-100/50 dark:from-amber-950/30 dark:to-amber-900/20 border-amber-200/50 relative overflow-hidden">
+            <CardContent className="p-6 text-center space-y-4">
+              <div className="w-12 h-12 bg-amber-500 rounded-xl flex items-center justify-center mx-auto">
+                <Phone className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-foreground">Voice Calling API</h4>
+                <p className="text-sm text-muted-foreground">Direct voice calls through WhatsApp Business API</p>
+              </div>
+              <Badge variant="secondary" className="bg-amber-100 text-amber-800">
+                Coming Soon
+              </Badge>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* CTA Section */}
+        <div className="text-center space-y-4 pt-8">
+          <Button className="gap-2" asChild>
+            <a href="/project-features">
+              <BarChart3 className="w-4 h-4" />
+              View All Features & Comparisons
+            </a>
+          </Button>
+          <p className="text-sm text-muted-foreground">
+            Detailed feature breakdown across Standard, Pro, and Enterprise plans
+          </p>
+        </div>
       </div>
     </div>
   );
