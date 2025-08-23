@@ -2,7 +2,9 @@ import { useParams } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Users, Circle, Send, TrendingUp, Activity, ArrowRight, Sparkles, Eye, Plus } from "lucide-react";
+import { Users, Circle, Send, TrendingUp, Activity, ArrowRight, Sparkles, Eye, Plus, Bot, Target, Database, Mail, Webhook, Settings, Zap, Crown } from "lucide-react";
+import { FeatureGuard } from "@/components/FeatureGuard";
+import { useProjectFeatures } from "@/hooks/useProjectFeatures";
 
 export default function ProjectDashboard() {
   const { projectId } = useParams();
@@ -48,6 +50,7 @@ export default function ProjectDashboard() {
   };
 
   const project = getProjectData(projectId || "1");
+  const { enabledFeatures, getFeaturesByCategory } = useProjectFeatures(project.plan as 'Standard' | 'Pro' | 'Enterprise');
 
   const stats = [
     {
@@ -184,6 +187,118 @@ export default function ProjectDashboard() {
             </CardContent>
           </Card>
         ))}
+      </div>
+
+      {/* Feature Modules Section */}
+      <div className="space-y-6">
+        <div className="text-center space-y-2">
+          <h2 className="text-2xl font-bold text-foreground">Available Features</h2>
+          <p className="text-muted-foreground">
+            Explore the features available with your {project.plan} plan
+          </p>
+        </div>
+
+        {/* Feature Categories */}
+        <div className="space-y-8">
+          {/* Standard Features */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                <Settings className="w-4 h-4 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold">Business Setup & Core Features</h3>
+              <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">Standard</Badge>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {getFeaturesByCategory.standard.map((feature, index) => (
+                <FeatureGuard key={feature.id} featureId={feature.id} projectPlan={project.plan as 'Standard' | 'Pro' | 'Enterprise'}>
+                  <Card className="hover:shadow-md transition-all duration-200">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-sm flex items-center gap-2">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        {feature.name}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-xs text-muted-foreground">{feature.description}</p>
+                    </CardContent>
+                  </Card>
+                </FeatureGuard>
+              ))}
+            </div>
+          </div>
+
+          {/* Pro Features */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
+                <Crown className="w-4 h-4 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold">AI & Advanced Features</h3>
+              <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">Pro</Badge>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {getFeaturesByCategory.pro.map((feature, index) => (
+                <FeatureGuard key={feature.id} featureId={feature.id} projectPlan={project.plan as 'Standard' | 'Pro' | 'Enterprise'}>
+                  <Card className="hover:shadow-md transition-all duration-200">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-sm flex items-center gap-2">
+                        {feature.enabled ? (
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        ) : (
+                          <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                        )}
+                        {feature.name}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-xs text-muted-foreground">{feature.description}</p>
+                    </CardContent>
+                  </Card>
+                </FeatureGuard>
+              ))}
+            </div>
+          </div>
+
+          {/* Enterprise Features */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
+                <Zap className="w-4 h-4 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold">Enterprise Integrations</h3>
+              <Badge variant="outline" className="bg-orange-50 text-orange-700 border-orange-200">Enterprise</Badge>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {getFeaturesByCategory.enterprise.map((feature, index) => (
+                <FeatureGuard key={feature.id} featureId={feature.id} projectPlan={project.plan as 'Standard' | 'Pro' | 'Enterprise'}>
+                  <Card className="hover:shadow-md transition-all duration-200">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-sm flex items-center gap-2">
+                        {feature.enabled ? (
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        ) : feature.comingSoon ? (
+                          <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                        ) : (
+                          <div className="w-2 h-2 bg-gray-500 rounded-full"></div>
+                        )}
+                        {feature.name}
+                      </CardTitle>
+                      {feature.comingSoon && (
+                        <Badge variant="outline" className="text-xs bg-blue-50 text-blue-700 border-blue-200 w-fit">
+                          Coming Soon
+                        </Badge>
+                      )}
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-xs text-muted-foreground">{feature.description}</p>
+                    </CardContent>
+                  </Card>
+                </FeatureGuard>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Main Content Grid */}
