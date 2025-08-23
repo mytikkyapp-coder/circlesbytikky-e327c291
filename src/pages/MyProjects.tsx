@@ -404,29 +404,10 @@ const MyProjects = () => {
               </div>
             </CardHeader>
             <CardContent className="space-y-4">
-              {/* Status & Plan */}
-              <div className="flex items-center justify-between">
-                <Badge className={getPlanColor(project.plan)}>
-                  {project.plan}
-                </Badge>
-                <Badge variant="outline" className={getStatusColor(project.status)}>
-                  {project.status}
-                </Badge>
-              </div>
-
-              {/* Project Value & Sector */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Project Value:</span>
-                  <span className="font-bold text-lg text-primary flex items-center">
-                    <IndianRupee className="h-4 w-4 mr-1" />
-                    {project.value}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Sector:</span>
-                  <span className="font-medium">{project.sector}</span>
-                </div>
+              {/* Sector */}
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">Sector:</span>
+                <span className="font-medium">{project.sector}</span>
               </div>
 
               {/* Stats */}
@@ -447,14 +428,6 @@ const MyProjects = () => {
               <div className="text-xs text-muted-foreground border-t pt-3">
                 Last active: {project.lastActive}
               </div>
-
-              {/* Action Button */}
-              <Button variant="outline" className="w-full" asChild>
-                <a href={`/project/${project.id}/dashboard`}>
-                  <ExternalLink className="h-4 w-4 mr-2" />
-                  Open Project
-                </a>
-              </Button>
             </CardContent>
           </Card>
         ))}
