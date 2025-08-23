@@ -36,6 +36,7 @@ import AddMember from "./pages/AddMember";
 import ChatbotBuilder from "./pages/ChatbotBuilder";
 import ProjectDashboard from "./pages/ProjectDashboard";
 import AIAdsLanding from "./pages/AIAdsLanding";
+import CallingAPILanding from "./pages/CallingAPILanding";
 import { ProjectLayout } from "./components/ProjectLayout";
 
 const queryClient = new QueryClient();
@@ -75,6 +76,7 @@ const App = () => (
           <Route path="/ai-ads" element={<Layout><AIAdsLanding /></Layout>} />
           <Route path="/member-profile/:id" element={<Layout><MemberProfile /></Layout>} />
           <Route path="/add-member" element={<Layout><AddMember /></Layout>} />
+          <Route path="/calling-api" element={<Layout><CallingAPILanding /></Layout>} />
           <Route path="/chatbot-builder" element={<ChatbotBuilder />} />
           
           {/* Project-specific routes */}

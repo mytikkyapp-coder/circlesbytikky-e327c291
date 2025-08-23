@@ -203,11 +203,11 @@ export function Header() {
 
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
-                  <div className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors text-muted-foreground cursor-not-allowed">
+                  <Link to="/calling-api" className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
                     <Phone className="mr-2 h-4 w-4" />
                     Calling API
                     <span className="ml-2 text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">Coming Soon</span>
-                  </div>
+                  </Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
             </NavigationMenuList>
