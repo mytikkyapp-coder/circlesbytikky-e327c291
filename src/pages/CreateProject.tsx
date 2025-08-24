@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -20,8 +19,7 @@ import {
   TrendingUp,
   Crown,
   ArrowLeft,
-  Plus,
-  Stethoscope
+  Plus
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -35,59 +33,59 @@ interface Sector {
   pricing: { starter: number; pro: number; enterprise: number };
 }
 
-const crmSectors: Sector[] = [
+const sectors: Sector[] = [
   {
     id: 'cloud-kitchen',
-    name: 'Cloud Kitchen CRM',
-    description: 'Food delivery and restaurant management system',
+    name: 'Cloud Kitchen',
+    description: 'Food delivery and restaurant management',
     icon: ChefHat,
     gradient: 'from-orange-500 to-red-500',
-    features: ['Order Management', 'Menu Management', 'Delivery Tracking'],
+    features: ['Online Menu Management', 'Order Processing System', 'Delivery Integration'],
     pricing: { starter: 2499, pro: 6499, enterprise: 16499 }
   },
   {
-    id: 'healthcare',
-    name: 'Healthcare CRM',
-    description: 'Medical practices and patient management',
-    icon: Stethoscope,
-    gradient: 'from-green-500 to-teal-500',
-    features: ['Patient Records', 'Appointment Scheduling', 'Medical History'],
-    pricing: { starter: 4899, pro: 12299, enterprise: 28999 }
-  },
-  {
     id: 'education',
-    name: 'Education CRM',
-    description: 'Educational institutions and student management',
+    name: 'Education',
+    description: 'Educational institutions and online learning',
     icon: GraduationCap,
     gradient: 'from-blue-500 to-purple-500',
-    features: ['Student Portal', 'Course Management', 'Progress Tracking'],
+    features: ['Student Management System', 'Course Creation Tools', 'Assignment Tracking'],
     pricing: { starter: 3199, pro: 8199, enterprise: 20499 }
   },
   {
     id: 'automobiles',
-    name: 'Automotive CRM',
-    description: 'Auto dealerships and service management',
+    name: 'Automobiles',
+    description: 'Auto dealerships and service centers',
     icon: Car,
     gradient: 'from-gray-600 to-blue-600',
-    features: ['Inventory Management', 'Service Booking', 'Customer Records'],
+    features: ['Inventory Management', 'Service Booking System', 'Customer Relationship Management'],
     pricing: { starter: 4099, pro: 10699, enterprise: 24999 }
   },
   {
+    id: 'healthcare',
+    name: 'Healthcare',
+    description: 'Medical practices and healthcare providers',
+    icon: Heart,
+    gradient: 'from-green-500 to-teal-500',
+    features: ['Patient Management', 'Appointment Scheduling', 'Medical Records System'],
+    pricing: { starter: 4899, pro: 12299, enterprise: 28999 }
+  },
+  {
     id: 'retail',
-    name: 'Retail & E-commerce CRM',
-    description: 'Online and offline retail business management',
+    name: 'Retail & E-commerce',
+    description: 'Online and offline retail businesses',
     icon: ShoppingBag,
     gradient: 'from-pink-500 to-rose-500',
-    features: ['Product Management', 'Order Processing', 'Customer Analytics'],
+    features: ['Product Catalog Management', 'Order Processing', 'Inventory Tracking'],
     pricing: { starter: 2799, pro: 7399, enterprise: 18199 }
   },
   {
     id: 'real-estate',
-    name: 'Real Estate CRM',
-    description: 'Property management and real estate operations',
+    name: 'Real Estate',
+    description: 'Property management and real estate agencies',
     icon: Home,
     gradient: 'from-yellow-500 to-orange-500',
-    features: ['Property Listings', 'Lead Management', 'Client Communication'],
+    features: ['Property Listings Management', 'Lead Generation Tools', 'Virtual Tour Integration'],
     pricing: { starter: 3699, pro: 9899, enterprise: 23199 }
   }
 ];
@@ -223,82 +221,124 @@ export default function CreateProject() {
         {/* Step Content */}
         <div className="animate-fade-in">
           {step === 'workspace' && (
-            <div className="space-y-12">
-              {/* CRM Sectors */}
-              <div className="space-y-6">
+            <div className="space-y-6">
+              <div className="text-center mb-8">
+                <h2 className="text-2xl font-semibold mb-2">Choose Your Workspace</h2>
+                <p className="text-muted-foreground">Select the type of workspace that best fits your project needs</p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {workspaceCategories.map((category) => {
+                  const IconComponent = category.icon;
+                  return (
+                    <Card 
+                      key={category.id}
+                      className="cursor-pointer hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group hover:scale-105"
+                      onClick={() => handleWorkspaceSelect(category)}
+                    >
+                      <CardHeader className="text-center">
+                        <div className={`w-16 h-16 mx-auto bg-gradient-to-r ${category.gradient} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                          <IconComponent className="w-8 h-8 text-white" />
+                        </div>
+                        <CardTitle className="text-xl">{category.name}</CardTitle>
+                        <CardDescription className="text-center">{category.description}</CardDescription>
+                      </CardHeader>
+                    </Card>
+                  );
+                })}
+              </div>
+              
+              {/* New Workspace Categories from My Projects */}
+              <div className="mt-12 space-y-6">
                 <div className="text-center">
-                  <h2 className="text-2xl font-semibold mb-2">CRM Sectors</h2>
-                  <p className="text-muted-foreground">Choose a specialized CRM solution for your industry</p>
+                  <h3 className="text-xl font-semibold mb-2">Business Category Workspaces</h3>
+                  <p className="text-muted-foreground">Specialized workspaces for different business sectors</p>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {crmSectors.map((sector) => {
-                    const IconComponent = sector.icon;
+                  {[
+                    {
+                      id: "tech-support-business",
+                      name: "Tech Support",
+                      icon: Users,
+                      description: "Customer service and technical support management",
+                      basePrice: 8199,
+                      features: ["Ticket Management", "Live Chat", "Knowledge Base", "SLA Tracking"],
+                      color: "from-blue-500 to-cyan-500"
+                    },
+                    {
+                      id: "marketing-business",
+                      name: "Marketing",
+                      icon: TrendingUp,
+                      description: "Campaign management and lead generation tools",
+                      basePrice: 12299,
+                      features: ["Campaign Builder", "Lead Tracking", "Analytics", "Social Media Integration"],
+                      color: "from-pink-500 to-rose-500"
+                    },
+                    {
+                      id: "hr-management-business",
+                      name: "HR Management",
+                      icon: Users,
+                      description: "Human resources and employee management system",
+                      basePrice: 10699,
+                      features: ["Employee Database", "Payroll", "Performance Tracking", "Recruitment"],
+                      color: "from-green-500 to-emerald-500"
+                    },
+                    {
+                      id: "dealers-business",
+                      name: "Dealers",
+                      icon: Building,
+                      description: "Dealer network management and coordination",
+                      basePrice: 16499,
+                      features: ["Dealer Portal", "Inventory Tracking", "Commission Management", "Performance Analytics"],
+                      color: "from-orange-500 to-amber-500"
+                    },
+                    {
+                      id: "distributors-business",
+                      name: "Distributors",
+                      icon: Building,
+                      description: "Distribution network and supply chain management",
+                      basePrice: 20499,
+                      features: ["Supply Chain Tracking", "Order Management", "Territory Management", "Reporting"],
+                      color: "from-purple-500 to-violet-500"
+                    }
+                  ].map((category) => {
+                    const IconComponent = category.icon;
                     return (
                       <Card 
-                        key={sector.id}
-                        className="cursor-pointer hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group hover:scale-105"
-                        onClick={() => handleSectorSelect(sector)}
+                        key={category.id} 
+                        className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer border-2 hover:border-primary/30"
+                        onClick={() => handleWorkspaceSelect(category)}
                       >
-                        <CardHeader className="text-center">
-                          <div className={`w-16 h-16 mx-auto bg-gradient-to-r ${sector.gradient} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                        <CardContent className="p-6 text-center space-y-4">
+                          <div className={`w-16 h-16 bg-gradient-to-r ${category.color} rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300`}>
                             <IconComponent className="w-8 h-8 text-white" />
                           </div>
-                          <CardTitle className="text-xl">{sector.name}</CardTitle>
-                          <CardDescription className="text-center">{sector.description}</CardDescription>
-                        </CardHeader>
-                        
-                        <CardContent className="space-y-4">
+                          
                           <div className="space-y-2">
-                            <h4 className="font-semibold text-sm">Key Features:</h4>
-                            <div className="space-y-1">
-                              {sector.features.map((feature, index) => (
-                                <div key={index} className="flex items-center gap-2">
+                            <h3 className="text-xl font-bold text-foreground">{category.name}</h3>
+                            <p className="text-muted-foreground text-sm">{category.description}</p>
+                          </div>
+
+                          <div className="space-y-3">
+                            <div className="text-2xl font-bold text-primary">
+                              ₹{category.basePrice.toLocaleString()}/month
+                            </div>
+                            
+                            <div className="space-y-2">
+                              {category.features.map((feature, index) => (
+                                <div key={index} className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
                                   <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
-                                  <span className="text-xs text-muted-foreground">{feature}</span>
+                                  {feature}
                                 </div>
                               ))}
                             </div>
                           </div>
-                          
-                          <div className="pt-2 border-t">
-                            <div className="flex items-center justify-between">
-                              <span className="text-xs text-muted-foreground">Starting from</span>
-                              <Badge className={`bg-gradient-to-r ${sector.gradient} text-white`}>
-                                ₹{sector.pricing.starter}/mo
-                              </Badge>
-                            </div>
-                          </div>
+
+                          <Button className={`w-full bg-gradient-to-r ${category.color} hover:opacity-90 text-white border-0`}>
+                            Get Started
+                          </Button>
                         </CardContent>
-                      </Card>
-                    );
-                  })}
-                </div>
-              </div>
-              
-              {/* General Workspace Categories */}
-              <div className="space-y-6">
-                <div className="text-center">
-                  <h2 className="text-2xl font-semibold mb-2">General Workspaces</h2>
-                  <p className="text-muted-foreground">Multi-purpose workspace solutions for various business needs</p>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {workspaceCategories.map((category) => {
-                    const IconComponent = category.icon;
-                    return (
-                      <Card 
-                        key={category.id}
-                        className="cursor-pointer hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group hover:scale-105"
-                        onClick={() => handleWorkspaceSelect(category)}
-                      >
-                        <CardHeader className="text-center">
-                          <div className={`w-16 h-16 mx-auto bg-gradient-to-r ${category.gradient} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                            <IconComponent className="w-8 h-8 text-white" />
-                          </div>
-                          <CardTitle className="text-xl">{category.name}</CardTitle>
-                          <CardDescription className="text-center">{category.description}</CardDescription>
-                        </CardHeader>
                       </Card>
                     );
                   })}
@@ -317,7 +357,7 @@ export default function CreateProject() {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {crmSectors.map((sector) => {
+                {sectors.map((sector) => {
                   const IconComponent = sector.icon;
                   return (
                     <Card 
