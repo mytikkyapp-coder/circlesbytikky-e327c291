@@ -1,3 +1,4 @@
+
 import { NavLink, useLocation } from "react-router-dom";
 import { TikkyLogo } from "./TikkyLogo";
 import tikkyLogo from "@/assets/tikky-logo.png";
@@ -11,7 +12,14 @@ import {
   Wallet,
   BookOpen,
   HelpCircle,
-  Settings
+  Settings,
+  Building2,
+  Stethoscope,
+  GraduationCap,
+  Car,
+  ShoppingCart,
+  Home as HomeIcon,
+  ChefHat
 } from "lucide-react";
 
 import {
@@ -36,6 +44,15 @@ const businessItems = [
   { title: "WhatsApp API", url: "/whatsapp-setup", icon: MessageSquare },
   { title: "Business KYC", url: "/kyc", icon: Shield },
   { title: "Pricing & Payments", url: "/pricing", icon: Wallet },
+];
+
+const crmSectorItems = [
+  { title: "Cloud Kitchen CRM", url: "/crm/cloud-kitchen", icon: ChefHat },
+  { title: "Healthcare CRM", url: "/crm/healthcare", icon: Stethoscope },
+  { title: "Education CRM", url: "/crm/education", icon: GraduationCap },
+  { title: "Automotive CRM", url: "/crm/automotive", icon: Car },
+  { title: "Retail & E-commerce CRM", url: "/crm/retail", icon: ShoppingCart },
+  { title: "Real Estate CRM", url: "/crm/real-estate", icon: Building2 },
 ];
 
 const knowledgeItems = [
@@ -130,6 +147,30 @@ export function AppSidebar() {
                     >
                       <item.icon className="w-4 h-4 flex-shrink-0" />
                       {!isCollapsed && <span className="font-medium">{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* CRM Sectors */}
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-xs font-bold text-sidebar-foreground px-3 mb-1 mt-4">
+            {!isCollapsed && "CRM SECTORS"}
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu className="space-y-1">
+              {crmSectorItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink 
+                      to={item.url} 
+                      className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 ${getNavClasses(item.url)}`}
+                    >
+                      <item.icon className="w-4 h-4 flex-shrink-0" />
+                      {!isCollapsed && <span className="font-medium text-xs">{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
