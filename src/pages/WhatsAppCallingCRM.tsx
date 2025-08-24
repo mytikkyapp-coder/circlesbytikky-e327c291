@@ -1,11 +1,14 @@
+
 import React, { useState } from 'react';
-import { Phone, MessageCircle, Users, BarChart3, Mic, MicOff, Pause, Play, PhoneOff, UserPlus } from 'lucide-react';
+import { Phone, MessageCircle, Users, BarChart3, Settings, Headphones } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
-import { Separator } from '@/components/ui/separator';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { CallInterface } from '@/components/whatsapp-crm/CallInterface';
+import { AgentsPanel } from '@/components/whatsapp-crm/AgentsPanel';
+import { CampaignsPanel } from '@/components/whatsapp-crm/CampaignsPanel';
+import { APIIntegrationPanel } from '@/components/whatsapp-crm/APIIntegrationPanel';
 
 const WhatsAppCallingCRM = () => {
   const [activeTab, setActiveTab] = useState('calls');
@@ -18,8 +21,9 @@ const WhatsAppCallingCRM = () => {
   const navigationItems = [
     { id: 'chats', label: 'Chats', icon: MessageCircle },
     { id: 'calls', label: 'Calls', icon: Phone },
-    { id: 'contacts', label: 'Contacts', icon: Users },
-    { id: 'analytics', label: 'Analytics', icon: BarChart3 },
+    { id: 'agents', label: 'Agents', icon: Users },
+    { id: 'campaigns', label: 'Campaigns', icon: BarChart3 },
+    { id: 'api', label: 'API Integration', icon: Settings },
   ];
 
   const callHistory = [
@@ -34,6 +38,71 @@ const WhatsAppCallingCRM = () => {
     { id: 3, message: 'Thank you for the quick response', time: '1 hour ago', type: 'incoming' },
   ];
 
+  const renderMainContent = () => {
+    switch (activeTab) {
+      case 'calls':
+        return (
+          <Card className="h-full p-6">
+            <h2 className="text-lg font-semibold mb-4">Recent Calls</h2>
+            <div className="space-y-3">
+              {callHistory.map((call) => (
+                <div key={call.id} className="flex items-center justify-between p-3 border border-border rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <div className={`p-2 rounded-full ${
+                      call.type === 'incoming' ? 'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400' :
+                      call.type === 'outgoing' ? 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400' :
+                      'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400'
+                    }`}>
+                      <Phone className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <p className="font-medium capitalize">{call.type} Call</p>
+                      <p className="text-sm text-muted-foreground">{call.time}</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-medium">{call.duration}</p>
+                    <Badge variant={call.status === 'completed' ? 'default' : 'destructive'}>
+                      {call.status}
+                    </Badge>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Card>
+        );
+      
+      case 'chats':
+        return (
+          <Card className="h-full p-6">
+            <h2 className="text-lg font-semibold mb-4">Chat History</h2>
+            <div className="space-y-3">
+              {chatHistory.map((chat) => (
+                <div key={chat.id} className={`p-3 rounded-lg max-w-md ${
+                  chat.type === 'incoming' ? 'bg-muted mr-auto' : 'bg-primary/10 ml-auto'
+                }`}>
+                  <p className="text-sm">{chat.message}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{chat.time}</p>
+                </div>
+              ))}
+            </div>
+          </Card>
+        );
+      
+      case 'agents':
+        return <AgentsPanel />;
+      
+      case 'campaigns':
+        return <CampaignsPanel />;
+      
+      case 'api':
+        return <APIIntegrationPanel />;
+      
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="flex h-screen bg-background">
       {/* Left Sidebar */}
@@ -43,7 +112,10 @@ const WhatsAppCallingCRM = () => {
             <div className="p-2 bg-primary/20 rounded-lg">
               <Phone className="w-6 h-6 text-primary" />
             </div>
-            <h1 className="text-xl font-semibold">WhatsApp CRM</h1>
+            <div>
+              <h1 className="text-xl font-semibold">WhatsApp CRM</h1>
+              <p className="text-xs text-muted-foreground">Calling API Enabled</p>
+            </div>
           </div>
           
           <nav className="space-y-2">
@@ -64,119 +136,19 @@ const WhatsAppCallingCRM = () => {
 
       {/* Main Panel */}
       <div className="flex-1 flex flex-col">
-        {/* Call Interface */}
-        {isCallActive && (
-          <Card className="m-4 p-6 bg-gradient-to-r from-primary/5 to-green-50 dark:from-primary/10 dark:to-green-900/20">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-4">
-                <Avatar className="w-16 h-16">
-                  <AvatarFallback className="text-lg font-semibold bg-primary/20">JD</AvatarFallback>
-                </Avatar>
-                <div>
-                  <h3 className="text-xl font-semibold">John Doe</h3>
-                  <p className="text-muted-foreground">+1 (555) 123-4567</p>
-                  <div className="flex items-center gap-2 mt-1">
-                    <Badge variant="secondary" className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
-                      Connected
-                    </Badge>
-                    <span className="text-sm text-muted-foreground">{callDuration}</span>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Floating Controls */}
-              <div className="flex items-center gap-2">
-                <Button
-                  variant={isMuted ? 'destructive' : 'outline'}
-                  size="icon"
-                  onClick={() => setIsMuted(!isMuted)}
-                  className="rounded-full"
-                >
-                  {isMuted ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
-                </Button>
-                <Button
-                  variant={isOnHold ? 'secondary' : 'outline'}
-                  size="icon"
-                  onClick={() => setIsOnHold(!isOnHold)}
-                  className="rounded-full"
-                >
-                  {isOnHold ? <Play className="w-4 h-4" /> : <Pause className="w-4 h-4" />}
-                </Button>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="rounded-full"
-                >
-                  <UserPlus className="w-4 h-4" />
-                </Button>
-                <Button
-                  variant="destructive"
-                  size="icon"
-                  onClick={() => setIsCallActive(false)}
-                  className="rounded-full"
-                >
-                  <PhoneOff className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
-            
-            <div className="text-center text-sm text-muted-foreground">
-              <div className="flex items-center justify-center gap-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                AI Call Recording & Analysis Active
-              </div>
-            </div>
-          </Card>
-        )}
+        <CallInterface
+          isCallActive={isCallActive}
+          setIsCallActive={setIsCallActive}
+          isMuted={isMuted}
+          setIsMuted={setIsMuted}
+          isOnHold={isOnHold}
+          setIsOnHold={setIsOnHold}
+          callDuration={callDuration}
+        />
 
         {/* Content Area */}
         <div className="flex-1 p-4">
-          {activeTab === 'calls' && (
-            <Card className="h-full p-6">
-              <h2 className="text-lg font-semibold mb-4">Recent Calls</h2>
-              <div className="space-y-3">
-                {callHistory.map((call) => (
-                  <div key={call.id} className="flex items-center justify-between p-3 border border-border rounded-lg">
-                    <div className="flex items-center gap-3">
-                      <div className={`p-2 rounded-full ${
-                        call.type === 'incoming' ? 'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400' :
-                        call.type === 'outgoing' ? 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400' :
-                        'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400'
-                      }`}>
-                        <Phone className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <p className="font-medium capitalize">{call.type} Call</p>
-                        <p className="text-sm text-muted-foreground">{call.time}</p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-medium">{call.duration}</p>
-                      <Badge variant={call.status === 'completed' ? 'default' : 'destructive'}>
-                        {call.status}
-                      </Badge>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          )}
-          
-          {activeTab === 'chats' && (
-            <Card className="h-full p-6">
-              <h2 className="text-lg font-semibold mb-4">Chat History</h2>
-              <div className="space-y-3">
-                {chatHistory.map((chat) => (
-                  <div key={chat.id} className={`p-3 rounded-lg max-w-md ${
-                    chat.type === 'incoming' ? 'bg-muted mr-auto' : 'bg-primary/10 ml-auto'
-                  }`}>
-                    <p className="text-sm">{chat.message}</p>
-                    <p className="text-xs text-muted-foreground mt-1">{chat.time}</p>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          )}
+          {renderMainContent()}
         </div>
       </div>
 
@@ -214,6 +186,27 @@ const WhatsAppCallingCRM = () => {
             </div>
             <div className="p-2 bg-green-50 dark:bg-green-900/20 rounded">
               <p className="text-green-700 dark:text-green-300">High conversion probability</p>
+            </div>
+          </div>
+        </Card>
+
+        <Card className="p-4">
+          <h3 className="font-semibold mb-3 flex items-center gap-2">
+            <Headphones className="w-4 h-4" />
+            API Status
+          </h3>
+          <div className="space-y-2">
+            <div className="flex justify-between items-center">
+              <span className="text-sm">Calling API</span>
+              <Badge variant="default" className="bg-green-100 text-green-700">Active</Badge>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm">Rate Limit</span>
+              <span className="text-sm text-muted-foreground">847/1000</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm">Response Time</span>
+              <span className="text-sm text-muted-foreground">120ms</span>
             </div>
           </div>
         </Card>
