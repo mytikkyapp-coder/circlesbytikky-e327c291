@@ -1,9 +1,11 @@
+
 import React, { useState, useEffect } from "react";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CommunityJoinPopup } from "@/components/CommunityJoinPopup";
+import { LaunchOfferBanner } from "@/components/LaunchOfferBanner";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -35,6 +37,7 @@ export function Layout({ children }: LayoutProps) {
         <AppSidebar />
         <div className="flex-1 flex flex-col overflow-hidden">
           <Header />
+          <LaunchOfferBanner />
           <main className="flex-1 p-4 lg:p-6 bg-background overflow-auto">
             {children}
           </main>
