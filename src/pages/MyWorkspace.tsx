@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -16,19 +15,14 @@ import {
   Activity,
   Target,
   Briefcase,
-  ChefHat,
-  GraduationCap,
-  Car,
-  Heart,
-  ShoppingBag,
-  Home,
   HeadphonesIcon,
   UserCheck,
-  Truck,
-  Store,
-  Zap
+  Truck
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import WorkspaceCategories from "@/components/workspace/WorkspaceCategories";
+import BusinessSectors from "@/components/workspace/BusinessSectors";
+import ProjectCreationSummary from "@/components/workspace/ProjectCreationSummary";
 
 const workspaceCategories = [
   {
@@ -93,57 +87,6 @@ const workspaceCategories = [
   }
 ];
 
-const businessSectors = [
-  {
-    id: 'cloud-kitchen',
-    name: 'Cloud Kitchen',
-    description: 'Food delivery and restaurant management',
-    icon: ChefHat,
-    gradient: 'from-orange-500 to-red-500',
-    features: ['Menu Management', 'Order Processing', 'Delivery Tracking']
-  },
-  {
-    id: 'education',
-    name: 'Education',
-    description: 'Educational institutions and online learning',
-    icon: GraduationCap,
-    gradient: 'from-blue-500 to-purple-500',
-    features: ['Student Management', 'Course Creation', 'Assessment Tools']
-  },
-  {
-    id: 'automobiles',
-    name: 'Automobiles',
-    description: 'Auto dealerships and service centers',
-    icon: Car,
-    gradient: 'from-gray-600 to-blue-600',
-    features: ['Inventory Management', 'Service Booking', 'Customer CRM']
-  },
-  {
-    id: 'healthcare',
-    name: 'Healthcare',
-    description: 'Medical practices and healthcare providers',
-    icon: Heart,
-    gradient: 'from-green-500 to-teal-500',
-    features: ['Patient Management', 'Appointments', 'Medical Records']
-  },
-  {
-    id: 'retail',
-    name: 'Retail & E-commerce',
-    description: 'Online and offline retail businesses',
-    icon: ShoppingBag,
-    gradient: 'from-pink-500 to-rose-500',
-    features: ['Product Catalog', 'Order Processing', 'Inventory']
-  },
-  {
-    id: 'real-estate',
-    name: 'Real Estate',
-    description: 'Property management and real estate agencies',
-    icon: Home,
-    gradient: 'from-yellow-500 to-orange-500',
-    features: ['Property Listings', 'Lead Generation', 'Virtual Tours']
-  }
-];
-
 const recentActivity = [
   { action: 'Updated Marketing Campaign', workspace: 'Marketing Hub', time: '2 hours ago' },
   { action: 'Added new team member', workspace: 'Sales Operations', time: '5 hours ago' },
@@ -182,10 +125,15 @@ export default function MyWorkspace() {
     setStep('details');
   };
 
-  const handleCreateProject = () => {
-    console.log('Creating workspace:', { category: selectedCategory, sector: selectedSector });
-    setShowCreateDialog(false);
-    navigate('/create-project');
+  const handleBackToCategories = () => {
+    setStep('category');
+    setSelectedCategory(null);
+    setSelectedSector(null);
+  };
+
+  const handleBackToSectors = () => {
+    setStep('sector');
+    setSelectedSector(null);
   };
 
   return (
@@ -213,181 +161,32 @@ export default function MyWorkspace() {
               <DialogTitle className="text-2xl">
                 {step === 'category' && 'Choose Workspace Category'}
                 {step === 'sector' && 'Select Business Sector'}
-                {step === 'details' && 'Workspace Details'}
+                {step === 'details' && 'Workspace Configuration'}
               </DialogTitle>
             </DialogHeader>
 
             {step === 'category' && (
-              <div className="space-y-6">
-                <p className="text-muted-foreground text-center">
-                  Select the type of workspace that best fits your business needs
-                </p>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {workspaceCategories.map((category) => {
-                    const IconComponent = category.icon;
-                    return (
-                      <Card 
-                        key={category.id}
-                        className="cursor-pointer hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group"
-                        onClick={() => handleCategorySelect(category)}
-                      >
-                        <CardHeader className="text-center">
-                          <div className={`w-16 h-16 mx-auto bg-gradient-to-r ${category.gradient} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                            <IconComponent className="w-8 h-8 text-white" />
-                          </div>
-                          <CardTitle className="text-xl">{category.name}</CardTitle>
-                          <CardDescription className="text-center">{category.description}</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="space-y-3">
-                            <div className="flex items-center justify-between text-sm">
-                              <span className="text-muted-foreground">Supported Sectors:</span>
-                              <Badge variant="secondary">{category.sectors.length}</Badge>
-                            </div>
-                            <div className="flex flex-wrap gap-1">
-                              {category.sectors.slice(0, 3).map((sector, index) => (
-                                <Badge key={index} variant="outline" className="text-xs">
-                                  {sector}
-                                </Badge>
-                              ))}
-                              {category.sectors.length > 3 && (
-                                <Badge variant="outline" className="text-xs">
-                                  +{category.sectors.length - 3} more
-                                </Badge>
-                              )}
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    );
-                  })}
-                </div>
-              </div>
+              <WorkspaceCategories 
+                onCategorySelect={handleCategorySelect} 
+                selectedCategory={selectedCategory}
+              />
             )}
 
             {step === 'sector' && selectedCategory && (
-              <div className="space-y-6">
-                <div className="flex items-center gap-4 p-4 bg-muted/30 rounded-lg">
-                  <div className={`w-12 h-12 bg-gradient-to-r ${selectedCategory.gradient} rounded-lg flex items-center justify-center`}>
-                    <selectedCategory.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold">{selectedCategory.name}</h3>
-                    <p className="text-muted-foreground text-sm">Select your business sector</p>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {businessSectors.map((sector) => {
-                    const IconComponent = sector.icon;
-                    return (
-                      <Card 
-                        key={sector.id}
-                        className="cursor-pointer hover:shadow-lg transition-all duration-200 hover:-translate-y-1 group"
-                        onClick={() => handleSectorSelect(sector)}
-                      >
-                        <CardHeader>
-                          <div className="flex items-center gap-4">
-                            <div className={`w-12 h-12 bg-gradient-to-r ${sector.gradient} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                              <IconComponent className="w-6 h-6 text-white" />
-                            </div>
-                            <div>
-                              <CardTitle className="text-lg">{sector.name}</CardTitle>
-                              <CardDescription>{sector.description}</CardDescription>
-                            </div>
-                          </div>
-                        </CardHeader>
-                        
-                        <CardContent className="space-y-4">
-                          <div className="space-y-2">
-                            <h4 className="font-semibold text-sm">Key Features:</h4>
-                            <div className="space-y-1">
-                              {sector.features.map((feature, index) => (
-                                <div key={index} className="flex items-center gap-2">
-                                  <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
-                                  <span className="text-xs text-muted-foreground">{feature}</span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    );
-                  })}
-                </div>
-
-                <div className="flex gap-3 pt-4">
-                  <Button variant="outline" onClick={() => setStep('category')}>
-                    Back to Categories
-                  </Button>
-                </div>
-              </div>
+              <BusinessSectors 
+                selectedCategory={selectedCategory}
+                onSectorSelect={handleSectorSelect}
+                selectedSector={selectedSector}
+                onBack={handleBackToCategories}
+              />
             )}
 
             {step === 'details' && selectedCategory && selectedSector && (
-              <div className="space-y-6">
-                <div className="flex items-center gap-4 p-4 bg-muted/30 rounded-lg">
-                  <div className={`w-16 h-16 bg-gradient-to-r ${selectedSector.gradient} rounded-xl flex items-center justify-center`}>
-                    <selectedSector.icon className="w-8 h-8 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold">{selectedSector.name} Workspace</h3>
-                    <p className="text-muted-foreground">Category: {selectedCategory.name}</p>
-                  </div>
-                </div>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Workspace Configuration</CardTitle>
-                    <CardDescription>
-                      Your workspace will be optimized for {selectedSector.name} businesses using {selectedCategory.name} tools
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <h4 className="font-semibold mb-2">Included Features</h4>
-                        <div className="space-y-1">
-                          {selectedSector.features.map((feature, index) => (
-                            <div key={index} className="flex items-center gap-2">
-                              <Zap className="w-4 h-4 text-primary" />
-                              <span className="text-sm">{feature}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold mb-2">Category Benefits</h4>
-                        <div className="space-y-1">
-                          <div className="flex items-center gap-2">
-                            <Target className="w-4 h-4 text-green-500" />
-                            <span className="text-sm">Specialized {selectedCategory.name} tools</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Activity className="w-4 h-4 text-blue-500" />
-                            <span className="text-sm">Advanced analytics dashboard</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Users className="w-4 h-4 text-purple-500" />
-                            <span className="text-sm">Team collaboration features</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <div className="flex gap-3 pt-4">
-                  <Button variant="outline" onClick={() => setStep('sector')}>
-                    Back to Sectors
-                  </Button>
-                  <Button onClick={handleCreateProject} className={`bg-gradient-to-r ${selectedSector.gradient} text-white hover:opacity-90`}>
-                    <Plus className="w-4 h-4 mr-2" />
-                    Create Workspace
-                  </Button>
-                </div>
-              </div>
+              <ProjectCreationSummary 
+                selectedCategory={selectedCategory}
+                selectedSector={selectedSector}
+                onBack={handleBackToSectors}
+              />
             )}
           </DialogContent>
         </Dialog>
@@ -395,9 +194,10 @@ export default function MyWorkspace() {
 
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="workspaces">My Workspaces</TabsTrigger>
+          <TabsTrigger value="sectors">Business Sectors</TabsTrigger>
           <TabsTrigger value="activity">Recent Activity</TabsTrigger>
         </TabsList>
 
@@ -502,6 +302,25 @@ export default function MyWorkspace() {
               );
             })}
           </div>
+        </TabsContent>
+
+        <TabsContent value="sectors" className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-semibold">Available Business Sectors</h2>
+            <Button onClick={() => navigate('/create-project')} className="bg-primary">
+              <Plus className="w-4 h-4 mr-2" />
+              Create Project
+            </Button>
+          </div>
+
+          <BusinessSectors 
+            selectedCategory={{ name: "All Categories", gradient: "from-primary to-primary/60", icon: Briefcase }}
+            onSectorSelect={(sector) => {
+              console.log('Selected sector:', sector);
+              navigate('/create-project');
+            }}
+            onBack={() => {}}
+          />
         </TabsContent>
 
         <TabsContent value="activity" className="space-y-6">
