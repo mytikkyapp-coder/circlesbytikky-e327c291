@@ -39,11 +39,11 @@ const businessItems = [
 ];
 
 const knowledgeItems = [
-  { title: "How Meta Campaigns", url: "/knowledge/meta-campaigns", icon: BookOpen },
-  { title: "How Circle Works", url: "/knowledge/circle-works", icon: BookOpen },
-  { title: "How to create Templates", url: "/knowledge/create-templates", icon: BookOpen },
-  { title: "How to Launch AI Ads", url: "/knowledge/launch-ai-ads", icon: BookOpen },
-  { title: "How to Build ChatBot", url: "/knowledge/build-chatbot", icon: BookOpen },
+  { title: "How Meta Campaigns", url: "/info/meta-campaigns", icon: BookOpen },
+  { title: "How Circle Works", url: "/info/circles", icon: BookOpen },
+  { title: "How to create Templates", url: "/info/templates", icon: BookOpen },
+  { title: "How to Launch AI Ads", url: "/info/ai-ads", icon: BookOpen },
+  { title: "How to Build ChatBot", url: "/info/chatbot", icon: BookOpen },
 ];
 
 const supportItems = [
