@@ -1,11 +1,12 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import Layout from "./components/Layout";
-import ProjectLayout from "./components/ProjectLayout";
+import { Layout } from "./components/Layout";
+import { ProjectLayout } from "./components/ProjectLayout";
 import Index from "./pages/Index";
 import Campaigns from "./pages/Campaigns";
 import CreateProject from "./pages/CreateProject";
@@ -14,16 +15,16 @@ import MyWorkspace from "./pages/MyWorkspace";
 import Pricing from "./pages/Pricing";
 import SupportTickets from "./pages/SupportTickets";
 import Help from "./pages/Help";
-import SettingsPage from "./pages/SettingsPage";
-import WhatsappSetup from "./pages/WhatsappSetup";
-import Kyc from "./pages/Kyc";
+import Settings from "./pages/Settings";
+import WhatsAppSetup from "./pages/WhatsAppSetup";
+import KYC from "./pages/KYC";
 import NotFound from "./pages/NotFound";
 import TemplateBuilder from "./pages/TemplateBuilder";
 import Templates from "./pages/Templates";
-import MetaApiIntegration from "./pages/MetaApiIntegration";
+import MetaAPIIntegration from "./pages/MetaAPIIntegration";
 import Circles from "./pages/Circles";
-import AIAds from "./pages/AIAds";
-import Chatbot from "./pages/Chatbot";
+import AIAdsLanding from "./pages/AIAdsLanding";
+import ChatbotBuilder from "./pages/ChatbotBuilder";
 
 // Info pages
 import MetaCampaignsInfo from "./pages/info/MetaCampaignsInfo";
@@ -51,15 +52,15 @@ function App() {
               <Route path="/pricing" element={<Layout><Pricing /></Layout>} />
               <Route path="/support-tickets" element={<Layout><SupportTickets /></Layout>} />
               <Route path="/help" element={<Layout><Help /></Layout>} />
-              <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
-              <Route path="/whatsapp-setup" element={<Layout><WhatsappSetup /></Layout>} />
-              <Route path="/kyc" element={<Layout><Kyc /></Layout>} />
+              <Route path="/settings" element={<Layout><Settings /></Layout>} />
+              <Route path="/whatsapp-setup" element={<Layout><WhatsAppSetup /></Layout>} />
+              <Route path="/kyc" element={<Layout><KYC /></Layout>} />
               <Route path="/template-builder" element={<Layout><TemplateBuilder /></Layout>} />
               <Route path="/templates" element={<Layout><Templates /></Layout>} />
-              <Route path="/meta-api-integration" element={<Layout><MetaApiIntegration /></Layout>} />
+              <Route path="/meta-api-integration" element={<Layout><MetaAPIIntegration /></Layout>} />
               <Route path="/circles" element={<Layout><Circles /></Layout>} />
-              <Route path="/ai-ads" element={<Layout><AIAds /></Layout>} />
-              <Route path="/chatbot" element={<Layout><Chatbot /></Layout>} />
+              <Route path="/ai-ads" element={<Layout><AIAdsLanding /></Layout>} />
+              <Route path="/chatbot" element={<Layout><ChatbotBuilder /></Layout>} />
               
               {/* Info Pages Routes */}
               <Route path="/info/meta-campaigns" element={<Layout><MetaCampaignsInfo /></Layout>} />
