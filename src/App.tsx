@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "next-themes";
 import { Layout } from "@/components/Layout";
 import { ProjectLayout } from "@/components/ProjectLayout";
@@ -48,53 +47,51 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <TooltipProvider>
-          <Router>
-            <div className="min-h-screen bg-background font-sans antialiased">
-              <Routes>
-                {/* Public routes with main layout */}
-                <Route path="/" element={<Layout><Home /></Layout>} />
-                <Route path="/my-projects" element={<Layout><MyProjects /></Layout>} />
-                <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
-                <Route path="/create-project" element={<Layout><CreateProject /></Layout>} />
-                <Route path="/my-workspace" element={<Layout><MyWorkspace /></Layout>} />
-                <Route path="/whatsapp-setup" element={<Layout><WhatsAppSetup /></Layout>} />
-                <Route path="/kyc" element={<Layout><KYC /></Layout>} />
-                <Route path="/pricing" element={<Layout><Pricing /></Layout>} />
-                <Route path="/help" element={<Layout><Help /></Layout>} />
-                <Route path="/support-tickets" element={<Layout><SupportTickets /></Layout>} />
-                
-                {/* Info/Knowledge Kit routes */}
-                <Route path="/info/meta-campaigns" element={<Layout><MetaCampaignsInfo /></Layout>} />
-                <Route path="/info/circles" element={<Layout><CirclesInfo /></Layout>} />
-                <Route path="/info/templates" element={<Layout><TemplatesInfo /></Layout>} />
-                <Route path="/info/ai-ads" element={<Layout><AIAdsInfo /></Layout>} />
-                <Route path="/info/chatbot" element={<Layout><ChatbotInfo /></Layout>} />
-                
-                {/* Project-specific routes with project layout */}
-                <Route path="/project/:projectId/dashboard" element={<ProjectLayout><ProjectDashboard /></ProjectLayout>} />
-                <Route path="/project/:projectId/members" element={<ProjectLayout><Members /></ProjectLayout>} />
-                <Route path="/project/:projectId/campaigns" element={<ProjectLayout><Campaigns /></ProjectLayout>} />
-                <Route path="/project/:projectId/settings" element={<ProjectLayout><Settings /></ProjectLayout>} />
-                <Route path="/project/:projectId/whatsapp-setup" element={<ProjectLayout><WhatsAppSetup /></ProjectLayout>} />
-                <Route path="/project/:projectId/whatsapp-chat" element={<ProjectLayout><WhatsAppChat /></ProjectLayout>} />
-                <Route path="/project/:projectId/whatsapp-calling-crm" element={<ProjectLayout><WhatsAppCallingCRM /></ProjectLayout>} />
-                <Route path="/project/:projectId/kyc" element={<ProjectLayout><KYC /></ProjectLayout>} />
-                <Route path="/project/:projectId/wallet" element={<ProjectLayout><Wallet /></ProjectLayout>} />
-                <Route path="/project/:projectId/integrations" element={<ProjectLayout><Integrations /></ProjectLayout>} />
-                <Route path="/project/:projectId/templates" element={<ProjectLayout><Templates /></ProjectLayout>} />
-                <Route path="/project/:projectId/meta-api" element={<ProjectLayout><MetaAPIIntegration /></ProjectLayout>} />
-                <Route path="/project/:projectId/analytics" element={<ProjectLayout><Analytics /></ProjectLayout>} />
-                <Route path="/project/:projectId/launch-ads" element={<ProjectLayout><LaunchAds /></ProjectLayout>} />
-                <Route path="/project/:projectId/chatbot-builder" element={<ProjectLayout><ChatbotBuilder /></ProjectLayout>} />
-                <Route path="/project/:projectId/core-features" element={<ProjectLayout><CoreFeatures /></ProjectLayout>} />
-                <Route path="/project/:projectId/circles" element={<ProjectLayout><Circles /></ProjectLayout>} />
-              </Routes>
-            </div>
-            <Toaster />
-            <Sonner />
-          </Router>
-        </TooltipProvider>
+        <Router>
+          <div className="min-h-screen bg-background font-sans antialiased">
+            <Routes>
+              {/* Public routes with main layout */}
+              <Route path="/" element={<Layout><Home /></Layout>} />
+              <Route path="/my-projects" element={<Layout><MyProjects /></Layout>} />
+              <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
+              <Route path="/create-project" element={<Layout><CreateProject /></Layout>} />
+              <Route path="/my-workspace" element={<Layout><MyWorkspace /></Layout>} />
+              <Route path="/whatsapp-setup" element={<Layout><WhatsAppSetup /></Layout>} />
+              <Route path="/kyc" element={<Layout><KYC /></Layout>} />
+              <Route path="/pricing" element={<Layout><Pricing /></Layout>} />
+              <Route path="/help" element={<Layout><Help /></Layout>} />
+              <Route path="/support-tickets" element={<Layout><SupportTickets /></Layout>} />
+              
+              {/* Info/Knowledge Kit routes */}
+              <Route path="/info/meta-campaigns" element={<Layout><MetaCampaignsInfo /></Layout>} />
+              <Route path="/info/circles" element={<Layout><CirclesInfo /></Layout>} />
+              <Route path="/info/templates" element={<Layout><TemplatesInfo /></Layout>} />
+              <Route path="/info/ai-ads" element={<Layout><AIAdsInfo /></Layout>} />
+              <Route path="/info/chatbot" element={<Layout><ChatbotInfo /></Layout>} />
+              
+              {/* Project-specific routes with project layout */}
+              <Route path="/project/:projectId/dashboard" element={<ProjectLayout><ProjectDashboard /></ProjectLayout>} />
+              <Route path="/project/:projectId/members" element={<ProjectLayout><Members /></ProjectLayout>} />
+              <Route path="/project/:projectId/campaigns" element={<ProjectLayout><Campaigns /></ProjectLayout>} />
+              <Route path="/project/:projectId/settings" element={<ProjectLayout><Settings /></ProjectLayout>} />
+              <Route path="/project/:projectId/whatsapp-setup" element={<ProjectLayout><WhatsAppSetup /></ProjectLayout>} />
+              <Route path="/project/:projectId/whatsapp-chat" element={<ProjectLayout><WhatsAppChat /></ProjectLayout>} />
+              <Route path="/project/:projectId/whatsapp-calling-crm" element={<ProjectLayout><WhatsAppCallingCRM /></ProjectLayout>} />
+              <Route path="/project/:projectId/kyc" element={<ProjectLayout><KYC /></ProjectLayout>} />
+              <Route path="/project/:projectId/wallet" element={<ProjectLayout><Wallet /></ProjectLayout>} />
+              <Route path="/project/:projectId/integrations" element={<ProjectLayout><Integrations /></ProjectLayout>} />
+              <Route path="/project/:projectId/templates" element={<ProjectLayout><Templates /></ProjectLayout>} />
+              <Route path="/project/:projectId/meta-api" element={<ProjectLayout><MetaAPIIntegration /></ProjectLayout>} />
+              <Route path="/project/:projectId/analytics" element={<ProjectLayout><Analytics /></ProjectLayout>} />
+              <Route path="/project/:projectId/launch-ads" element={<ProjectLayout><LaunchAds /></ProjectLayout>} />
+              <Route path="/project/:projectId/chatbot-builder" element={<ProjectLayout><ChatbotBuilder /></ProjectLayout>} />
+              <Route path="/project/:projectId/core-features" element={<ProjectLayout><CoreFeatures /></ProjectLayout>} />
+              <Route path="/project/:projectId/circles" element={<ProjectLayout><Circles /></ProjectLayout>} />
+            </Routes>
+          </div>
+          <Toaster />
+          <Sonner />
+        </Router>
       </ThemeProvider>
     </QueryClientProvider>
   );
