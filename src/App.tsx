@@ -33,6 +33,7 @@ import MyWorkspace from "./pages/MyWorkspace";
 import Pricing from "./pages/Pricing";
 import Help from "./pages/Help";
 import SupportTickets from "./pages/SupportTickets";
+import ApiIntegrationPage from "./pages/ApiIntegrationPage";
 
 // Import info pages
 import MetaCampaignsInfo from "./pages/info/MetaCampaignsInfo";
@@ -61,6 +62,19 @@ function App() {
               <Route path="/pricing" element={<Layout><Pricing /></Layout>} />
               <Route path="/help" element={<Layout><Help /></Layout>} />
               <Route path="/support-tickets" element={<Layout><SupportTickets /></Layout>} />
+              <Route path="/campaigns" element={<Layout><Campaigns /></Layout>} />
+              <Route path="/analytics" element={<Layout><Analytics /></Layout>} />
+              <Route path="/launch-ads" element={<Layout><LaunchAds /></Layout>} />
+              <Route path="/chatbot-builder" element={<Layout><ChatbotBuilder /></Layout>} />
+              <Route path="/templates" element={<Layout><Templates /></Layout>} />
+              <Route path="/meta-api-integration" element={<Layout><MetaAPIIntegration /></Layout>} />
+              <Route path="/circles" element={<Layout><Circles /></Layout>} />
+              <Route path="/members" element={<Layout><Members /></Layout>} />
+              <Route path="/integrations" element={<Layout><Integrations /></Layout>} />
+              <Route path="/wallet" element={<Layout><Wallet /></Layout>} />
+              <Route path="/settings" element={<Layout><Settings /></Layout>} />
+              <Route path="/api-integration" element={<Layout><ApiIntegrationPage /></Layout>} />
+              <Route path="/calling-api" element={<Layout><ApiIntegrationPage /></Layout>} />
               
               {/* Info/Knowledge Kit routes */}
               <Route path="/info/meta-campaigns" element={<Layout><MetaCampaignsInfo /></Layout>} />
