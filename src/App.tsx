@@ -29,6 +29,18 @@ import WhatsAppChat from "./pages/WhatsAppChat";
 import WhatsAppCallingCRM from "./pages/WhatsAppCallingCRM";
 import CoreFeatures from "./pages/CoreFeatures";
 import Circles from "./pages/Circles";
+import CreateProject from "./pages/CreateProject";
+import MyWorkspace from "./pages/MyWorkspace";
+import Pricing from "./pages/Pricing";
+import Help from "./pages/Help";
+import SupportTickets from "./pages/SupportTickets";
+
+// Import info pages
+import MetaCampaignsInfo from "./pages/info/MetaCampaignsInfo";
+import CirclesInfo from "./pages/info/CirclesInfo";
+import TemplatesInfo from "./pages/info/TemplatesInfo";
+import AIAdsInfo from "./pages/info/AIAdsInfo";
+import ChatbotInfo from "./pages/info/ChatbotInfo";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +56,20 @@ function App() {
                 <Route path="/" element={<Layout><Home /></Layout>} />
                 <Route path="/my-projects" element={<Layout><MyProjects /></Layout>} />
                 <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
+                <Route path="/create-project" element={<Layout><CreateProject /></Layout>} />
+                <Route path="/my-workspace" element={<Layout><MyWorkspace /></Layout>} />
+                <Route path="/whatsapp-setup" element={<Layout><WhatsAppSetup /></Layout>} />
+                <Route path="/kyc" element={<Layout><KYC /></Layout>} />
+                <Route path="/pricing" element={<Layout><Pricing /></Layout>} />
+                <Route path="/help" element={<Layout><Help /></Layout>} />
+                <Route path="/support-tickets" element={<Layout><SupportTickets /></Layout>} />
+                
+                {/* Info/Knowledge Kit routes */}
+                <Route path="/info/meta-campaigns" element={<Layout><MetaCampaignsInfo /></Layout>} />
+                <Route path="/info/circles" element={<Layout><CirclesInfo /></Layout>} />
+                <Route path="/info/templates" element={<Layout><TemplatesInfo /></Layout>} />
+                <Route path="/info/ai-ads" element={<Layout><AIAdsInfo /></Layout>} />
+                <Route path="/info/chatbot" element={<Layout><ChatbotInfo /></Layout>} />
                 
                 {/* Project-specific routes with project layout */}
                 <Route path="/project/:projectId/dashboard" element={<ProjectLayout><ProjectDashboard /></ProjectLayout>} />
