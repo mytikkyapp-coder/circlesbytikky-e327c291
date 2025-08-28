@@ -54,10 +54,10 @@ const mockFlows: Flow[] = [
 export const FlowsDashboard: React.FC<FlowsDashboardProps> = ({ onCreateFlow, onEditFlow }) => {
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400';
-      case 'draft': return 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400';
-      case 'paused': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'active': return 'bg-primary/10 text-primary border-primary/20';
+      case 'draft': return 'bg-muted text-muted-foreground border-border';
+      case 'paused': return 'bg-accent/10 text-accent border-accent/20';
+      default: return 'bg-muted text-muted-foreground border-border';
     }
   };
 
@@ -88,8 +88,8 @@ export const FlowsDashboard: React.FC<FlowsDashboardProps> = ({ onCreateFlow, on
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/20">
-                  <MessageSquare className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <div className="p-2 rounded-lg bg-primary/10">
+                  <MessageSquare className="w-5 h-5 text-primary" />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Total Conversations</p>
@@ -102,8 +102,8 @@ export const FlowsDashboard: React.FC<FlowsDashboardProps> = ({ onCreateFlow, on
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-green-100 dark:bg-green-900/20">
-                  <Activity className="w-5 h-5 text-green-600 dark:text-green-400" />
+                <div className="p-2 rounded-lg bg-primary/10">
+                  <Activity className="w-5 h-5 text-primary" />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Active Flows</p>
@@ -116,8 +116,8 @@ export const FlowsDashboard: React.FC<FlowsDashboardProps> = ({ onCreateFlow, on
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-purple-100 dark:bg-purple-900/20">
-                  <Calendar className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                <div className="p-2 rounded-lg bg-secondary/10">
+                  <Calendar className="w-5 h-5 text-secondary" />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Avg Response Time</p>
@@ -130,8 +130,8 @@ export const FlowsDashboard: React.FC<FlowsDashboardProps> = ({ onCreateFlow, on
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-orange-100 dark:bg-orange-900/20">
-                  <Bot className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+                <div className="p-2 rounded-lg bg-accent/10">
+                  <Bot className="w-5 h-5 text-accent" />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Success Rate</p>
