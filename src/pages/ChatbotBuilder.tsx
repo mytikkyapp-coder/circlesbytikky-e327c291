@@ -15,7 +15,7 @@ import {
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
-import { Layout } from '@/components/Layout';
+
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { FlowsDashboard } from '@/components/chatbot/FlowsDashboard';
@@ -141,7 +141,7 @@ const ChatbotBuilder = () => {
   );
 
   const renderBuilder = () => (
-    <div className={`${isProjectContext ? 'h-[calc(100vh-120px)]' : 'h-screen'} flex flex-col bg-gradient-to-br from-background via-background to-primary/5`}>
+    <div className="h-screen flex flex-col bg-gradient-to-br from-background via-background to-primary/5">
       <ChatbotHeader 
         currentFlow={currentFlow}
         onBackToDashboard={() => setShowDashboard(true)}
@@ -198,7 +198,7 @@ const ChatbotBuilder = () => {
 
         {/* Properties Panel - Responsive */}
         {showPropertiesPanel && (
-          <div className={`${isProjectContext ? 'hidden xl:block' : 'hidden lg:block'}`}>
+          <div className="hidden lg:block">
             <PropertiesPanel
               selectedNode={selectedNode}
               onUpdateNode={updateNodeData}
@@ -216,17 +216,17 @@ const ChatbotBuilder = () => {
   );
 
   if (showDashboard) {
-    return isProjectContext ? renderDashboard() : (
-      <Layout>
+    return (
+      <div className="min-h-screen flex flex-col bg-background">
         {renderDashboard()}
-      </Layout>
+      </div>
     );
   }
 
-  return isProjectContext ? renderBuilder() : (
-    <Layout>
+  return (
+    <div className="min-h-screen flex flex-col bg-background">
       {renderBuilder()}
-    </Layout>
+    </div>
   );
 };
 

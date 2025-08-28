@@ -65,7 +65,7 @@ function App() {
               <Route path="/campaigns" element={<Layout><Campaigns /></Layout>} />
               <Route path="/analytics" element={<Layout><Analytics /></Layout>} />
               <Route path="/launch-ads" element={<Layout><LaunchAds /></Layout>} />
-              <Route path="/chatbot-builder" element={<Layout><ChatbotBuilder /></Layout>} />
+              <Route path="/chatbot-builder" element={<ChatbotBuilder />} />
               <Route path="/templates" element={<Layout><Templates /></Layout>} />
               <Route path="/meta-api-integration" element={<Layout><MetaAPIIntegration /></Layout>} />
               <Route path="/circles" element={<Layout><Circles /></Layout>} />
@@ -98,7 +98,7 @@ function App() {
               <Route path="/project/:projectId/meta-api" element={<ProjectLayout><MetaAPIIntegration /></ProjectLayout>} />
               <Route path="/project/:projectId/analytics" element={<ProjectLayout><Analytics /></ProjectLayout>} />
               <Route path="/project/:projectId/launch-ads" element={<ProjectLayout><LaunchAds /></ProjectLayout>} />
-              <Route path="/project/:projectId/chatbot-builder" element={<ProjectLayout><ChatbotBuilder /></ProjectLayout>} />
+              <Route path="/project/:projectId/chatbot-builder" element={<ChatbotBuilder />} />
               <Route path="/project/:projectId/core-features" element={<ProjectLayout><CoreFeatures /></ProjectLayout>} />
               <Route path="/project/:projectId/circles" element={<ProjectLayout><Circles /></ProjectLayout>} />
             </Routes>
