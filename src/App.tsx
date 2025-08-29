@@ -42,6 +42,15 @@ import TemplatesInfo from "./pages/info/TemplatesInfo";
 import AIAdsInfo from "./pages/info/AIAdsInfo";
 import ChatbotInfo from "./pages/info/ChatbotInfo";
 
+// Import category pages
+import AllCategories from "./pages/categories/AllCategories";
+import Healthcare from "./pages/categories/Healthcare";
+import Education from "./pages/categories/Education";
+import Retail from "./pages/categories/Retail";
+import RealEstate from "./pages/categories/RealEstate";
+import Automotive from "./pages/categories/Automotive";
+import CloudKitchen from "./pages/categories/CloudKitchen";
+
 const queryClient = new QueryClient();
 
 function App() {
@@ -82,6 +91,15 @@ function App() {
               <Route path="/info/templates" element={<Layout><TemplatesInfo /></Layout>} />
               <Route path="/info/ai-ads" element={<Layout><AIAdsInfo /></Layout>} />
               <Route path="/info/chatbot" element={<Layout><ChatbotInfo /></Layout>} />
+              
+              {/* Category routes */}
+              <Route path="/categories" element={<Layout><AllCategories /></Layout>} />
+              <Route path="/categories/healthcare" element={<Layout><Healthcare /></Layout>} />
+              <Route path="/categories/education" element={<Layout><Education /></Layout>} />
+              <Route path="/categories/retail" element={<Layout><Retail /></Layout>} />
+              <Route path="/categories/real-estate" element={<Layout><RealEstate /></Layout>} />
+              <Route path="/categories/automotive" element={<Layout><Automotive /></Layout>} />
+              <Route path="/categories/cloud-kitchen" element={<Layout><CloudKitchen /></Layout>} />
               
               {/* Project-specific routes with project layout */}
               <Route path="/project/:projectId/dashboard" element={<ProjectLayout><ProjectDashboard /></ProjectLayout>} />
