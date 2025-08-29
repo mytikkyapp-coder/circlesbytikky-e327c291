@@ -94,10 +94,10 @@ const recentActivity = [
 ];
 
 const quickActions = [
-  { title: 'Create Campaign', icon: Target, action: 'campaign' },
-  { title: 'Add Team Member', icon: Users, action: 'member' },
-  { title: 'View Analytics', icon: Activity, action: 'analytics' },
-  { title: 'Schedule Meeting', icon: Calendar, action: 'meeting' },
+  { title: 'Create Campaign', icon: Target, action: 'campaign', url: '/campaigns' },
+  { title: 'Add Team Member', icon: Users, action: 'member', url: '/members' },
+  { title: 'View Analytics', icon: Activity, action: 'analytics', url: '/analytics' },
+  { title: 'Schedule Meeting', icon: Calendar, action: 'meeting', url: '/calendar' },
 ];
 
 export default function MyWorkspace() {
@@ -213,10 +213,11 @@ export default function MyWorkspace() {
                 {quickActions.map((action) => {
                   const IconComponent = action.icon;
                   return (
-                    <Button
+                <Button
                       key={action.action}
                       variant="outline"
                       className="h-20 flex-col gap-2 hover:bg-muted/50 transition-all duration-200 hover:scale-105"
+                      onClick={() => navigate(action.url)}
                     >
                       <IconComponent className="w-5 h-5" />
                       <span className="text-xs">{action.title}</span>
@@ -290,10 +291,18 @@ export default function MyWorkspace() {
                       <span className="text-sm text-muted-foreground">Last used {category.lastUsed}</span>
                     </div>
                     <div className="flex gap-2">
-                      <Button className="flex-1" size="sm">
+                      <Button 
+                        className="flex-1" 
+                        size="sm"
+                        onClick={() => navigate(`/workspace/${category.id}`)}
+                      >
                         Open
                       </Button>
-                      <Button variant="outline" size="sm">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => navigate(`/workspace/${category.id}/settings`)}
+                      >
                         <Settings className="w-4 h-4" />
                       </Button>
                     </div>

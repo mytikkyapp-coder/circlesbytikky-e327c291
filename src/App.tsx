@@ -30,6 +30,7 @@ import CoreFeatures from "./pages/CoreFeatures";
 import Circles from "./pages/Circles";
 import CreateProject from "./pages/CreateProject";
 import MyWorkspace from "./pages/MyWorkspace";
+import WorkspaceSetup from "./pages/WorkspaceSetup";
 import Pricing from "./pages/Pricing";
 import Help from "./pages/Help";
 import SupportTickets from "./pages/SupportTickets";
@@ -66,6 +67,7 @@ function App() {
               <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
               <Route path="/create-project" element={<Layout><CreateProject /></Layout>} />
               <Route path="/my-workspace" element={<Layout><MyWorkspace /></Layout>} />
+              <Route path="/workspace/:categoryId" element={<Layout><WorkspaceSetup /></Layout>} />
               <Route path="/whatsapp-setup" element={<Layout><WhatsAppSetup /></Layout>} />
               <Route path="/kyc" element={<Layout><KYC /></Layout>} />
               <Route path="/pricing" element={<Layout><Pricing /></Layout>} />
