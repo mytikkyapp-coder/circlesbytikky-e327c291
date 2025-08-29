@@ -11,7 +11,9 @@ import {
   Wallet,
   BookOpen,
   HelpCircle,
-  Settings
+  Settings,
+  Building2,
+  Globe
 } from "lucide-react";
 
 import {
@@ -44,6 +46,16 @@ const knowledgeItems = [
   { title: "How to create Templates", url: "/info/templates", icon: BookOpen },
   { title: "How to Launch AI Ads", url: "/info/ai-ads", icon: BookOpen },
   { title: "How to Build ChatBot", url: "/info/chatbot", icon: BookOpen },
+];
+
+const acrossSectorsItems = [
+  { title: "All Categories", url: "/categories", icon: Globe },
+  { title: "Healthcare", url: "/categories/healthcare", icon: Building2 },
+  { title: "Education", url: "/categories/education", icon: Building2 },
+  { title: "Retail", url: "/categories/retail", icon: Building2 },
+  { title: "Real Estate", url: "/categories/real-estate", icon: Building2 },
+  { title: "Automotive", url: "/categories/automotive", icon: Building2 },
+  { title: "Cloud Kitchen", url: "/categories/cloud-kitchen", icon: Building2 },
 ];
 
 const supportItems = [
@@ -154,6 +166,30 @@ export function AppSidebar() {
                     >
                       <item.icon className="w-4 h-4 flex-shrink-0" />
                       {!isCollapsed && <span className="font-medium">{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* Across Sectors */}
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-xs font-bold text-sidebar-foreground px-3 mb-1 mt-4">
+            {!isCollapsed && "ACROSS SECTORS"}
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu className="space-y-1">
+              {acrossSectorsItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink 
+                      to={item.url} 
+                      className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 ${getNavClasses(item.url)}`}
+                    >
+                      <item.icon className="w-4 h-4 flex-shrink-0" />
+                      {!isCollapsed && <span className="font-medium text-xs">{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
