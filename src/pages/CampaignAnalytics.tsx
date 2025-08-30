@@ -6,7 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 export default function CampaignAnalytics() {
-  const { id } = useParams();
+  const { id, projectId } = useParams();
 
   // Mock data - replace with actual data from your API
   const campaign = {
@@ -85,7 +85,7 @@ export default function CampaignAnalytics() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Link to="/campaigns">
+          <Link to={projectId ? `/project/${projectId}/campaigns` : "/campaigns"}>
             <Button variant="ghost" size="icon">
               <ArrowLeft className="w-4 h-4" />
             </Button>

@@ -11,10 +11,11 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { CalendarIcon, ArrowLeft, Send, Clock, Users } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 export default function CreateCampaign() {
   const navigate = useNavigate();
+  const { projectId } = useParams();
   const [date, setDate] = useState<Date>();
   const [isScheduled, setIsScheduled] = useState(false);
   const [formData, setFormData] = useState({
@@ -29,14 +30,14 @@ export default function CreateCampaign() {
     e.preventDefault();
     // Here you would typically save the campaign
     console.log("Campaign created:", { ...formData, scheduledDate: date });
-    navigate("/campaigns");
+    navigate(projectId ? `/project/${projectId}/campaigns` : "/campaigns");
   };
 
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center gap-4">
-        <Link to="/campaigns">
+        <Link to={projectId ? `/project/${projectId}/campaigns` : "/campaigns"}>
           <Button variant="ghost" size="icon">
             <ArrowLeft className="w-4 h-4" />
           </Button>
@@ -238,7 +239,7 @@ export default function CreateCampaign() {
               <Button type="submit" className="w-full" size="lg">
                 {isScheduled ? "Schedule Campaign" : "Send Campaign"}
               </Button>
-              <Button type="button" variant="outline" className="w-full" onClick={() => navigate("/campaigns")}>
+              <Button type="button" variant="outline" className="w-full" onClick={() => navigate(projectId ? `/project/${projectId}/campaigns` : "/campaigns")}>
                 Save as Draft
               </Button>
             </div>

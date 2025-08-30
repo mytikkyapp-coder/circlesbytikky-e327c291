@@ -10,7 +10,7 @@ import {
   DropdownMenuItem, 
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 interface Campaign {
   id: string;
@@ -27,6 +27,7 @@ interface Campaign {
 }
 
 export default function Campaigns() {
+  const { projectId } = useParams();
   const [searchQuery, setSearchQuery] = useState("");
 
   const campaigns: Campaign[] = [
@@ -110,7 +111,7 @@ export default function Campaigns() {
           <h1 className="text-3xl font-bold text-foreground">Campaigns</h1>
           <p className="text-muted-foreground mt-1">Create and manage your WhatsApp campaigns</p>
         </div>
-        <Link to="create">
+        <Link to={useParams().projectId ? "create" : "/campaigns/create"}>
           <Button className="gap-2">
             <Plus className="w-4 h-4" />
             New Campaign
@@ -173,7 +174,7 @@ export default function Campaigns() {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     <DropdownMenuItem asChild>
-                      <Link to={`${campaign.id}/analytics`}>
+                      <Link to={projectId ? `${campaign.id}/analytics` : `/campaigns/${campaign.id}/analytics`}>
                         <Eye className="w-4 h-4 mr-2" />
                         View Analytics
                       </Link>
@@ -236,10 +237,12 @@ export default function Campaigns() {
             <p className="text-muted-foreground mb-6">
               {searchQuery ? "Try adjusting your search terms or create a new campaign." : "Create your first campaign to start reaching your audience with targeted messaging."}
             </p>
-            <Button className="gap-2">
-              <Plus className="w-4 h-4" />
-              Create Your First Campaign
-            </Button>
+            <Link to={projectId ? "create" : "/campaigns/create"}>
+              <Button className="gap-2">
+                <Plus className="w-4 h-4" />
+                Create Your First Campaign
+              </Button>
+            </Link>
           </div>
         </div>
       )}
