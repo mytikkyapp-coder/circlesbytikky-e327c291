@@ -14,6 +14,8 @@ import ProjectDashboard from "./pages/ProjectDashboard";
 import Dashboard from "./pages/Dashboard";
 import Members from "./pages/Members";
 import Campaigns from "./pages/Campaigns";
+import CreateCampaign from "./pages/CreateCampaign";
+import CampaignAnalytics from "./pages/CampaignAnalytics";
 import Settings from "./pages/Settings";
 import WhatsAppSetup from "./pages/WhatsAppSetup";
 import KYC from "./pages/KYC";
@@ -74,6 +76,8 @@ function App() {
               <Route path="/help" element={<Layout><Help /></Layout>} />
               <Route path="/support-tickets" element={<Layout><SupportTickets /></Layout>} />
               <Route path="/campaigns" element={<Layout><Campaigns /></Layout>} />
+              <Route path="/campaigns/create" element={<Layout><CreateCampaign /></Layout>} />
+              <Route path="/campaigns/:id/analytics" element={<Layout><CampaignAnalytics /></Layout>} />
               <Route path="/analytics" element={<Layout><Analytics /></Layout>} />
               <Route path="/launch-ads" element={<Layout><LaunchAds /></Layout>} />
               <Route path="/chatbot-builder" element={<Layout><ChatbotBuilder /></Layout>} />
@@ -107,6 +111,8 @@ function App() {
               <Route path="/project/:projectId/dashboard" element={<ProjectLayout><ProjectDashboard /></ProjectLayout>} />
               <Route path="/project/:projectId/members" element={<ProjectLayout><Members /></ProjectLayout>} />
               <Route path="/project/:projectId/campaigns" element={<ProjectLayout><Campaigns /></ProjectLayout>} />
+              <Route path="/project/:projectId/campaigns/create" element={<ProjectLayout><CreateCampaign /></ProjectLayout>} />
+              <Route path="/project/:projectId/campaigns/:id/analytics" element={<ProjectLayout><CampaignAnalytics /></ProjectLayout>} />
               <Route path="/project/:projectId/settings" element={<ProjectLayout><Settings /></ProjectLayout>} />
               <Route path="/project/:projectId/whatsapp-setup" element={<ProjectLayout><WhatsAppSetup /></ProjectLayout>} />
               <Route path="/project/:projectId/whatsapp-chat" element={<ProjectLayout><WhatsAppChat /></ProjectLayout>} />
