@@ -10,7 +10,7 @@ import {
   DropdownMenuItem, 
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 interface Template {
   id: string;
@@ -25,6 +25,7 @@ interface Template {
 }
 
 export default function Templates() {
+  const { projectId } = useParams();
   const [searchQuery, setSearchQuery] = useState("");
 
   const templates: Template[] = [
@@ -113,7 +114,7 @@ export default function Templates() {
           <h1 className="text-3xl font-bold text-foreground">Message Templates</h1>
           <p className="text-muted-foreground mt-1">Create and manage reusable message templates</p>
         </div>
-        <Link to="create">
+        <Link to={projectId ? "create" : "/templates/create"}>
           <Button className="gap-2">
             <Plus className="w-4 h-4" />
             Create Template
@@ -180,7 +181,7 @@ export default function Templates() {
                       Preview
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link to={`${template.id}/edit`}>
+                      <Link to={projectId ? `${template.id}/edit` : `/templates/${template.id}/edit`}>
                         <Edit className="w-4 h-4 mr-2" />
                         Edit Template
                       </Link>
@@ -252,10 +253,12 @@ export default function Templates() {
             <p className="text-muted-foreground mb-6">
               {searchQuery ? "Try adjusting your search terms or create a new template." : "Create your first message template to get started with automated messaging."}
             </p>
-            <Button className="gap-2">
-              <Plus className="w-4 h-4" />
-              Create Your First Template
-            </Button>
+            <Link to={projectId ? "create" : "/templates/create"}>
+              <Button className="gap-2">
+                <Plus className="w-4 h-4" />
+                Create Your First Template
+              </Button>
+            </Link>
           </div>
         </div>
       )}

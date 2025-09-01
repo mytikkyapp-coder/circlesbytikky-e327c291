@@ -22,6 +22,9 @@ import KYC from "./pages/KYC";
 import Wallet from "./pages/Wallet";
 import Integrations from "./pages/Integrations";
 import Templates from "./pages/Templates";
+import TemplateCreate from "./pages/TemplateCreate";
+import TemplateBuilder from "./pages/TemplateBuilder";
+import WhatsAppBroadcast from "./pages/WhatsAppBroadcast";
 import MetaAPIIntegration from "./pages/MetaAPIIntegration";
 import Analytics from "./pages/Analytics";
 import LaunchAds from "./pages/LaunchAds";
@@ -82,6 +85,9 @@ function App() {
               <Route path="/launch-ads" element={<Layout><LaunchAds /></Layout>} />
               <Route path="/chatbot-builder" element={<Layout><ChatbotBuilder /></Layout>} />
               <Route path="/templates" element={<Layout><Templates /></Layout>} />
+              <Route path="/templates/create" element={<Layout><TemplateCreate /></Layout>} />
+              <Route path="/templates/:id/edit" element={<Layout><TemplateBuilder /></Layout>} />
+              <Route path="/whatsapp-broadcast" element={<Layout><WhatsAppBroadcast /></Layout>} />
               <Route path="/meta-api-integration" element={<Layout><MetaAPIIntegration /></Layout>} />
               <Route path="/circles" element={<Layout><Circles /></Layout>} />
               <Route path="/members" element={<Layout><Members /></Layout>} />
@@ -121,6 +127,9 @@ function App() {
               <Route path="/project/:projectId/wallet" element={<ProjectLayout><Wallet /></ProjectLayout>} />
               <Route path="/project/:projectId/integrations" element={<ProjectLayout><Integrations /></ProjectLayout>} />
               <Route path="/project/:projectId/templates" element={<ProjectLayout><Templates /></ProjectLayout>} />
+              <Route path="/project/:projectId/templates/create" element={<ProjectLayout><TemplateCreate /></ProjectLayout>} />
+              <Route path="/project/:projectId/templates/:id/edit" element={<ProjectLayout><TemplateBuilder /></ProjectLayout>} />
+              <Route path="/project/:projectId/whatsapp-broadcast" element={<ProjectLayout><WhatsAppBroadcast /></ProjectLayout>} />
               <Route path="/project/:projectId/meta-api" element={<ProjectLayout><MetaAPIIntegration /></ProjectLayout>} />
               <Route path="/project/:projectId/analytics" element={<ProjectLayout><Analytics /></ProjectLayout>} />
               <Route path="/project/:projectId/launch-ads" element={<ProjectLayout><LaunchAds /></ProjectLayout>} />
